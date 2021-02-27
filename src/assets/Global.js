@@ -4,10 +4,10 @@ export var Global = {
     urlAPI: "http://localhost:8080/api/",
 
 
-    callAPI: async function(EndPoint){
+    callGetAPI: async function(EndPoint, params){
         let r;
         await axios
-        .get(this.urlAPI + EndPoint)
+        .get(this.urlAPI + EndPoint, params)
         .then(resp => {
             if (resp.status == 200)
             {
@@ -17,6 +17,26 @@ export var Global = {
         .catch((e) => console.log(e));
         return r;
     },
+
+    callPostAPI: async function(EndPoint, params){
+        let r;
+        await axios
+        .post(this.urlAPI + EndPoint, params,  {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(resp => {
+            if (resp.status == 200)
+            {
+                r = resp.data;
+            }
+        })
+        .catch((e) => console.log(e));
+        return r;
+    },
+
+
     formatDate: function(value){
         var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         return new Date(value).toLocaleDateString("en-US", options); 

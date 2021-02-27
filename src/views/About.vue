@@ -40,7 +40,7 @@ export default {
 
   methods: {
     async getComandas() {
-      this.dato = await Global.callAPI('Comandas');
+      this.dato = await Global.callGetAPI('Comandas');
     }
   },
 };

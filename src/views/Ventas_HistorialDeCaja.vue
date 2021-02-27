@@ -1,19 +1,32 @@
 <template>
   <div>
     <div style="border-radius: 4px; padding: 10px; background-color: #cc0000">
-      <h3 style="color: #fff">  Ventas - Historial de Caja</h3>
+      <h3 style="color: #fff">Ventas - Historial de Caja</h3>
     </div>
     <div style="text-align: center">
       <div style="padding: 10px">
-        <b-button class="bg-success" @click="abrirCaja()"><i class="fas fa-cash-register"></i> Abrir Caja</b-button>
+        <b-button class="bg-success" @click="abrirCaja()">
+          <i class="fas fa-cash-register"></i> Abrir Caja</b-button
+        >
+        <br />
+        <div class="container w-50">
+          <b-alert
+            :show="alert.seconds"
+            dismissible
+            fade
+            variant="danger"
+            @dismiss-count-down="countDownChanged"
+            ><i class="fas fa-exclamation-triangle"></i>
+            {{ alert.text }}
+          </b-alert>
+        </div>
         <h4>
           Mostrando pagina {{ this.currentPage }} de {{ this.totalPages }}
         </h4>
       </div>
       <div class="row justify-content-center">
         <div class="col-11">
-          <table id="TablaCajas"
-            style="width: 100%">
+          <table id="TablaCajas" style="width: 100%">
             <thead>
               <tr>
                 <th>Caja Id</th>
@@ -96,7 +109,7 @@
                     "
                     class="btn-sm"
                     @click="abrirEstaCaja(item.id)"
-                    ><i class="fas fa-eye"/> Ver Detalle Caja</b-button
+                    ><i class="fas fa-eye" /> Ver Detalle Caja</b-button
                   >
                 </td>
               </tr>
@@ -115,7 +128,9 @@
           </div>
         </div>
       </div>
-      <b-button class="bg-info" @click="toExcel('TablaCajas')">Export to Excel</b-button>
+      <b-button class="bg-info" @click="toExcel('TablaCajas')"
+        >Export to Excel</b-button
+      >
     </div>
   </div>
 </template>
@@ -146,6 +161,7 @@ export default {
       pageSize: 18,
       totalPages: 0,
       sucursal: 1,
+      alert: { text: "", visible: false, seconds: 0 },
     };
   },
   mounted() {
@@ -163,10 +179,10 @@ export default {
         "&CurrentPage=" +
         this.currentPage;
 
-      this.items = await Global.callAPI("Cajas/GetCajasToList" + params);
+      this.items = await Global.callGetAPI("Cajas/GetCajasToList" + params);
       this.totalPages = Math.ceil(this.items.recordCounts / this.pageSize);
     },
-    toExcel(val){
+    toExcel(val) {
       Global.exportTableToExcel(val);
     },
 
@@ -177,20 +193,21 @@ export default {
       return Global.formatDate(value);
     },
     async abrirCaja() {
-        let params =
-        "?Sucursal=" +
-        this.sucursal;
+      let params = "?Sucursal=" + this.sucursal;
 
-      let resp = await Global.callAPI("Cajas/IsOpen" + params);
-      if (resp){
-        alert('Ya existen cajas Abriertas')
-      }
-      else{
-        this.$router.push('/Ventas_AperturaDeCaja')  
+      let resp = await Global.callGetAPI("Cajas/IsOpen" + params);
+      if (resp) {
+        this.alert.seconds = 5;
+        this.alert.text = "Ya existen cajas abiertas.";
+        this.alert.visible = true;
+      } else {
+        this.$router.push("/Ventas_AperturaDeCaja");
       }
     },
-
-},
+    countDownChanged(dismissCountDown) {
+      this.alert.seconds = dismissCountDown;
+    },
+  },
 };
 </script>
 

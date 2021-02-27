@@ -3,24 +3,24 @@
     <div style="border-radius: 4px; padding: 10px; background-color: #cc0000">
       <h3 style="color: #fff">Ventas - Apertura de Caja</h3>
     </div>
-      <!--desde Datalive -->
-      <b-container class="container" id="boxcaja">
-        <b-row>
-          <b-col
-            ><strong><label for="ctrl_fecha">Fecha:</label></strong></b-col
-          >
-          <b-col
-            ><vc-date-picker v-model="fecha" id="ctrl_fecha" name="ctrl_fecha">
-              <template v-slot="{ inputValue, inputEvents }">
-                <input
-                  class="bg-white border px-2 py-1 rounded"
-                  :value="inputValue"
-                  v-on="inputEvents"
-                />
-              </template> </vc-date-picker
-          ></b-col>
-        </b-row>
-        <div id="fecha">
+    <!--desde Datalive -->
+    <b-container class="container" id="boxcaja">
+      <b-row>
+        <b-col
+          ><strong><label for="ctrl_fecha">Fecha:</label></strong></b-col
+        >
+        <b-col
+          ><vc-date-picker v-model="fecha" id="ctrl_fecha" name="ctrl_fecha">
+            <template v-slot="{ inputValue, inputEvents }">
+              <input
+                class="bg-white border px-2 py-1 rounded"
+                :value="inputValue"
+                v-on="inputEvents"
+              />
+            </template> </vc-date-picker
+        ></b-col>
+      </b-row>
+      <div id="fecha">
         <b-row>
           <b-col
             ><strong><label for="ctrl_turnos">Turno:</label></strong></b-col
@@ -33,8 +33,8 @@
               name="ctrl_turnos"
           /></b-col>
         </b-row>
-        </div>
-        <div id="fecha"> 
+      </div>
+      <div id="fecha">
         <b-row>
           <b-col
             ><strong
@@ -42,20 +42,30 @@
             ></b-col
           >
           <b-col>
-            <b-input type="number" name="ctrl_importe" id="ctrl_importe"
+            <b-input
+              type="number"
+              name="ctrl_importe"
+              v-model="importeInicial"
+              id="ctrl_importe"
           /></b-col>
         </b-row>
-        </div>
-      </b-container>
-      <br />
-      <div class="container w-50">
-    <b-alert v-model="alert.visible" variant="danger" show ><i class="fas fa-exclamation-triangle"></i> {{alert.text}}</b-alert>
       </div>
-      <br/>
-      <!-- Desde Datalive-->
-      <b-button class="m-2" variant="primary" @click="abrirCaja()">Abrir Caja</b-button>
-      <b-button class="m-2" variant="secondary" @click="$router.go(-1)">Volver</b-button>
+    </b-container>
+    <br />
+    <div class="container w-50">
+      <b-alert v-model="alert.visible" variant="danger" show
+        ><i class="fas fa-exclamation-triangle"></i> {{ alert.text }}</b-alert
+      >
     </div>
+    <br />
+    <!-- Desde Datalive-->
+    <b-button class="m-2" variant="primary" @click="abrirCaja()"
+      >Abrir Caja</b-button
+    >
+    <b-button class="m-2" variant="secondary" @click="$router.go(-1)"
+      >Volver</b-button
+    >
+  </div>
 </template>
 
 <script>
@@ -67,7 +77,7 @@ export default {
     return {
       alert: { text: "", visible: false },
       fecha: new Date(),
-      turno: "T",
+      turno: "M",
       importeInicial: 0,
       turnos: [
         { value: "M", text: "Mañana" },
@@ -76,20 +86,42 @@ export default {
     };
   },
 
-  mounted() {},
+  mounted() {
+    this.getlastCaja();
+  },
   methods: {
-    abrirCaja() {
-      this.alert.text = "Este es el texto";
-      this.alert.visible = true;
+    async abrirCaja() {
+      let val = await Global.callPostAPI("Cajas/CrearCaja", {
+        FechaApertura: this.fecha,
+        SucursalId: 1,
+        Turno: this.turno,
+        InicioDeCaja: this.importeInicial,
+        UserId: 3,
+      });
+
+      if (val && val.items) {
+        this.$router.push("/Ventas_HistorialDeCaja");
+      }
+      if (val && val.messagetype != 0) {
+        this.alert.text = val.message;
+        this.alert.visible = true;
+      }
+    },
+    async getlastCaja() {
+      let val = await Global.callGetAPI("Cajas/GetLast?sucursal=1");
+
+      if (val && val.items) {
+        this.importeInicial = val.items[0].totalTeoricoDeCaja
+      }
     },
   },
 };
 </script>
 
 <style>
-#boxcaja{
+#boxcaja {
   margin-top: 15px;
-  box-shadow: 0 0 10px rgba(0,0,0.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0.05);
   position: relative;
   z-index: 10;
   background-color: transparent;
