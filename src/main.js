@@ -11,7 +11,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Vuelidate from 'vuelidate'
 import BootstrapVue from 'bootstrap-vue'
-import VCalendar from 'v-calendar';
+import VCalendar from 'v-calendar'
 
 library.add(fas)
 

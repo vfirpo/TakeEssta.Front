@@ -28,17 +28,17 @@
               id="usu"
               placeholder="Usuario"
               autofocus="autofocus"
-              v-model="dato.user"
+              v-model="dato.user" @change="hiddenAlert()"
             />
             <br />
             <input
               style="height: 45px"
               class="form-control inputNew"
               type="password"
-              name="pass"
-              id="pass"
+              name="passw"
+              id="passw"
               placeholder="Contraseña"
-              v-model="dato.pass"
+              v-model="dato.pass" @change="hiddenAlert()"
             />
             <br />
             <button
@@ -50,7 +50,13 @@
             >
               Iniciar sesión
             </button>
-            <div id="div_mensajeNew"></div>
+            <div id="div_mensajeNew">
+              <div>
+                <b-alert v-model="alert.visible" variant="danger" show
+                  ><i class="fas fa-exclamation-triangle"></i> {{ alert.text }}</b-alert
+                >
+              </div>
+            </div>
             <div id="txtBottDL">
               Xava 2021 v2.3.0 - Todos los derechos reservados
             </div>
@@ -71,15 +77,19 @@
 </template>
 
 <script>
+import {Global} from '../assets/Global'
+
 export default {
   name: "login",
 
   data() {
     return {
+      alert: { text: "", visible: false },
       dato: {
         user: "",
         pass: "",
       },
+      user: null,
     };
   },
    mounted() {
@@ -91,13 +101,34 @@ export default {
   },
 
   methods: {
-    fcn_login() {
-        if (this.dato.user)
+    hiddenAlert(){
+      this.alert.visible = false;
+    },
+
+    async fcn_login() {
+
+        console.log(this.dato)
+
+      let params =
+        "?user=" +
+        this.dato.user +
+        "&password=" +
+        this.dato.pass;        
+
+        this.user = await Global.callGetAPI('Users/ValidateUser' + params )
+
+        if (this.user.item)
         {
-          localStorage.setItem("User", this.dato.user);
+          localStorage.setItem("User", this.user.item);
+          this.$store.state.loginUser = this.user.item;
+          console.log(this.$store.state.loginUser);
           this.$router.go(-1);// .push('/')
         }
-
+        else
+        {
+          this.alert.visible = true;
+          this.alert.text = this.user.message;
+        }
     },
   },
 };

@@ -6,10 +6,10 @@
     <div style="text-align: center">
       <div style="padding: 10px">
         <b-button class="bg-success" @click="abrirCaja()">
-          <i class="fas fa-cash-register"></i> Abrir Caja</b-button
-        >
-        <br />
-        <div class="container w-50">
+          <i class="fas fa-cash-register"></i> Abrir Caja
+        </b-button>
+        <br/>
+        <div class="container w-50 pt-3">
           <b-alert
             :show="alert.seconds"
             dismissible
@@ -180,6 +180,7 @@ export default {
         this.currentPage;
 
       this.items = await Global.callGetAPI("Cajas/GetCajasToList" + params);
+      //this.items = await $v.$global.callGetAPI("Cajas/GetCajasToList" + params);
       this.totalPages = Math.ceil(this.items.recordCounts / this.pageSize);
     },
     toExcel(val) {
