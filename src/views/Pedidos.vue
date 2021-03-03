@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>{{this.getCurrentUser().normalizedNickName}}</h1>
     <Comandas :source="this.dato"/>
   </div>
 </template>
@@ -26,6 +27,9 @@ export default {
   methods: {
     async getComandas() {
       this.dato = await Global.callGetAPI('Comandas');
+    },
+    getCurrentUser:  function() {
+      return JSON.parse(localStorage.getItem("User"));
     }
   },
 };

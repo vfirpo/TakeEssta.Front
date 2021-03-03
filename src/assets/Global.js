@@ -14,7 +14,8 @@ export var Global = {
                 r = resp.data;
             }
         })
-        .catch((e) => console.log(e));
+        .catch((e) => alert('Fatal ERROR from services:  ' + e.message));
+
         return r;
     },
 
@@ -30,6 +31,9 @@ export var Global = {
             if (resp.status == 200)
             {
                 r = resp.data;
+            }
+            else{
+                alert('Fatal ERROR from services')
             }
         })
         .catch((e) => console.log(e));

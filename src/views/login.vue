@@ -107,8 +107,6 @@ export default {
 
     async fcn_login() {
 
-        console.log(this.dato)
-
       let params =
         "?user=" +
         this.dato.user +
@@ -119,9 +117,7 @@ export default {
 
         if (this.user.item)
         {
-          localStorage.setItem("User", this.user.item);
-          this.$store.state.loginUser = this.user.item;
-          console.log(this.$store.state.loginUser);
+          localStorage.setItem("User", JSON.stringify(this.user.item));
           this.$router.go(-1);// .push('/')
         }
         else

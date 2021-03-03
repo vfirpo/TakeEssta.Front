@@ -8,6 +8,7 @@ import historialDeCaja from '../views/Ventas_HistorialDeCaja.vue'
 import aperturaDeCaja from '../views/Ventas_AperturaCaja.vue'
 
 
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -56,5 +57,16 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.name !== 'Login' && !isAuthenticated()) next({ name: 'Login' })
+  else next()
+})
+
+function isAuthenticated(){
+  if (localStorage.getItem('User') && localStorage.getItem('User') !== ''){
+    return true;
+  }
+}
 
 export default router
