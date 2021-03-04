@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Vuelidate from 'vuelidate'
 import BootstrapVue from 'bootstrap-vue'
 import VCalendar from 'v-calendar'
+import {Global} from './assets/Global'
 
 library.add(fas)
 
@@ -24,6 +25,8 @@ Vue.use(BootstrapVue);
 Vue.use(VCalendar, {
   componentPrefix: 'vc',
 });
+
+Vue.prototype.$global = Global
 
 new Vue({
   router,

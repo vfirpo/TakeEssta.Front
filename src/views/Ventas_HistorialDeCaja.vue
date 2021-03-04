@@ -179,24 +179,24 @@ export default {
         "&CurrentPage=" +
         this.currentPage;
 
-      this.items = await Global.callGetAPI("Cajas/GetCajasToList" + params);
-      //this.items = await $v.$global.callGetAPI("Cajas/GetCajasToList" + params);
+      this.items = await this.$global.callGetAPI("Cajas/GetCajasToList" + params);
+      //this.items = await $v.$this.$global.callGetAPI("Cajas/GetCajasToList" + params);
       this.totalPages = Math.ceil(this.items.recordCounts / this.pageSize);
     },
     toExcel(val) {
-      Global.exportTableToExcel(val);
+      this.$global.exportTableToExcel(val);
     },
 
     abrirEstaCaja(idCaja) {
       alert("Esta es la Caja " + idCaja);
     },
     getDate(value) {
-      return Global.formatDate(value);
+      return this.$global.formatDate(value);
     },
     async abrirCaja() {
       let params = "?Sucursal=" + this.sucursal;
 
-      let resp = await Global.callGetAPI("Cajas/IsOpen" + params);
+      let resp = await this.$global.callGetAPI("Cajas/IsOpen" + params);
       if (resp) {
         this.alert.seconds = 5;
         this.alert.text = "Ya existen cajas abiertas.";

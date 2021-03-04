@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export var Global = {
-    urlAPI: "http://localhost:8080/api/",
+     urlAPI: "http://localhost:8080/api/",
 
 
     callGetAPI: async function(EndPoint, params){
@@ -32,11 +32,8 @@ export var Global = {
             {
                 r = resp.data;
             }
-            else{
-                alert('Fatal ERROR from services')
-            }
         })
-        .catch((e) => console.log(e));
+        .catch((e) => alert('Fatal ERROR from services:  ' + e.message));
         return r;
     },
 

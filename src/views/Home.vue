@@ -8,6 +8,7 @@
       test="Prueba de Prop y get"
     />
     <button v-on:click="setNewValues('test')">Refresh Data</button>
+    <b-button v-b-modal.my-modal>Mostrar Modal</b-button>
     <div>
       <center>
         <h1>Todos los datos</h1>
@@ -18,6 +19,11 @@
         <div><FromApi :datos="this.impares"></FromApi></div>
       </center>
     </div>
+    <b-modal id="my-modal" size="xl" ref="my-modal" hide-footer title="Prueba de Modal"  no-close-on-esc="true" no-close-on-backdrop="true">
+      <b-container fluid>
+        <b-table striped hover :items="pares.slice(0, 6)"></b-table>
+      </b-container>
+    </b-modal>
   </div>
 </template>
 
@@ -25,7 +31,6 @@
 // @ is an alias to /src
 import HelloWorld from "@/components/HelloWorld.vue";
 import FromApi from "@/components/FromApi.vue";
-import {Global} from "../assets/Global";
 
 export default {
   name: "Home",
@@ -49,7 +54,7 @@ export default {
 
   methods: {
     async getComandas() {
-      this.dato = await Global.callGetAPI('Comandas');
+      this.dato = await this.$global.callGetAPI('Comandas');
       this.getComandasPares();
     },
 

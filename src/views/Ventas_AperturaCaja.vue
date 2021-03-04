@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     async abrirCaja() {
-      let val = await Global.callPostAPI("Cajas/CrearCaja", {
+      let val = await this.$global.callPostAPI("Cajas/CrearCaja", {
         FechaApertura: this.fecha,
         SucursalId: 1,
         Turno: this.turno,
@@ -108,7 +108,7 @@ export default {
       }
     },
     async getlastCaja() {
-      let val = await Global.callGetAPI("Cajas/GetLast?sucursal=1");
+      let val = await this.$global.callGetAPI("Cajas/GetLast?sucursal=1");
 
       if (val && val.items) {
         this.importeInicial = val.items[0].totalTeoricoDeCaja

@@ -1,14 +1,12 @@
 <template>
   <div>
-    <h1>{{this.getCurrentUser().normalizedNickName}}</h1>
+    <h1>{{this.getCurrentUser().passwordHash}}</h1>
     <Comandas :source="this.dato"/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import Comandas from "@/components/Comanda.vue";
-import {Global} from "../assets/Global";
 
 export default {
   name: "Pedidos",
@@ -26,10 +24,10 @@ export default {
   },
   methods: {
     async getComandas() {
-      this.dato = await Global.callGetAPI('Comandas');
+      this.dato = await this.$global.callGetAPI('Comandas');
     },
     getCurrentUser:  function() {
-      return JSON.parse(localStorage.getItem("User"));
+      return JSON.parse(sessionStorage.getItem("User"));
     }
   },
 };

@@ -64,7 +64,7 @@ router.beforeEach((to, from, next) => {
 })
 
 function isAuthenticated(){
-  if (localStorage.getItem('User') && localStorage.getItem('User') !== ''){
+  if (sessionStorage.getItem('User') && sessionStorage.getItem('User') !== ''){
     return true;
   }
 }

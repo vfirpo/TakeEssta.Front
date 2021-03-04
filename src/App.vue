@@ -19,16 +19,8 @@ export default {
       },
     };
   },
-  mounted() {
-    this.testLogin();
-  },
-  methods: {
-    testLogin() {
-      if (!localStorage.getItem("User")) {
-        this.$router.push("/login");
-      }
-    },
-  },
+  mounted() { },
+  methods: { },
 };
 </script>
 

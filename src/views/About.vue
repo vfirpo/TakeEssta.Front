@@ -12,7 +12,6 @@
 import Comandas from "@/components/Comanda.vue";
 import FromApi from "@/components/FromApi.vue";
 import botones from "@/components/buttons.vue";
-import {Global} from "../assets/Global";
 
 export default {
   name: "About",
@@ -40,7 +39,7 @@ export default {
 
   methods: {
     async getComandas() {
-      this.dato = await Global.callGetAPI('Comandas');
+      this.dato = await this.$global.callGetAPI('Comandas');
     }
   },
 };
