@@ -19,7 +19,7 @@
         <div><FromApi :datos="this.impares"></FromApi></div>
       </center>
     </div>
-    <b-modal id="my-modal" size="xl" ref="my-modal" hide-footer title="Prueba de Modal"  no-close-on-esc="true" no-close-on-backdrop="true">
+    <b-modal id="my-modal" size="xl" ref="my-modal" hide-footer title="Prueba de Modal" no-close-on-esc no-close-on-backdrop>
       <b-container fluid>
         <b-table striped hover :items="pares.slice(0, 6)"></b-table>
       </b-container>

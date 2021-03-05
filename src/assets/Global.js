@@ -4,14 +4,20 @@ export var Global = {
      urlAPI: "http://localhost:8080/api/",
 
 
-    callGetAPI: async function(EndPoint, params){
-        let r;
+     currentUser(){
+        let r = JSON.parse(sessionStorage.getItem("User"));
+        if (r) {return r;}
+        else { sessionStorage.removeItem("User"); }
+    },
+
+     async callGetAPI(EndPoint, params){
+        var r = 
         await axios
         .get(this.urlAPI + EndPoint, params)
         .then(resp => {
             if (resp.status == 200)
             {
-                r = resp.data;
+                return resp.data;
             }
         })
         .catch((e) => alert('Fatal ERROR from services:  ' + e.message));
@@ -19,7 +25,7 @@ export var Global = {
         return r;
     },
 
-    callPostAPI: async function(EndPoint, params){
+    async callPostAPI(EndPoint, params){
         let r;
         await axios
         .post(this.urlAPI + EndPoint, params,  {
@@ -37,12 +43,29 @@ export var Global = {
         return r;
     },
 
+    async callPutAPI(EndPoint, params){
+        let r;
+        await axios
+        .put(this.urlAPI + EndPoint, params,  {
+            headers: {
+                'Content-Type': 'application/json'
+            }, params
+        })
+        .then(resp => {
+            if (resp.status == 200)
+            {
+                r = resp.data;
+            }
+        })
+        .catch((e) => alert('Fatal ERROR from services:  ' + e.message));
+        return r;
+    },
 
-    formatDate: function(value){
+    formatDate(value){
         var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         return new Date(value).toLocaleDateString("en-US", options); 
     },
-    exportTableToExcel: function (tableID, filename){
+    exportTableToExcel(tableID, filename){
         var downloadLink;
         var dataType = 'application/vnd.ms-excel';
         var tableSelect = document.getElementById(tableID);

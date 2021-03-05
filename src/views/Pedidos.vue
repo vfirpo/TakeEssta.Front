@@ -27,7 +27,7 @@ export default {
       this.dato = await this.$global.callGetAPI('Comandas');
     },
     getCurrentUser:  function() {
-      return JSON.parse(sessionStorage.getItem("User"));
+      return this.$global.currentUser();
     }
   },
 };

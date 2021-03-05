@@ -1,7 +1,7 @@
 <template>
   <div>
     <header id="header_principal" class="header" >
-      <nav class="navbar navbar-top navbar-expand-lg navbar-light bg-light sombraBox">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light sombraBox" > <!--style="position:fixed"> -->
         <a class="navbar-brand" href="#">
           <img
             style="height: 22px"
@@ -57,7 +57,7 @@
                 Productos
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <router-link class="dropdown-item" target = "_blank" to="/toma_de_pedidos" >Ver productos</router-link>
+                <router-link class="dropdown-item" to="/products" >Ver productos</router-link>
                 <a class="dropdown-item" href="#">Ver stock</a>
               </div>
             </li>
@@ -198,6 +198,9 @@
               <a class="nav-link disabled" href="#">Disabled</a>
             </li>
           </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <router-link class="dropdown-item" style="font-size: small;"   target = "_blank" to="/toma_de_pedidos" >Sistema<br>Ventas</router-link>
+          </form>
         </div>
       </nav>
     </header>

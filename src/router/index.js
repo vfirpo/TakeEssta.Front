@@ -6,6 +6,7 @@ import Pedidos from '../views/Pedidos.vue'
 import verclientes from '../views/Clientes_VerClientes.vue'
 import historialDeCaja from '../views/Ventas_HistorialDeCaja.vue'
 import aperturaDeCaja from '../views/Ventas_AperturaCaja.vue'
+import products from '../views/Products.vue'
 
 
 
@@ -49,6 +50,11 @@ const routes = [
     path: '/Ventas_AperturaDeCaja',
     name: 'aperturaDeCaja',
     component: aperturaDeCaja
+  },
+  {
+    path: '/Products',
+    name: 'products',
+    component: products
   },
 ]
 

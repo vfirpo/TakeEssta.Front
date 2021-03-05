@@ -136,7 +136,6 @@
 </template>
 
 <script>
-import { Global } from "../assets/Global";
 import pagination from "@/components/Pagination.vue";
 
 export default {

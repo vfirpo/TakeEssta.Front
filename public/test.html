@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+
+var i_datos = [];
+var v_openConfig = '';
+var v_exitClick = '';
+
+var w_diasSemana = {};
+
+w_diasSemana[0] = 'X';
+w_diasSemana[1] = 'X';
+w_diasSemana[2] = 'X';
+w_diasSemana[3] = 'X';
+w_diasSemana[4] = 'X';
+w_diasSemana[5] = 'X';
+w_diasSemana[6] = 'X';
+
+function fcn_checkConfig(IDPromo=''){
+  
+  $("#configContent").empty();
+  
+  if(IDPromo != ''){
+    
+  }
+  
+}
+
+
+function fcn_addConfig(tipo=''){
+    alert('Estoy Aca');
+  
+  $("#configContentMsj").html('');
+  
+  if(tipo == 'NEW'){
+    alert('Estoy Aca');
+    if(v_openConfig == 'X'){
+      $("#configContentMsj").html('<div style="color: red;">Para crear una nueva configuraci&oacute;n primero debe finalizar la actual</div>');
+      setTimeout(function(){ $('#configContentMsj').html(''); }, 3000);
+      return;
+    }
+    
+    v_openConfig = 'X';
+    
+    v_code = Math.round(Math.random() * (999 - 101) + 101);
+    
+    var v_detConf = '<div class="confItemMAIN sombraBox3">'
+                   
+                   +'Rubro <select id="confItemRubro'+v_code+'" class="form-control maxCont" onchange="fcn_changeRub('+v_code+');"><option value="">Elija un rubro</option></select>'
+                   
+                   +'Sub-Rubro <select id="confItemSubRubro'+v_code+'" class="form-control maxCont" onchange="fcn_changeLoadProd('+v_code+');"><option value="">Vac&iacute;o</option></select>'
+                   
+                   +'Producto <select id="confItemIDProducto'+v_code+'" class="selectpicker form-control maxCont configProd"  onchange="fcn_changeProd('+v_code+');" title="Seleccionar productos" multiple data-live-search="true" data-selected-text-format="count>5" data-actions-box="true"><option value="">Vac&iacute;o</option></select>'
+                   +'<div class="sombraBox3 Font12 divInfo" style="margin-top: 5px;margin-bottom: 5px;"><i class="fas fa-exclamation-triangle txtNaranja"></i> Si quiere incluir todos los productos deje el campo "Productos" vacío</div>'
+                   +'<div id="confItemCantFijaDIV'+v_code+'" style="display: none;">Cantidad fija <input type="number" min="0" id="confItemCantFija'+v_code+'" class="form-control maxCont" placeholder="0"></div>'
+
+                   +'<div id="confItemSelAutoDIV'+v_code+'" style="display: none;">Selecci&oacute;n <select id="confItemSelAuto'+v_code+'" class="form-control maxCont"><option value="X">Autom&aacute;tica</option><option value="">Manual</option></select></div>'
+                   
+                   +'<div class="cambioProducto divInfo txtBlueCool" style="display:none;user-select:none;"><input  class="pointer" name="cambioProducto" type="checkbox" id="cambioProducto'+v_code+'"><label class="pointer" for="cambioProducto'+v_code+'" style="font-weight: 100;"> <i class="fas fa-cog txtBlueCool" style="margin-left: 5px;"></i> Permite cambiar el producto fijo por otro dentro del mismo rubro</label></div>'
+                   
+                   +'<div class="subrubroTP divInfo txtBlueCool" style="display:none;user-select:none;"><input  class="pointer" name="subrubroTP" type="checkbox" id="subrubroTP'+v_code+'"><label class="pointer" for="subrubroTP'+v_code+'" style="font-weight: 100;"> <i class="fas fa-cog txtBlueCool" style="margin-left: 5px;"></i> Permite cambiar el producto en TePido por otro dentro del mismo sub-rubro</label></div>'
+                   
+                   +'<div id="confItemCantMinDIV'+v_code+'" style="display: none;">Cantidad m&iacute;nima <input type="number" min="0" id="confItemCantMin'+v_code+'" class="form-control maxCont" placeholder="0"></div>'
+                   
+                   +'<div id="confItemCantMaxDIV'+v_code+'" style="display: none;">Cantidad m&aacute;xima <input type="number" min="0" id="confItemCantMax'+v_code+'" class="form-control maxCont" placeholder="0"></div>'
+                   
+                   +'<div id="confItemSubRubro2_DIV'+v_code+'" style="display: none;">Adicionar Sub-Rubro <select id="confItemSubRubro2_'+v_code+'" class="form-control maxCont"><option value="">Vac&iacute;o</option></select></div>'
+                   +'<div id="confItemSubRubro3_DIV'+v_code+'" style="display: none;">Adicionar Sub-Rubro <select id="confItemSubRubro3_'+v_code+'" class="form-control maxCont"><option value="">Vac&iacute;o</option></select></div>'
+                   +'<div id="confItemSubRubro4_DIV'+v_code+'" style="display: none;">Adicionar Sub-Rubro <select id="confItemSubRubro4_'+v_code+'" class="form-control maxCont"><option value="">Vac&iacute;o</option></select></div>'
+
+                   +'<div id="confItemVariantDIV'+v_code+'" style="display: none;">Variante <select id="confItemVariant'+v_code+'" class="form-control maxCont"><option value="1">Entera</option><option value="2">Mitad</option></select></div>'
+
+                   +'<div id="confItemCoccionDIV'+v_code+'" style="display: none;">Cocci&oacute;n <select id="confItemCoccion'+v_code+'" class="form-control maxCont"><option value="">Sin especificar</option><option value="H">Horno</option><option value="F">Frita</option></select></div>'
+
+                   +'<div id="confItemMSJDIV'+v_code+'" style="text-align: center; margin-top: 20px; color: red;"></div>'
+
+                   +'<div style="text-align: center; margin-top: 20px;"><button type="button" onclick="fcn_confConfig('+v_code+');" class="btn btn-primary">Confirmar configuraci&oacute;n</button> <button type="button" onclick="fcn_deleteConfig('+v_code+');" class="btn btn-default">Cancelar</button></div>'
+                   
+                   +'</div>';
+    
+    $("#configContent").append(v_detConf);
+    
+    $('.configProd .selectpicker')
+      .empty()
+    ;
+    
+    $('.configProd .selectpicker')
+      .selectpicker('render')
+    ;
+    
+    for(i=0;i<i_rubros.length;i++){
+      $("#confItemRubro"+v_code)
+        .append('<option value="'+i_rubros[i]['IDRubro']+'">'+i_rubros[i]['descripcion']+'</option>')
+      ;
+    }
+    
+  }
+  
+} // fcn_addConfig
+
+
+function fcn_changeRub(code=''){
+  
+  if(code != ''){
+    
+    $("#confItemSubRubro"+code).empty();
+    $("#confItemSubRubro2_"+code).empty();
+    $("#confItemSubRubro3_"+code).empty();
+    $("#confItemSubRubro4_"+code).empty();
+    
+    $("#confItemSubRubro"+code).append('<option value="">Elija un sub-rubro</option>');
+    $("#confItemSubRubro2_"+code).append('<option value="">Elija un sub-rubro</option>');
+    $("#confItemSubRubro3_"+code).append('<option value="">Elija un sub-rubro</option>');
+    $("#confItemSubRubro4_"+code).append('<option value="">Elija un sub-rubro</option>');
+    
+    var v_rubVal = $("#confItemRubro"+code).val();
+    
+    for(i=0;i<i_subRubros.length;i++){
+      if(i_subRubros[i]['IDRubro'] == v_rubVal){
+        $("#confItemSubRubro"+code).append('<option value="'+i_subRubros[i]['IDSubRubro']+'">'+i_subRubros[i]['descripcion']+'</option>');
+        $("#confItemSubRubro2_"+code).append('<option value="'+i_subRubros[i]['IDSubRubro']+'">'+i_subRubros[i]['descripcion']+'</option>');
+        $("#confItemSubRubro3_"+code).append('<option value="'+i_subRubros[i]['IDSubRubro']+'">'+i_subRubros[i]['descripcion']+'</option>');
+        $("#confItemSubRubro4_"+code).append('<option value="'+i_subRubros[i]['IDSubRubro']+'">'+i_subRubros[i]['descripcion']+'</option>');
+      }
+    }
+    
+    if(v_rubVal != ''){
+      $("#confItemCantFijaDIV"+code).hide();
+      $("#confItemSelAutoDIV"+code).hide();
+      $("#confItemCantMinDIV"+code).show();
+      $("#confItemCantMaxDIV"+code).show();
+      $("#confItemSubRubro2_DIV"+code).show();
+      $("#confItemSubRubro3_DIV"+code).show();
+      $("#confItemSubRubro4_DIV"+code).show();
+    }else{
+      $("#confItemCantFijaDIV"+code).hide();
+      $("#confItemSelAutoDIV"+code).hide();
+      $("#confItemCantMinDIV"+code).hide();
+      $("#confItemCantMaxDIV"+code).hide();
+      $("#confItemSubRubro2_DIV"+code).hide();
+      $("#confItemSubRubro3_DIV"+code).hide();
+      $("#confItemSubRubro4_DIV"+code).hide();
+    }
+    
+    fcn_changeLoadProd(code);
+    
+  }
+  
+} // fcn_changeRub
+
+
+function fcn_changeLoadProd(code=''){
+  
+  if(code != ''){
+    
+    $("#confItemIDProducto"+code).empty();
+    
+    var v_rubVal  = $("#confItemRubro"+code).val();
+    var v_SrubVal = $("#confItemSubRubro"+code).val();
+    
+    for(i=0;i<i_productos.length;i++){
+      if(i_productos[i]['IDRubro'] == v_rubVal){
+        
+        if(v_SrubVal != ''){
+          if(i_productos[i]['IDSubRubro'] != v_SrubVal){
+            continue;
+          }
+        }
+        
+        $("#confItemIDProducto"+code).append('<option value="'+i_productos[i]['IDProducto']+'">'+i_productos[i]['descripcion']+'</option>');
+      }
+    }
+    
+    $("#confItemIDProducto"+code).selectpicker('refresh');
+    
+    $("#confItemCoccionDIV"+code).hide();
+    $("#confItemVariantDIV"+code).hide();
+    $("#confItemSelAutoDIV"+code).hide();
+    
+    if(v_SrubVal != '' && v_SrubVal != 0){
+      $("#confItemSubRubro2_DIV"+code).show();
+      $("#confItemSubRubro3_DIV"+code).show();
+      $("#confItemSubRubro4_DIV"+code).show();
+    }else{
+      $("#confItemSubRubro2_DIV"+code).hide();
+      $("#confItemSubRubro3_DIV"+code).hide();
+      $("#confItemSubRubro4_DIV"+code).hide();
+    }
+    
+    fcn_changeProd(code);
+    
+    if(v_rubVal == ''){
+      $("#confItemCantFijaDIV"+code).hide();
+      $("#confItemSelAutoDIV"+code).hide();
+      $("#confItemCantMinDIV"+code).hide();
+      $("#confItemCantMaxDIV"+code).hide();
+      $("#confItemSubRubro2_DIV"+code).hide();
+      $("#confItemSubRubro3_DIV"+code).hide();
+      $("#confItemSubRubro4_DIV"+code).hide();
+    }
+
+  }
+  
+} // fcn_changeLoadProd
+
+
+function fcn_changeProd(code=''){
+  
+  var v_prodVal = $("#confItemIDProducto"+code).val();
+  $('.cambioProducto, .subrubroTP').show();
+  
+  if(v_prodVal == null){
+    v_prodVal = '';
+    $('.cambioProducto, .subrubroTP').hide();
+    $('#cambioProducto'+code).prop('checked', false);
+    $('#subrubroTP'+code).prop('checked', false);
+  }else if(v_prodVal.length > 1){//verifico si selecciono mas de un producto que me muestre cant max y min
+    v_prodVal = '';
+    $('.cambioProducto, .subrubroTP').hide();
+    $('#cambioProducto'+code).prop('checked', false);
+    $('#subrubroTP'+code).prop('checked', false);
+  }
+  
+  if(v_prodVal != ''){
+    $("#confItemCantFijaDIV"+code).show();
+    $("#confItemSelAutoDIV"+code).show();
+    $("#confItemCantMinDIV"+code).hide();
+    $("#confItemCantMaxDIV"+code).hide();
+    $("#confItemSubRubro2_DIV"+code).hide();
+    $("#confItemSubRubro3_DIV"+code).hide();
+    $("#confItemSubRubro4_DIV"+code).hide();
+  }else{
+    $("#confItemCantFijaDIV"+code).hide();
+    $("#confItemSelAutoDIV"+code).hide();
+    $("#confItemCantMinDIV"+code).show();
+    $("#confItemCantMaxDIV"+code).show();
+    
+    var v_SrubValue = $("#confItemSubRubro"+code).val();
+    
+    if(v_SrubValue != '' && v_SrubValue != 0){
+      $("#confItemSubRubro2_DIV"+code).show();
+      $("#confItemSubRubro3_DIV"+code).show();
+      $("#confItemSubRubro4_DIV"+code).show();
+    }else{
+      $("#confItemSubRubro2_DIV"+code).hide();
+      $("#confItemSubRubro3_DIV"+code).hide();
+      $("#confItemSubRubro4_DIV"+code).hide();
+    }
+    
+  }
+  
+  $("#confItemVariantDIV"+code).hide();
+  $("#confItemCoccionDIV"+code).hide();
+  
+  // Verifico si permite mitad
+  for(i=0;i<i_productos.length;i++){
+    if(i_productos[i]['IDProducto'] == $("#confItemIDProducto"+code).val()){
+      
+      if(i_productos[i]['vendeMitad'] == 'X'){
+        $("#confItemVariantDIV"+code).show();
+      }else{
+        $("#confItemVariantDIV"+code).hide();
+      }
+
+      if(i_productos[i]['coccionFritaHorno'] == 'X'){
+        $("#confItemCoccionDIV"+code).show();
+      }else{
+        $("#confItemCoccionDIV"+code).hide();
+      }
+      
+      break;
+      
+    }
+  }
+  
+} // fcn_changeProd
+
+
+function fcn_confConfig(code=''){
+  
+  if(code != ''){
+    
+    var v_rubVal   = $("#confItemRubro"+code).val();
+    var v_SrubVal  = $("#confItemSubRubro"+code).val();
+    var v_Srub2Val = $("#confItemSubRubro2_"+code).val();
+    var v_Srub3Val = $("#confItemSubRubro3_"+code).val();
+    var v_Srub4Val = $("#confItemSubRubro4_"+code).val();
+    var v_prodVal  = $("#confItemIDProducto"+code).val();
+    var v_cantVal  = $("#confItemCantFija"+code).val();
+    var v_variVal  = $("#confItemVariant"+code).val();
+    var v_sAutVal  = $("#confItemSelAuto"+code).val();
+    var v_CMinVal  = $("#confItemCantMin"+code).val();
+    var v_CMaxVal  = $("#confItemCantMax"+code).val();
+    var v_CoccVal  = $("#confItemCoccion"+code).val();
+    
+    var v_vendeMitad  = '';
+    var v_cocciones   = '';
+    var v_listaPrd    = '';
+    var v_prdSel      = '';
+    var v_ListaprdSel = '';
+    
+    if(v_prodVal == null){
+      v_prdSel = '';
+    }else{
+    
+      if(v_prodVal.length >= 1){
+        for(i=0;i<v_prodVal.length;i++){
+          if(v_listaPrd == ''){
+            v_listaPrd = v_prodVal[i];
+            v_prdSel = v_listaPrd;
+            v_ListaprdSel = '';
+          }else{
+            v_listaPrd = v_listaPrd+','+v_prodVal[i];
+            v_ListaprdSel = v_listaPrd;
+            v_prdSel = '';
+          }
+        }
+      }
+      
+    }
+    
+    if(v_rubVal == ''){
+      $("#confItemMSJDIV"+code).html('Ingrese el rubro');
+      setTimeout(function(){ $('#confItemMSJDIV'+code).html(''); }, 3000);
+      return;
+    }
+    
+    if(v_prdSel != ''){
+      if(v_cantVal == ''){
+        $("#confItemMSJDIV"+code).html('Ingrese cantidad');
+        setTimeout(function(){ $('#confItemMSJDIV'+code).html(''); }, 3000);
+        return;
+      }
+    }else{
+      if(v_CMinVal == '' || v_CMaxVal == ''){
+        $("#confItemMSJDIV"+code).html('Ingrese cantidad m&iacute;nima y m&aacute;xima');
+        setTimeout(function(){ $('#confItemMSJDIV'+code).html(''); }, 3000);
+        return;
+      }
+    }
+    
+    if(v_cantVal == ''){
+      if(v_CMinVal == v_CMaxVal){
+        v_cantVal = v_CMaxVal;
+      }
+    }
+    
+    item = {};
+    
+    item['IDItem']         = code;
+    item['IdPromocion']    = code;
+    item['IDProducto']     = v_prdSel;
+    item['cantidad']       = v_cantVal;
+    item['variante']       = '';
+    item['IDRubro']        = v_rubVal;
+    item['IDSubRubro']     = v_SrubVal;
+    
+    if(v_prdSel == '' || v_prdSel == 0){
+      item['IDSubRubro2'] = v_Srub2Val;
+      item['IDSubRubro3'] = v_Srub3Val;
+      item['IDSubRubro4'] = v_Srub4Val;
+    }else{
+      item['IDSubRubro2'] = '';
+      item['IDSubRubro3'] = '';
+      item['IDSubRubro4'] = '';
+    }
+    
+    item['sel_auto']       = '';
+    item['minCant']        = v_CMinVal;
+    item['maxCant']        = v_CMaxVal;
+    item['listaProductos'] = v_ListaprdSel;
+    item['tipoCoccion']    = '';
+    item['borrado']        = '';
+    
+    item['RubroDesc']      = '';
+    item['SubRubroDesc']   = '';
+    item['SubRubro2Desc']  = '';
+    item['SubRubro3Desc']  = '';
+    item['SubRubro4Desc']  = '';
+    item['ProductoDesc']   = '';
+    
+    if ( $('#cambioProducto'+code).is(':checked') ) {
+      $('#cambioProducto'+code).val('X');
+    }else{
+      $('#cambioProducto'+code).val('');
+    }
+    
+    if ( $('#subrubroTP'+code).is(':checked') ) {
+      $('#subrubroTP'+code).val('X');
+    }else{
+      $('#subrubroTP'+code).val('');
+    }
+    
+    item['cambioProducto'] = $('#cambioProducto'+code).val();
+    item['subrubroTP']     = $('#subrubroTP'+code).val();
+    
+    if(v_rubVal != ''){
+      for(i=0;i<i_rubros.length;i++){
+        if(i_rubros[i]['IDRubro'] == v_rubVal){
+          item['RubroDesc'] = i_rubros[i]['descripcion'];
+          break;
+        }
+      }
+    }
+
+    if(v_SrubVal != ''){
+      for(i=0;i<i_subRubros.length;i++){
+        if(i_subRubros[i]['IDSubRubro'] == v_SrubVal){
+          item['SubRubroDesc'] = i_subRubros[i]['descripcion'];
+          break;
+        }
+      }
+    }
+
+    if(v_Srub2Val != ''){
+      for(i=0;i<i_subRubros.length;i++){
+        if(i_subRubros[i]['IDSubRubro'] == v_Srub2Val){
+          item['SubRubro2Desc'] = i_subRubros[i]['descripcion'];
+          break;
+        }
+      }
+    }
+
+    if(v_Srub3Val != ''){
+      for(i=0;i<i_subRubros.length;i++){
+        if(i_subRubros[i]['IDSubRubro'] == v_Srub3Val){
+          item['SubRubro3Desc'] = i_subRubros[i]['descripcion'];
+          break;
+        }
+      }
+    }
+
+    if(v_Srub4Val != ''){
+      for(i=0;i<i_subRubros.length;i++){
+        if(i_subRubros[i]['IDSubRubro'] == v_Srub4Val){
+          item['SubRubro4Desc'] = i_subRubros[i]['descripcion'];
+          break;
+        }
+      }
+    }
+
+    if(v_prdSel != ''){
+      for(i=0;i<i_productos.length;i++){
+        if(i_productos[i]['IDProducto'] == v_prodVal){
+          item['ProductoDesc'] = i_productos[i]['descripcion'];
+          
+          v_vendeMitad = i_productos[i]['vendeMitad'];
+          v_cocciones  = i_productos[i]['coccionFritaHorno'];
+          
+          break;
+        }
+      }
+      
+      item['sel_auto']    = v_sAutVal;
+      
+      if(v_vendeMitad == 'X'){
+        item['variante']    = v_variVal;
+      }
+      
+      if(v_cocciones == 'X'){
+        item['tipoCoccion'] = v_CoccVal;
+      }
+      
+    }
+    
+    i_promos_productos.push(item);
+    
+    fcn_refreshSavedConfig();
+    
+  }
+  
+} // fcn_confConfig
+
+
+function fcn_deleteConfig(code=''){
+  
+  if(code != ''){
+    
+    for(i=0;i<i_promos_productos.length;i++){
+      if(i_promos_productos[i]['IDItem'] == code){
+        i_promos_productos[i]['borrado'] = 'X';
+        break;
+      }
+    }
+    
+    fcn_refreshSavedConfig();
+    
+  }
+  
+} // fcn_deleteConfig
+
+function fcn_refreshSavedConfig(){
+  
+  v_openConfig = '';
+  
+  $("#configContent").empty();
+  
+  if(i_promos_productos != ''){
+    
+    var v_detOK     = '';
+    
+    $("#configContent").empty();
+    
+    for(i=0;i<i_promos_productos.length;i++){
+      
+      if(i_promos_productos[i]['borrado'] == 'X'){
+        continue;
+      }
+      
+      v_detOK = '<div class="confItemMAIN sombraBox3">';
+      
+      v_detOK += '<div style="float: right;"><button type="button" onclick="fcn_deleteConfig('+i_promos_productos[i]['IDItem']+');" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></div>';
+      
+      if(i_promos_productos[i]['IDRubro'] != '' && i_promos_productos[i]['IDRubro'] != '0'){
+        v_detOK += '<div><span style="text-decoration: underline;">Rubro</span>: <span style="color: #455A64;">'+i_promos_productos[i]['RubroDesc']+'</span></div>';
+      }
+      
+      if(i_promos_productos[i]['IDSubRubro'] != '' && i_promos_productos[i]['IDSubRubro'] != '0'){
+        v_detOK += '<div><span style="text-decoration: underline;">Sub-Rubro</span>: <span style="color: #455A64;">'+i_promos_productos[i]['SubRubroDesc']+'</span></div>';
+      }
+      
+      if(i_promos_productos[i]['IDSubRubro2'] != '' && i_promos_productos[i]['IDSubRubro2'] != '0'){
+        v_detOK += '<div><span style="text-decoration: underline;">Sub-Rubro adicional</span>: <span style="color: #455A64;">'+i_promos_productos[i]['SubRubro2Desc']+'</span></div>';
+      }
+      
+      if(i_promos_productos[i]['IDSubRubro3'] != '' && i_promos_productos[i]['IDSubRubro3'] != '0'){
+        v_detOK += '<div><span style="text-decoration: underline;">Sub-Rubro adicional</span>: <span style="color: #455A64;">'+i_promos_productos[i]['SubRubro3Desc']+'</span></div>';
+      }
+      
+      if(i_promos_productos[i]['IDSubRubro4'] != '' && i_promos_productos[i]['IDSubRubro4'] != '0'){
+        v_detOK += '<div><span style="text-decoration: underline;">Sub-Rubro adicional</span>: <span style="color: #455A64;">'+i_promos_productos[i]['SubRubro4Desc']+'</span></div>';
+      }
+
+      if(i_promos_productos[i]['IDProducto'] != '' && i_promos_productos[i]['IDProducto'] != '0'){
+        
+        var v_vendeMitad = '';
+        var v_cocciones  = '';
+        
+        for(ix=0;ix<i_productos.length;ix++){
+          if(i_productos[ix]['IDProducto'] == i_promos_productos[i]['IDProducto']){
+            v_vendeMitad = i_productos[ix]['vendeMitad'];
+            v_cocciones  = i_productos[ix]['coccionFritaHorno'];
+            break;
+          }
+        }
+        
+        v_detOK += '<div><span style="text-decoration: underline;">Producto</span>: <span style="color: #455A64;">'+i_promos_productos[i]['ProductoDesc']+'</span></div>';
+        
+        v_detOK += '<div><span style="text-decoration: underline;">Cantidad</span>: <span style="color: #455A64;">'+i_promos_productos[i]['cantidad']+'</span></div>';
+        
+        if(i_promos_productos[i]['sel_auto'] == 'X'){
+          v_detOK += '<div><span style="text-decoration: underline;">Selecci&oacute;n</span>: <span style="color: #455A64;">autom&aacute;tica</span></div>';
+        }else{
+          v_detOK += '<div><span style="text-decoration: underline;">Selecci&oacute;n</span>: <span style="color: #455A64;">manual</span></div>';
+        }
+        
+        if(v_vendeMitad == 'X'){
+          var v_tipoVariante = '';
+          if(i_promos_productos[i]['variante'] == '1'){
+            v_tipoVariante = 'Entera';
+          }else if(i_promos_productos[i]['variante'] == '2'){
+            v_tipoVariante = 'Mitad';
+          }
+          v_detOK += '<div><span style="text-decoration: underline;">Variante</span>: <span style="color: #455A64;">'+v_tipoVariante+'</span></div>';
+        }
+        
+        if(v_cocciones == 'X'){
+          var v_tipoCoccion = '';
+          if(i_promos_productos[i]['tipoCoccion'] == 'F'){
+            v_tipoCoccion = 'Frita';
+          }else if(i_promos_productos[i]['tipoCoccion'] == 'H'){
+            v_tipoCoccion = 'Horno';
+          }else{
+            v_tipoCoccion = 'Sin especificar';
+          }
+          
+          v_detOK += '<div><span style="text-decoration: underline;">Cocci&oacute;n</span>: <span style="color: #455A64;">'+v_tipoCoccion+'</span></div>';
+        }
+        
+      }else{
+        
+        if(i_promos_productos[i]['minCant'] == i_promos_productos[i]['maxCant']){
+          v_detOK += '<div><span style="text-decoration: underline;">Cantidad</span>: <span style="color: #455A64;">'+i_promos_productos[i]['maxCant']+'</span></div>';
+        }else{
+          v_detOK += '<div><span style="text-decoration: underline;">Cantidad</span>: <span style="color: #455A64;">'+i_promos_productos[i]['minCant']+' a '+i_promos_productos[i]['maxCant']+'</span></div>';
+        }
+        
+        if(i_promos_productos[i]['listaProductos'] != ''){
+          
+          var v_listaPrdCargados = JSON.parse("[" + i_promos_productos[i]['listaProductos'] + "]");
+          var v_listaPrdMostrados = '';
+          
+          for(z=0;z<i_productos.length;z++){
+            for(x=0;x<v_listaPrdCargados.length;x++){
+              if(v_listaPrdCargados[x] == i_productos[z]['IDProducto']){
+                
+                if(v_listaPrdMostrados == ''){
+                  v_listaPrdMostrados = i_productos[z]['descripcion'];
+                }else{
+                  v_listaPrdMostrados = v_listaPrdMostrados+', '+i_productos[z]['descripcion'];
+                }
+                
+              }
+            }
+          }
+          
+          v_detOK += '<div><span style="text-decoration: underline;">Lista productos</span>: <span style="color: #455A64;">'+v_listaPrdMostrados+'</span></div>';
+        }
+        
+      }
+      
+      if (i_promos_productos[i]['cambioProducto'] == 'X') {
+        v_detOK += '<div><span class="Font12 txtBlueCool"><i class="fas fa-cog"></i> Permite cambiar el producto fijo por otro dentro del mismo rubro</span></div>'
+      }
+      
+      if (i_promos_productos[i]['subrubroTP'] == 'X') {
+        v_detOK += '<div><span class="Font12 txtBlueCool"><i class="fas fa-cog"></i> Permite cambiar el producto en TePido por otro dentro del mismo sub-rubro</span></div>'
+      }
+      
+      v_detOK += '</div>';
+      
+      $("#configContent").append(v_detOK);
+      
+    }
+    
+  }
+  
+} // fcn_refreshSavedConfig
+
+
+// Funcion que muestra el modal
+function fcn_crear_promo(cod_promo = ''){
+  
+  i_promos_productos = [];
+  
+  fcn_selDay('RESET');
+  
+  $("#new_IDTab").empty();
+  $("#IDOpcional").val('');
+  
+  v_feHastaSet = '04/03/2021';
+  
+  $("#new_FechaHasta").css('pointer-events', '');
+  
+  $("#CBSinFeFin").prop("checked", false);
+  
+  $("#LOADModalAgregarPromo").show();
+  $("#MAINModalAgregarPromo").hide();
+  
+  // Inicializo colores de campos
+  $("#new_Titulo").css({'border-color' : '#ccc', 'background-color' : '#fff'});
+  $("#new_Descripcion").css({'border-color' : '#ccc', 'background-color' : '#fff'});
+  $("#new_Precio").css({'border-color' : '#ccc', 'background-color' : '#fff'});
+  
+  $("#resultado_addpromo").html('');
+  
+  fcn_checkConfig('');
+    
+  if(cod_promo == ''){
+    $('#contExcluirRubros').hide();
+    v_excRubroOculto = 'X';
+    
+    $("#cod_promo, #new_Titulo, #new_Descripcion, #new_Turno, #new_orden, #new_Precio, #new_costo_devolucion").val('');
+    
+    $('#new_color').val('#337ab7');
+
+    $("#new_FechaDesde, #new_FechaHasta").val('04/03/2021');
+    
+    $('#new_web, #new_appmobile, #new_totem, #new_descPorc, #new_descFijo, #new_omitirSugerencia').bootstrapToggle('off');
+    
+    document.getElementById("btn_newpromo_ok").disabled = false; 
+  	document.getElementById("btn_newpromo_ok").innerHTML = 'Agregar' ;
+    
+    var v_IDSucursal = '22';
+    var v_nombre_suc = '';
+    
+        
+    if(v_IDSucursal == 'TODAS' || v_IDSucursal == '0'){
+      
+      for(zz=0;zz<i_tabs.length;zz++){
+        if(i_tabs[zz]['IDSucursal'] == '0'){
+          $("#new_IDTab").append('<option value="'+i_tabs[zz]['IDTab']+'">'+i_tabs[zz]['descripcion']+'</option>');
+        }
+      }
+      
+    }else{
+     
+      for(zz=0;zz<i_tabs.length;zz++){
+        if(i_tabs[zz]['IDSucursal'] == v_IDSucursal || i_tabs[zz]['IDSucursal'] == '0'){
+          $("#new_IDTab").append('<option value="'+i_tabs[zz]['IDTab']+'">'+i_tabs[zz]['descripcion']+'</option>');
+        }
+      }
+      
+    }
+    
+
+    $("#TituloModal").html('<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>  Agregar promoci&oacute;n '+v_nombre_suc+'</h4>');
+    
+    $("#LOADModalAgregarPromo").hide();
+    $("#MAINModalAgregarPromo").show();
+    
+  }else{
+    
+  // EDICION DE PROMO
+  // Agrego promo con AJAX
+    $.ajax({
+        type: "POST",
+        url: "VE/ve_promociones_datos.php",
+        data: { tipo_operacion       : 'READ',
+                cod_promo            : cod_promo,
+                
+                Suc_promos           : $("#IDSucursal_promo").val()
+              },
+        dataType: "json", // Set the data type so jQuery can parse it for you
+        success: function (data) {
+          
+          // Si no da error, sigo con el proceso
+          if(data[0] == 'OK'){
+            
+            // Cargo el codigo de la promo a editar
+            $("#cod_promo").val(cod_promo);
+            
+            // Cargo campos del MODAL
+            $("#new_Titulo").val(data[2]);
+            $("#new_Descripcion").val(data[3]);
+            $("#new_Turno").val(data[4]);
+            $("#new_orden").val(data[5]);
+            $("#new_Precio").val(data[6]);
+            
+            if(data[7] == '' || data[7] == null){
+              data[7] = '#337ab7';
+            }
+            
+            $("#new_color").val(data[7]);
+        
+            $("#new_FechaDesde").val(data[14]);
+            $("#new_FechaHasta").val(data[15]);
+            
+            if(data['fechaHastaSF'] == '99999999'){
+              $("#CBSinFeFin").prop("checked", true);
+              v_feHastaSet = '04/03/2021';
+              $("#new_FechaHasta").css('pointer-events', 'none');
+            }else{
+              $("#CBSinFeFin").prop("checked", false);
+              v_feHastaSet = data[15];
+              $("#new_FechaHasta").css('pointer-events', '');
+            }
+            
+						$("#new_costo_devolucion").val(data[17]);
+						
+						$('#new_descPorc').bootstrapToggle('off');
+						$('#new_descFijo').bootstrapToggle('off');
+						
+						if(data['new_descPorc'] == 'X'){
+						  v_exitClick = 'X';
+							$('#new_descPorc').bootstrapToggle('on');
+						}else{
+						  v_exitClick = 'X';
+							$('#new_descPorc').bootstrapToggle('off');
+						}
+
+						if(data['new_descFijo'] == 'X'){
+						  v_exitClick = 'X';
+							$('#new_descFijo').bootstrapToggle('on');	
+						}else{
+						  v_exitClick = 'X';
+							$('#new_descFijo').bootstrapToggle('off');
+						}
+						
+						$('#new_omitirSugerencia').bootstrapToggle('off');
+						
+						if(data['new_omitirSugerencia'] == 'X'){
+							$('#new_omitirSugerencia').bootstrapToggle('on');	
+						}else{
+							$('#new_omitirSugerencia').bootstrapToggle('off');
+						}
+						
+						
+						if(data[18] == 'X'){
+							$('#new_web').bootstrapToggle('on');	
+						}else{
+							$('#new_web').bootstrapToggle('off');
+						}
+						
+						if(data[19] == 'X'){
+							$('#new_appmobile').bootstrapToggle('on');	
+						}else{
+							$('#new_appmobile').bootstrapToggle('off');
+						}
+						
+						if(data[20] == 'X'){
+							$('#new_totem').bootstrapToggle('on');	
+						}else{
+							$('#new_totem').bootstrapToggle('off');
+						}
+            
+            if(data['IDSuc'] == '0'){
+              $("#div_alerta_modal").html('<div class="alert alert-warning" role="alert"><b>ATENCI&Oacute;N:</b> Esta promo es global!</div>');
+            }else{
+              $("#div_alerta_modal").html('<div class="alert alert-warning" role="alert"><b>ATENCI&Oacute;N:</b> Esta promo pertenece a '+data['sucursal']+'!</div>');
+            }
+            
+            if(data['IDSuc'] == '0'){
+              
+              for(zz=0;zz<i_tabs.length;zz++){
+                if(i_tabs[zz]['IDSucursal'] == '0'){
+                  $("#new_IDTab").append('<option value="'+i_tabs[zz]['IDTab']+'">'+i_tabs[zz]['descripcion']+'</option>');
+                }
+              }
+              
+            }else{
+             
+              for(zz=0;zz<i_tabs.length;zz++){
+                if(i_tabs[zz]['IDSucursal'] == data['IDSuc'] || i_tabs[zz]['IDSucursal'] == '0'){
+                  $("#new_IDTab").append('<option value="'+i_tabs[zz]['IDTab']+'">'+i_tabs[zz]['descripcion']+'</option>');
+                }
+              }
+              
+            }
+            
+            var v_isEmpty = isEmpty(data[21]);
+            
+            if( v_isEmpty != true ){
+              $('#contExcluirRubros').hide();
+
+              
+              var v_rubrosExcluir = ["'" + data[21]+ "'"];
+              
+              $('#exc_Rubros').selectpicker('val', v_rubrosExcluir);//CARGO LOS VALOS DENTRO DEL SELECTPICKER
+              $('#exc_Rubros').selectpicker('refresh')
+            }else{
+              
+              if(data['new_descPorc'] != 'X'){
+                $('#contExcluirRubros').hide(); 
+                v_excRubroOculto = 'X';
+              }else{
+                $('#contExcluirRubros').show();
+              }
+            }
+            
+            $("#new_IDTab").val(data['IDTab']);
+            $("#IDOpcional").val(data['IDOpcional']);
+            
+            fcn_selDay('LOAD', data['diasSemana']);
+            
+            i_promos_productos = data['promos_productos'];
+            
+            fcn_refreshSavedConfig();
+            
+          }else{
+            
+            $("#TextMessageModal").html('<div class="alert alert-danger" role="alert">'+data[1]+'</div>');
+            
+            // Muestro mensaje
+            $('#ModalMensaje').modal();
+            
+          }
+          
+          $("#LOADModalAgregarPromo").hide();
+          $("#MAINModalAgregarPromo").show();
+          
+        }
+    });
+    
+    
+    $("#new_Titulo").val('Prea');
+    
+    document.getElementById("btn_newpromo_ok").disabled = false; 
+  	document.getElementById("btn_newpromo_ok").innerHTML = 'Editar' ;
+    
+    $("#TituloModal").html('<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>  Editar promoci&oacute;n</h4>');
+    
+  }
+    
+    // Muestro modal
+  	$('#ModalAgregarPromo').modal({backdrop: 'static', keyboard: false});
+  	
+} // fcn_crear_promo
+
+var v_excRubroOculto = 'X';
+
+function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
+
+// Click en opcion descuento
+function fcn_click_descuento(tipo=''){
+  
+  if(tipo == 'PORC'){
+    
+    if(v_exitClick == 'X'){
+      v_exitClick = '';
+    }else{
+      v_exitClick = 'X';
+      $('#new_descFijo').bootstrapToggle('off');
+    }
+    
+    if ( $('#contExcluirRubros').is(':visible') ) {
+      v_excRubroOculto = '';
+    }
+    
+    if(v_excRubroOculto == 'X'){
+      $('#contExcluirRubros').show();
+      v_excRubroOculto = '';
+    }else{
+      $('#contExcluirRubros').hide();
+      v_excRubroOculto = 'X';
+      $("#exc_Rubros").val('default').selectpicker("refresh");
+    }
+    
+  
+  }else if(tipo == 'FIJO'){
+    
+    if(v_exitClick == 'X'){
+      v_exitClick = '';
+    }else{
+      v_exitClick = 'X';
+      $('#new_descPorc').bootstrapToggle('off');
+    }
+    
+    if( $('#new_descFijo').is(':checked') ){
+      $('#contExcluirRubros').hide();
+    }else{
+      v_excRubroOculto = 'X';
+    }
+
+  }
+  
+  if(document.getElementById("new_descPorc").checked == true || document.getElementById("new_descFijo").checked == true){  
+    $("#new_PrecioTXT").html('Descuento:');
+    $("#confTit").hide();
+    $("#divOpcionales").hide();
+  }else{
+    $("#new_PrecioTXT").html('Precio final:');
+    $("#confTit").show();
+    $("#divOpcionales").show();
+  }
+  
+} // fcn_click_descuento
+
+
+// Funcion que crea la promo
+function fcn_newpromo_ok(){
+  
+  if(v_openConfig == 'X'){
+    $("#resultado_addpromo").html('<div style="color: red;">Para continuar finalice o cancele la configuraci&oacute;n</div>');
+    setTimeout(function(){ $('#resultado_addpromo').html(''); }, 3000);
+    return;
+  }
+  
+  var var_error = '';
+  
+  if($("#new_Titulo").val() == ''){
+    $("#new_Titulo").css({'border-color' : '#f4686b', 'background-color' : '#fee9e7'});
+    var_error = 'X';
+  }else{
+    $("#new_Titulo").css({'border-color' : '#ccc', 'background-color' : '#fff'});
+  }
+  
+  if($("#new_Descripcion").val() == ''){
+    $("#new_Descripcion").css({'border-color' : '#f4686b', 'background-color' : '#fee9e7'});
+    var_error = 'X';
+  }else{
+    $("#new_Descripcion").css({'border-color' : '#ccc', 'background-color' : '#fff'});
+  }
+  
+  if(var_error == 'X'){
+    $("#resultado_addpromo").html('<span style="color:red;">Debe completar los campos obligatorios</span>');
+    return;
+  }else{
+    $("#resultado_addpromo").html('');
+  }
+  
+  
+    document.getElementById("btn_newpromo_ok").disabled  = true;
+    
+    var cod_promo = $("#cod_promo").val();
+    
+    if(cod_promo == ''){
+      document.getElementById("btn_newpromo_ok").innerHTML = 'Generando promoci&oacute;n';
+      var tipo_operacion = 'A';
+    }else{
+      document.getElementById("btn_newpromo_ok").innerHTML = 'Actualizando promoci&oacute;n';
+      var tipo_operacion = 'M';
+    }
+    
+    v_diasSemana = fcn_selDay('GETSTRING');
+    
+  // Agrego promo con AJAX
+    $.ajax({
+        type: "POST",
+        url: "VE/ve_promociones_datos.php",
+        data: { tipo_operacion       : tipo_operacion,
+                cod_promo            : $("#cod_promo").val(),
+                new_Titulo           : $("#new_Titulo").val(), 
+                new_Descripcion      : $("#new_Descripcion").val(),
+                new_FechaDesde       : $("#new_FechaDesde").val(),
+                new_FechaHasta       : $("#new_FechaHasta").val(),
+                new_Turno            : $("#new_Turno").val(),
+                new_orden            : $("#new_orden").val(),
+                new_Precio           : $("#new_Precio").val(),
+                new_color            : $("#new_color").val(),
+                new_IDTab            : $("#new_IDTab").val(),
+                IDOpcional           : $("#IDOpcional").val(),
+                
+                new_costo_devolucion : $("#new_costo_devolucion").val(),
+                
+                new_web              : document.getElementById("new_web").checked,
+                new_appmobile        : document.getElementById("new_appmobile").checked,
+                new_totem            : document.getElementById("new_totem").checked,
+
+                new_descPorc         : document.getElementById("new_descPorc").checked,
+                new_descFijo         : document.getElementById("new_descFijo").checked,
+                
+                new_omitirSugerencia : document.getElementById("new_omitirSugerencia").checked,
+                
+                Suc_promos           : $("#IDSucursal_promo").val(),
+                
+                promosProductos      : i_promos_productos,
+                
+                diasSemana           : v_diasSemana,
+                
+                excluirRubros        : $('#exc_Rubros').val()
+
+              },
+        dataType: "json", // Set the data type so jQuery can parse it for you
+        success: function (data) {
+          
+          
+          // Si no da error, sigo con el proceso
+          if(data[0] == 'OK'){
+          
+            // Muestro mensaje en el boton
+            document.getElementById("btn_newpromo_ok").innerHTML = data[1];
+  
+
+            document.getElementById("btn_newpromo_cancel").innerHTML = 'Salir';
+            
+            var v_fcn_modif = "fcn_crear_promo('"+$("#cod_promo").val()+"');";
+            var v_fcn_borra = "fcn_borrar_promo('"+$("#cod_promo").val()+"');";
+            
+            // Actualizo la grilla con las promos
+            fcn_carga_promos();
+            
+            // Cierro el modal
+            $('#ModalAgregarPromo').modal('toggle');
+            
+            if(tipo_operacion == 'A'){
+              $("#TextMessageModal").html('<div class="alert alert-success" role="alert">La promoci&oacute;n se cre&oacute; exitosamente</div>');
+            }else{
+              $("#TextMessageModal").html('<div class="alert alert-success" role="alert">La promoci&oacute;n se modific&oacute; exitosamente</div>');
+            }
+            
+            // Muestro mensaje
+            $('#ModalMensaje').modal();
+            
+          }else{
+            
+            document.getElementById("btn_newpromo_ok").disabled  = false;
+          	document.getElementById("btn_newpromo_ok").innerHTML = 'Volver a intentar';
+          	
+            $("#TextMessageModal").html('<div class="alert alert-danger" role="alert">'+data[1]+'</div>');
+            
+            // Muestro mensaje
+            $('#ModalMensaje').modal();
+            
+          }
+          
+        }
+    });
+  
+  
+} // fcn_newpromo_ok
+
+
+// Funcion que carga las promos en la grilla
+function fcn_carga_promos(){
+  
+  $("#resultado").html('<center><img height="25" src="http://www.datalive.com.ar/shared/spin_loader.gif"> Cargando promos..</center>')
+  
+  var v_suc_promo = '';
+  var v_infoExtra = '';
+  
+    
+  var v_ver_vencidas = $("#ver_vencidas").attr('checked');
+  var v_ver_futuro   = $("#ver_futuro").attr('checked');
+	
+  var table = $('#grillaPromos').DataTable();
+  table.destroy();
+	
+	// Cargo lista
+  $.ajax({
+      type: "POST",
+      url: "VE/ve_promociones_datos.php",
+      data: { tipo_operacion   : 'LISTA',
+              IDSucursal_promo : v_suc_promo,
+	                ver_vencidas : v_ver_vencidas,
+	                  ver_futuro : v_ver_futuro
+            },
+      dataType: "json", // Set the data type so jQuery can parse it for you
+      success: function (data) {
+        
+        $('#resultado').empty();
+        
+        // Si no da error, sigo con el proceso
+        if(data[0] == 'OK'){
+          
+          i_datos = data['datos'];
+          
+          var v_detalle     = '';
+          var v_color       = '';
+          var v_colorLine   = '';
+          var v_btnActions  = '';
+          
+          v_detalle = '<table id="grillaPromos" class="table table-striped table-condensed">';
+          
+          v_detalle +=  '<thead>'
+                       +  '<tr>'
+                       +  '<th>ID</th>'
+                       +  '<th>Titulo</th>'
+                       +  '<th>Valid. Desde</th>'
+                       +  '<th>Valid. Hasta</th>'
+                       +  '<th>Color</th>'
+                       +  '<th>Turno</th>'
+                       +  '<th>Orden</th>'
+                       +  '<th>Precio</th>'
+                       +  '<th>Alcance</th>'
+                       +  '<th></th>'
+                       +  '</tr>'
+                       +'</thead>';
+          
+          v_detalle +=  '<tbody>'
+          
+          for(i=0; i<i_datos.length; i++){
+            
+            if(i_datos[i]['color'] == '' || i_datos[i]['color'] == null){
+              v_color = '#337ab7';
+            }else{
+              v_color = i_datos[i]['color'];
+            }
+            
+            v_func  = "fcn_crear_promo('"+i_datos[i]['IDPromocion']+"');";
+            v_func2 = "fcn_confirm_borrar_promo('"+i_datos[i]['IDPromocion']+"', '"+i_datos[i]['titulo']+"', '"+i_datos[i]['IDSucursal']+"');";
+            v_func3 = "fcn_copiar_promo('"+i_datos[i]['IDPromocion']+"', '"+i_datos[i]['titulo']+"');";
+            
+            if(i_datos[i]['IDSucursal'] == '0'){
+              v_alcance = '<b>Global</b>';
+            }else{
+              v_alcance = i_datos[i]['sucursal'];
+            }
+            
+            if(i_datos[i]['web'] == 'X'){
+              v_alcance += '<div class="Font12 txtBlueCool"><i class="fas fa-laptop txtVerde"></i> Te Pido WEB</div>';
+            }
+            
+            if(i_datos[i]['appmobile'] == 'X'){
+              v_alcance += '<div class="Font12 txtBlueCool" style="margin-left: 4px;"><i class="fas fa-mobile-alt txtVerde"></i> Te Pido APP</div>';
+            }
+            
+            if(i_datos[i]['IDSucursal'] == '22' || '' == 'X'){
+              
+              v_btnActions = '';
+              
+              if('1' == '1'){
+                
+                v_btnActions = '<button type="button" class="btn btn-warning btn-xs" onclick="'+v_func+'">'
+                                   +  '<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>'
+                                   +'</button>';
+              
+              }
+                                 
+              if(i_datos[i]['futuroVencida'] != 'V'){
+                
+                if('0' == '1'){
+                  
+                  v_btnActions +='<button style="margin-left: 5px;" type="button" class="btn btn-danger btn-xs" onclick="'+v_func2+'">'
+                                   +  '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>'
+                                   +'</button>';
+                
+                }
+                                 
+                if('' == 'X' && '0' == '1')
+                {
+                  v_btnActions +='<button style="margin-left: 5px;" type="button" class="btn btn-default btn-xs" onclick="'+v_func3+'">'
+                                 +  '<span class="glyphicon glyphicon-copy" aria-hidden="true"></span>'
+                                 +'</button>';
+                }
+                
+              }
+              
+            }else{
+              
+              v_btnActions = '';
+              
+            }
+            
+            if(i_datos[i]['turno'] == ''){
+              i_datos[i]['turno'] = 'Todos';
+            }
+            
+            if(i_datos[i]['futuroVencida'] == 'F'){
+              v_colorLine = 'futuro';
+              v_infoExtra = '<br><b style="font-size: 12px;">PROGRAMADA</b>';
+            }else if(i_datos[i]['futuroVencida'] == 'V'){
+              v_colorLine = 'vencida';
+              v_infoExtra = '<br><b style="font-size: 12px;">VENCIDA</b>';
+            }else{
+              v_colorLine = '';
+              v_infoExtra = '';
+            }
+            
+            if(i_datos[i]['faltaConfigurar'] == 'X'){
+              v_btnActions = v_btnActions + '<br><b style="font-size: 12px; color: #F44336;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> FALTA CONFIGURACI&Oacute;N</b>';
+            }
+            
+            v_detalle += '<tr class="'+v_colorLine+'">'
+                       +  '<td>P'+i_datos[i]['IDPromocion']+'</td>'
+                       +  '<td>'+i_datos[i]['titulo']+v_infoExtra
+                       +  '<div style="font-size: 12px; color: #999;">'+i_datos[i]['descripcion']+'</div>'
+                       +  '</td>'
+                       +  '<td>'+i_datos[i]['fechaDesdeTXT']+'</td>'
+                       +  '<td>'+i_datos[i]['fechaHastaTXT']+'</td>'
+                       +  '<td><div style="background-color: '+v_color+'; height: 25px; width: 25px; border-radius: 500px; margin-left: 5px;"></div></td>'
+                       +  '<td>'+i_datos[i]['turno']+'</td>'
+                       +  '<td>'+i_datos[i]['orden']+'</td>'
+                       +  '<td>'+i_datos[i]['precio']+'</td>'
+                       +  '<td>'+v_alcance+'</td>'
+                       +  '<td style="text-align: center;">'
+                       +    v_btnActions
+                       +  '</td>'
+                       +  '</tr>';
+            
+          }
+          
+          v_detalle +=  '</tbody>';
+          v_detalle +=  '</table>';
+          
+          $('#resultado').append(v_detalle);
+          
+          
+    	    $('#grillaPromos').DataTable({//Ejecuto @DataTable@
+    	    
+    	        "lengthMenu": [[100, 150, 200, 250, -1], [100, 150, 200, 250, "Todos"]],
+    	        
+    	        "language": 
+    	        {
+                "url": "shared/DataTable/Spanish.json",// transforma toda la info de DataTable a español
+                searchPlaceholder: "Buscador",
+                buttons: {//boton copiar, informacion dentro del mismo
+                          copyTitle: 'Copiar al portapapeles',
+                          copyKeys: 'Presione <i>ctrl</i> o <i>\u2318</i> + <i>C</i> Para copiar la tabla al portapapeles. <br><br>Para anular este mensaje presione escape.',
+                          copySuccess: 'La tabla se copi&oacute; al portapapeles'
+                         }
+              },
+            
+              "pagingType": "first_last_numbers",//paginado con paginas y primera y ultima.
+                
+              dom: 'lBfrtip',//dom para botones
+                
+              buttons: //botones para exportar
+              [
+                {
+                  extend: 'copyHtml5',
+                  text: '<i class="far fa-copy"></i> Copiar',
+                  messageTop: 'Listado de promociones',
+                  messageBottom: 'Información proporcionada por Datalive',
+                  title: 'Listado de promociones',
+                  titleAttr: 'Copiar',
+                  exportOptions: 
+                  {
+                    columns: [ 0, ':visible' ]
+                  }
+                },
+                        
+                {
+                  extend: 'excelHtml5',
+                  text: '<i class="far fa-file-excel"></i> Excel',
+                  titleAttr: 'Excel',
+                  messageTop: 'Listado de promociones',
+                  messageBottom: 'Información proporcionada por Datalive',
+                  title: 'Listado de promociones',
+                  exportOptions: 
+                  {
+                    columns: ':visible'
+                  }
+                },
+                
+                {
+                  extend:    'csvHtml5',
+                  text:      '<i class="fas fa-file-csv"></i> CSV',
+                  messageTop: 'Listado de promociones',
+                  messageBottom: 'Información proporcionada por Datalive',
+                  title: 'Listado de promociones',
+                  titleAttr: 'CSV'
+                },
+                        
+                {
+                  extend: 'pdfHtml5',
+                  text: '<i class="far fa-file-pdf"></i> PDF',
+                  messageTop: 'Listado de promociones',
+                  messageBottom: 'Información proporcionada por Datalive',
+                  title: 'Listado de promociones',
+                  titleAttr: 'PDF',
+                  exportOptions: 
+                  {
+                    columns: [ 0, ':visible' ]
+                  }
+                },
+                
+                {
+                  extend: 'colvis',
+                  text: 'Columnas visibles'
+                }
+              ],
+
+    	    });
+          
+          
+        }else if(data[0] == 'VACIO'){
+        
+          $('#resultado').html('<div class="alert alert-danger" role="alert" style="width: max-content; margin-top: 25px;">'+data[1]+'</div>');
+          
+        }else{
+          
+          $('#resultado').html('<div class="alert alert-danger" role="alert" style="width: max-content; margin-top: 25px;">'+data[1]+'</div>');
+          
+        }
+        
+      }
+  });
+	
+
+} // fcn_carga_promos
+
+
+// Funcion que borra una promo
+function fcn_borrar_promo(IDPromocion){
+  
+  if(IDPromocion != ''){
+    
+  // Agrego promo con AJAX
+    $.ajax({
+        type: "POST",
+        url: "VE/ve_promociones_datos.php",
+        data: { tipo_operacion       : 'BORRA',
+                cod_promo            : IDPromocion
+              },
+        dataType: "json", // Set the data type so jQuery can parse it for you
+        success: function (data) {
+          
+          
+          // Si no da error, sigo con el proceso
+          if(data[0] == 'OK'){
+          
+            $("#TextMessageModal").html('<div class="alert alert-success" role="alert">'+data[1]+'</div>');
+            
+            // Muestro mensaje
+            $('#ModalMensaje').modal();
+            
+            // Actualizo la grilla con las promos
+            fcn_carga_promos();
+            
+          }else{
+            
+            $("#TextMessageModal").html('<div class="alert alert-danger" role="alert">'+data[1]+'</div>');
+            
+            // Muestro mensaje
+            $('#ModalMensaje').modal();
+            
+          }
+          
+        }
+    });
+    
+  }
+  
+} // fcn_borrar_promo
+
+
+// Funcion que borra una promo
+function fcn_copiarpromo_ok(){
+  
+  // Agrego promo con AJAX
+  $.ajax({
+      type: "POST",
+      url: "VE/ve_promos_action_copiar_ajax.php",
+      data: { tipo_operacion       : 'COPIA',
+              cod_promo            : $("#idPromoCopiar").val(),
+              idsucursalCopiar     : $("#new_sucursal").val(),
+            },
+      dataType: "json", // Set the data type so jQuery can parse it for you
+      success: function (data) {
+        
+        $("#idPromoCopiar").empty()
+        // Si no da error, sigo con el proceso
+        if(data[0] == 'OK'){
+        
+        
+          $("#TextMessageModal").html('<div class="alert alert-success" role="alert">'+data[1]+'</div>');
+          
+          // Muestro mensaje
+          $('#ModalMensaje').modal();
+          
+          // Actualizo la grilla con las promos
+          fcn_carga_promos();
+          
+        }else{
+          
+          $("#TextMessageModal").html('<div class="alert alert-danger" role="alert">'+data[1]+'</div>');
+          
+          // Muestro mensaje
+          $('#ModalMensaje').modal();
+          
+        }
+        
+         $("#MAINModalCopiarPromo").hide();
+         // Cierro el modal
+        $('#ModalCopiarPromo').modal('toggle');
+          
+      }
+  });
+    
+} // fcn_copiar_promo
+
+
+
+
+// Funcion para confirmar que se borra la promo
+function fcn_confirm_borrar_promo(IDPromocion, titulo='', IDSucursal=''){
+  
+  if(IDPromocion != 'CONFIRMA' && IDPromocion != ''){
+    
+    var v_texto = '';
+    
+    if(IDSucursal == '0'){
+      v_texto = '<div class="alert alert-warning" role="alert"><b>ATENCI&Oacute;N:</b> Esta promo es global, y se borrara de todos los locales que usan promos globales.</div>';
+    }
+    
+    $('#TextModalConfBorra').html(v_texto+'<center>Esta seguro que desea borrar la promo <b>'+titulo+'</b>?</center>');
+    $('#IDPromoBorra').val(IDPromocion);
+    $('#ModalConfBorra').modal();
+    
+  }else if(IDPromocion == 'CONFIRMA'){
+    
+    $('#TextModalConfBorra').html('<center><img height="25" src="http://www.datalive.com.ar/shared/spin_loader.gif"> Borrando promoci&oacute;n..</center>');
+    fcn_borrar_promo($('#IDPromoBorra').val());
+    $('#ModalConfBorra').modal('toggle');
+    
+  }
+  
+  
+} // fcn_confirm_borrar_promo
+
+
+
+
+
+function fcn_copiar_promo(IdPromocion = '', titulopromo= ''){
+ 
+  $("#idPromoCopiar").val(IdPromocion);
+
+  $("#resultado_copiarpromo").html('');
+   
+  $("#TituloModal").html('<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>  Copiar promoci&oacute;n '+titulopromo+'</h4>');
+  $("#MAINModalCopiarPromo").show();
+  
+ 
+    // Muestro modal
+  	$('#ModalCopiarPromo').modal({backdrop: 'static', keyboard: false});
+  	
+} // fcn_copiar_promo
+
+
+function fcn_fechaFin(){
+  
+  var v_valAct = $('#CBSinFeFin').prop('checked');
+  
+  if(v_valAct == true){
+    
+    v_feHastaSet = $('#new_FechaHasta').val();
+    
+    $('#new_FechaHasta').val('99/99/9999');
+    
+    $("#new_FechaHasta").css('pointer-events', 'none');
+    
+  }else{
+    $('#new_FechaHasta').val(v_feHastaSet);
+    
+    $("#new_FechaHasta").css('pointer-events', '');
+    
+  }
+  
+} // fcn_fechaFin
+
+
+function fcn_selDay(inDia='', inStrDias=''){
+  
+  if(inDia == 'GETSTRING'){
+    
+    var v_strDays = '';
+    
+    if(w_diasSemana[0] == '' && 
+       w_diasSemana[1] == '' && 
+       w_diasSemana[2] == '' && 
+       w_diasSemana[3] == '' && 
+       w_diasSemana[4] == '' && 
+       w_diasSemana[5] == '' && 
+       w_diasSemana[6] == ''){
+      
+      return v_strDays;
+    }
+    
+    if(w_diasSemana[0] == 'X' && 
+       w_diasSemana[1] == 'X' && 
+       w_diasSemana[2] == 'X' && 
+       w_diasSemana[3] == 'X' && 
+       w_diasSemana[4] == 'X' && 
+       w_diasSemana[5] == 'X' && 
+       w_diasSemana[6] == 'X'){
+      
+      return v_strDays;
+    }
+    
+    if(w_diasSemana[0] == '' || 
+       w_diasSemana[1] == '' || 
+       w_diasSemana[2] == '' || 
+       w_diasSemana[3] == '' || 
+       w_diasSemana[4] == '' || 
+       w_diasSemana[5] == '' || 
+       w_diasSemana[6] == ''){
+      
+      if(w_diasSemana[0] != ''){
+        if(v_strDays != ''){ v_strDays += ';'; }
+        v_strDays += '0';
+      }
+      if(w_diasSemana[1] != ''){
+        if(v_strDays != ''){ v_strDays += ';'; }
+        v_strDays += '1';
+      }
+      if(w_diasSemana[2] != ''){
+        if(v_strDays != ''){ v_strDays += ';'; }
+        v_strDays += '2';
+      }
+      if(w_diasSemana[3] != ''){
+        if(v_strDays != ''){ v_strDays += ';'; }
+        v_strDays += '3';
+      }
+      if(w_diasSemana[4] != ''){
+        if(v_strDays != ''){ v_strDays += ';'; }
+        v_strDays += '4';
+      }
+      if(w_diasSemana[5] != ''){
+        if(v_strDays != ''){ v_strDays += ';'; }
+        v_strDays += '5';
+      }
+      if(w_diasSemana[6] != ''){
+        if(v_strDays != ''){ v_strDays += ';'; }
+        v_strDays += '6';
+      }
+      
+      
+    }
+    
+    return v_strDays;
+    
+  }else if(inDia == 'RESET'){
+    
+    $('.btnDays').removeClass('fa-ban txtRojo');
+    $('.btnDays').addClass('fa-check txtVerde');
+    
+    w_diasSemana[0] = 'X';
+    w_diasSemana[1] = 'X';
+    w_diasSemana[2] = 'X';
+    w_diasSemana[3] = 'X';
+    w_diasSemana[4] = 'X';
+    w_diasSemana[5] = 'X';
+    w_diasSemana[6] = 'X';
+  
+  }else if(inDia == 'LOAD' && inStrDias != ''){
+    
+    $('.btnDays').addClass('fa-ban txtRojo');
+    $('.btnDays').removeClass('fa-check txtVerde');
+    
+    w_diasSemana[0] = '';
+    w_diasSemana[1] = '';
+    w_diasSemana[2] = '';
+    w_diasSemana[3] = '';
+    w_diasSemana[4] = '';
+    w_diasSemana[5] = '';
+    w_diasSemana[6] = '';
+    
+    var i_diasSel = inStrDias.split(';');
+    var v_dayPos = '';
+    
+    for(i=0; i<i_diasSel.length; i++){
+      
+      v_dayPos = i_diasSel[i];
+      
+      w_diasSemana[v_dayPos] = 'X';
+      
+      $('#day'+v_dayPos).removeClass('fa-ban txtRojo');
+      $('#day'+v_dayPos).addClass('fa-check txtVerde');
+      
+    }
+    
+  }else{
+    
+    if(w_diasSemana[inDia] == ''){
+      w_diasSemana[inDia] = 'X';
+      $('#day'+inDia).removeClass('fa-ban txtRojo');
+      $('#day'+inDia).addClass('fa-check txtVerde');
+    }else{
+      w_diasSemana[inDia] = ''
+      $('#day'+inDia).addClass('fa-ban txtRojo');
+      $('#day'+inDia).removeClass('fa-check txtVerde');
+    }
+  
+  }
+  
+} // fcn_selDay
+
+
+$("#ModalAgregarPromo").on("shown.bs.modal", function () {
+	var w = document.getElementById("ModalAgregarPromo");
+	w.scrollTop = 0;
+});
+
+</script>
+
+
+<script>
+$(function() {
+    $("#new_FechaDesde").datepicker();
+    $("#new_FechaHasta").datepicker();
+});
+
+
+$( document ).ready(function() {
+  fcn_carga_promos();
+});
+
+</script>
+
+
+
+<body>
+<!-- Modal Agregar Producto -->
+<div class="modal fade" id="ModalAgregarPromo" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><div id="TituloModal"></div>
+        </div>
+        <div class="modal-body">
+        
+        <form class="form-horizontal" role="form">
+          
+        <div id="MAINModalAgregarPromo">
+            
+          <input name="cod_promo" id="cod_promo" type="hidden"/>
+          
+          <div id="div_alerta_modal"></div>
+	        
+	        <div class="form-group">
+	          <label class="control-label col-sm-3" for="new_Titulo">T&iacute;tulo:</label>
+	          <div class="col-sm-8">
+	            <input maxlength="50" autocomplete="" placeholder="Ej. Promo pizza + Gaseosa" autofocus="autofocus" class="form-control" required="required" name="new_Titulo" id="new_Titulo" type="text"/>
+	          </div>
+	        </div>
+	        
+	        <div class="form-group">
+	          <label class="control-label col-sm-3" for="new_Descripcion">Descripci&oacute;n:</label>
+	          <div class="col-sm-8">
+	            <input maxlength="400" autocomplete="" placeholder="Ej. 1 pizza a eleccion + Gaseosa de 600cc"  class="form-control" required="required" name="new_Descripcion" id="new_Descripcion" type="text"/>
+	          </div>
+	        </div>
+	        
+	        <div class="form-group">
+	          <label class="control-label col-sm-3" for="new_FechaDesde">Validez Desde:</label>
+	          <div class="col-sm-3">
+	            <input autocomplete="" readonly class="form-control" required="required" name="new_FechaDesde" id="new_FechaDesde" type="text"/>
+	          </div>
+
+	          <label class="control-label col-sm-2" for="new_FechaHasta">Hasta:</label>
+	          <div class="col-sm-3">
+	            <input autocomplete="" readonly class="form-control" required="required" name="new_FechaHasta" id="new_FechaHasta" type="text"/>
+	            <label style="font-size: 12px; color: #9E9E9E; cursor: pointer;"><input id="CBSinFeFin" onclick="fcn_fechaFin();" type="checkbox"/> Sin fecha de finalizaci&oacute;n</label>
+	          </div>
+	        </div>
+	        
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="new_Turno">Turno:</label>
+              <div class="col-sm-3">
+                <select class="form-control" name="new_Turno" id="new_Turno">
+                  <option value="">Todos</option>
+    
+                                    <option value="M" >
+                    Ma&ntilde;ana                  </option>
+                                    <option value="T" >
+                    Tarde                  </option>
+                                  </select>
+              </div>
+              
+  	          <label class="control-label col-sm-2" for="new_orden">Orden:</label>
+  	          <div class="col-sm-2">
+  	            <input maxlength="2" placeholder="Ej: 3" autocomplete="" class="form-control" required="required" name="new_orden" id="new_orden" type="number" min="0"/>
+  	          </div>
+              
+            </div>
+          
+    	    <div class="form-group">
+    	      <label class="control-label col-sm-3" for="new_IDTab">Tab:</label>
+    	      <div class="col-sm-3">
+    	        <select class="form-control" name="new_IDTab" id="new_IDTab"></select>
+    	      </div>
+    	      
+    	      <label class="control-label col-sm-2" for="new_color">Color:</label>
+    	      <div class="col-sm-2">
+    	        <input style="padding: 2px;" class="form-control" name="new_color" id="new_color" type="color" value=""/>
+    	      </div>
+    	    </div>
+          
+    	    <div class="form-group" id="divOpcionales">
+    	      <label class="control-label col-sm-3" for="IDOpcional">Opcionales:</label>
+    	      <div class="col-sm-7">
+
+              <select class="form-control" name="IDOpcional" id="IDOpcional">
+                <option value="">Opcional: Ninguno</option>
+                
+                                	  <option value="2">Opcional: Gratinado</option>';
+                	                  	  <option value="4">Opcional: Complementos</option>';
+                	                  	  <option value="5">Opcional: Cocción</option>';
+                	                  
+              </select>
+
+    	      </div>
+    	    </div>
+    	        
+    	    <div class="form-group">
+    	      <label class="control-label col-sm-3" for="new_descPorc">Descuento % sobre el total</label>
+    	      <div class="col-sm-1" style="text-align: left;">
+    	        <input onchange="fcn_click_descuento('PORC');" name="new_descPorc" type="checkbox" id="new_descPorc" data-toggle="toggle" data-on="<b>SI</b>" data-off="<b>NO</b>" data-onstyle="success" data-offstyle="danger"/>
+    	      </div>
+    	      
+    	      <label class="control-label col-sm-3" for="new_descFijo">Descuento FIJO en $</label>
+    	      <div class="col-sm-1" style="text-align: left;">
+    	        <input onchange="fcn_click_descuento('FIJO');" name="new_descFijo" type="checkbox" id="new_descFijo" data-toggle="toggle" data-on="<b>SI</b>" data-off="<b>NO</b>" data-onstyle="success" data-offstyle="danger"/>
+    	      </div>
+    	    </div>
+
+    	    <div class="form-group">
+    	      <label class="control-label col-sm-3" for="new_Precio" id="new_PrecioTXT">Precio final:</label>
+    	      <div class="col-sm-3">
+    	        <input autocomplete="" placeholder="0.00"  class="form-control" required="required" name="new_Precio" id="new_Precio" type="number" min="0" step="any"/>
+    	      </div>
+    	      
+    	      <label class="control-label col-sm-3" for="new_omitirSugerencia">Omitir sugerencia</label>
+    	      <div class="col-sm-1" style="text-align: left;">
+    	        <input name="new_omitirSugerencia" type="checkbox" id="new_omitirSugerencia" data-toggle="toggle" data-on="<b>SI</b>" data-off="<b>NO</b>" data-onstyle="success" data-offstyle="danger"/>
+    	      </div>
+    	    </div>
+    	    
+    	    <div class="form-group" id="contExcluirRubros">
+    	      <label class="control-label col-sm-3" for="exc_Rubros">Excluir rubros: </label>
+    	      <div class="col-sm-9">
+    	        <select id="exc_Rubros" class="selectpicker form-control" title="Excluir rubros" multiple data-live-search="true" data-selected-text-format="count>5" data-actions-box="true">
+    	                              <option value="1">Empanadas</option>
+                                        <option value="2">Pizzas</option>
+                                        <option value="3">Cortes</option>
+                                        <option value="4">Ingredientes</option>
+                                        <option value="5">Varios</option>
+                                        <option value="6">Papelera</option>
+                                        <option value="7">Bebidas</option>
+                                        <option value="8">Art. de Limpieza</option>
+                                        <option value="9">Imprenta</option>
+                                        <option value="10">Proveedores</option>
+                                        <option value="11">Enlatados</option>
+                                        <option value="12">Merchandising</option>
+                                        <option value="13">Indumentaria</option>
+                                        <option value="14">Consumo interno</option>
+                                        <option value="15">Flete</option>
+                                        <option value="16">Verduras</option>
+                                        <option value="17">Fiambres y Quesos</option>
+                                        <option value="18">Farmacia</option>
+                                        <option value="19">Varios 2</option>
+                                        <option value="20">Empanadas de Copetin</option>
+                                        <option value="21">Servicios </option>
+                                        <option value="22">Cajas</option>
+                                        <option value="24">CARNES DE PALETA</option>
+                                        <option value="25">CARNE CUADRADA</option>
+                                        <option value="26">Cafeteria</option>
+                                        <option value="27">Hamburguesas</option>
+                                        <option value="28">Ensaladas</option>
+                                        <option value="29">Postres</option>
+                                        <option value="30">Complementos</option>
+                                        <option value="31">Panchos</option>
+                                        <option value="32">Productos congelados</option>
+                                        <option value="33">Papelera (Locales propios)</option>
+                                        <option value="34">Empanadas gratinadas</option>
+                                        <option value="35">Solo franquicias</option>
+                                        <option value="36">Toppings</option>
+                        	        </select>
+    	      </div>
+    	    </div>
+
+          <div class="form-group wellNew sombraBox" >
+            <label class="col-sm-8" for="new_costo_devolucion">Devoluci&oacute;n al local por cada promo vendida </label>
+	          <div class="col-sm-3">
+	            <input autocomplete="" placeholder="0.00" class="form-control" required="required" name="new_costo_devolucion" id="new_costo_devolucion" type="number" min="0" step="any"/>
+            </div>
+          </div>
+          
+          <div class="form-group wellNew sombraBox">
+            <div class="center"><b>Aplicar por d&iacute;as de la semana</b></div><br>
+	          <div class="col-sm-12">
+	            <button type="button" class="btn btn-default" onclick="fcn_selDay(1);"><i class="fas fa-check txtVerde btnDays" id="day1"></i> LUNES</button>
+	            <button type="button" class="btn btn-default" onclick="fcn_selDay(2);"><i class="fas fa-check txtVerde btnDays" id="day2"></i> MARTES</button>
+	            <button type="button" class="btn btn-default" onclick="fcn_selDay(3);"><i class="fas fa-check txtVerde btnDays" id="day3"></i> MI&Eacute;RCOLES</button>
+	            <button type="button" class="btn btn-default" onclick="fcn_selDay(4);"><i class="fas fa-check txtVerde btnDays" id="day4"></i> JUEVES</button>
+	            <button type="button" class="btn btn-default" onclick="fcn_selDay(5);"><i class="fas fa-check txtVerde btnDays" id="day5"></i> VIERNES</button>
+	            <button type="button" class="btn btn-default" onclick="fcn_selDay(6);"><i class="fas fa-check txtVerde btnDays" id="day6"></i> S&Aacute;BADO</button>
+	            <button type="button" class="btn btn-default" onclick="fcn_selDay(0);"><i class="fas fa-check txtVerde btnDays" id="day0"></i> DOMINGO</button>
+            </div>
+          </div>
+
+          <div class="form-group wellNew sombraBox">
+
+            <label class="col-sm-8" for="new_web" style="padding: 8px;">Aparece en Te Pido WEB </label>
+            <div class="col-sm-2">
+              <input name="new_web" type="checkbox" id="new_web" data-toggle="toggle" data-on="<b>SI</b>" data-off="<b>NO</b>" data-onstyle="success" data-offstyle="danger"/>
+            </div>
+
+            <label class="col-sm-8" for="new_appmobile" style="padding: 8px;">Aparece en Te Pido APP MOBILE </label>
+            <div class="col-sm-2">
+              <input name="new_appmobile" type="checkbox" id="new_appmobile" data-toggle="toggle" data-on="<b>SI</b>" data-off="<b>NO</b>" data-onstyle="success" data-offstyle="danger"/>
+            </div>
+            
+            <div hidden>
+              <label class="col-sm-8" for="new_totem" style="padding: 8px;">Aparece en el sistema de pedidos TOTEM </label>
+              <div class="col-sm-2">
+                <input name="new_totem" type="checkbox" id="new_totem" data-toggle="toggle" data-on="<b>SI</b>" data-off="<b>NO</b>" data-onstyle="success" data-offstyle="danger"/>
+              </div>
+            </div>
+            
+          </div>
+          
+          <div id="confTit" class="form-group wellNewTitle sombraBox">
+            
+            <div class="configTitle"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configuraci&oacute;n</div>
+            <br>
+            <button type="button" onclick="fcn_addConfig('NEW');" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar configuraci&oacute;n</button>
+            
+            <div style="margin-top: 5px;" id="configContentMsj"></div>
+            
+            <div id="configContent">aaaa</div>
+            
+          </div>
+
+	        <div id="resultado_addpromo"></div>
+					
+				</div>
+				
+				<div id="LOADModalAgregarPromo"><center><img height="25" src="http://www.datalive.com.ar/shared/spin_loader.gif"> Preparando pantalla.. Espere un momento.</center></div>
+					
+				</form>
+        </div>
+        
+        <div class="modal-footer" style="text-align: center;">
+          <button type="button" id="btn_newpromo_ok" 		name="btn_newpromo_ok"     class="btn btn-primary" onclick="fcn_newpromo_ok();">Agregar</button>
+          <button type="button" id="btn_newpromo_cancel" name="btn_newpromo_cancel" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>    
+</body>
+</html>
