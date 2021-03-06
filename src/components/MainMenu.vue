@@ -198,7 +198,7 @@
               <a class="nav-link disabled" href="#">Disabled</a>
             </li>
           </ul>
-          <form class="form-inline my-2 my-lg-0">
+          <form class="form-inline my-2 my-lg-0" v-if="$store.getters.currentCashBox">
             <router-link class="dropdown-item" style="font-size: small;"   target = "_blank" to="/toma_de_pedidos" >Sistema<br>Ventas</router-link>
           </form>
         </div>

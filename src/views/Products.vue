@@ -12,7 +12,7 @@
             <b-form-select id="subRubro" v-model="selectedRubro" :options="lstRubros" class="mb-3" value-field="id" text-field="description" disabled-field="notEnabled" @change="cmbRubroChange()">
               <!-- This slot appears above the options from 'options' prop -->
               <template #first>
-                <b-form-select-option :value="null" disabled
+                <b-form-select-option :value="null"
                   >Rubros (TODOS)</b-form-select-option
                 >
               </template>
@@ -30,7 +30,7 @@
             >
               <!-- This slot appears above the options from 'options' prop -->
               <template #first>
-                <b-form-select-option :value="null" disabled
+                <b-form-select-option :value="null"
                   >Seleccione un Sub Rubro</b-form-select-option
                 >
               </template>
@@ -208,8 +208,9 @@ export default {
   },
 
   mounted() {
-    this.sucursal = this.$global.currentUser().sucursal.id;
-    this.sucursalDescription = this.$global.currentUser().sucursal.description;
+    var user = this.$global.getCurrentUser();
+    this.sucursal = user.sucursal.id;
+    this.sucursalDescription = user.sucursal.description;
     this.getProducts(0);
     this.getRubros();
     this.getSubRubros();

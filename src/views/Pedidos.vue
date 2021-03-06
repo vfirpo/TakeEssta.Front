@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{this.getCurrentUser().passwordHash}}</h1>
+    <h1>{{this.getCurrentUser().nickName}}</h1>
     <Comandas :source="this.dato"/>
   </div>
 </template>
@@ -27,7 +27,7 @@ export default {
       this.dato = await this.$global.callGetAPI('Comandas');
     },
     getCurrentUser:  function() {
-      return this.$global.currentUser();
+      return this.$global.getCurrentUser();
     }
   },
 };

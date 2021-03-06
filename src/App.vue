@@ -11,14 +11,7 @@ export default {
   components: {
     mainMenu,
   },
-  data() {
-    return {
-      dato: {
-        user: "",
-        pass: "",
-      },
-    };
-  },
+  
   mounted() { },
   methods: { },
 };

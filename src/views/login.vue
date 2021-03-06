@@ -103,7 +103,11 @@ export default {
       this.user = await this.$global.callGetAPI("Users/ValidateUser" + params);
 
       if (this.user.item) {
-        sessionStorage.setItem("User", JSON.stringify(this.user.item));
+        this.$global.setCurrentUser(this.user.item);
+        var caja = this.$global.getCurrentCashBox(this.user.item.sucursal.id );
+
+        this.$store.commit("changeCashBox", caja.isOpen);
+
         this.$router.go(-1); // .push('/')
       } else {
         this.alert.visible = true;

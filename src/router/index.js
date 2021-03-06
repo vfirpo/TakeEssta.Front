@@ -70,7 +70,7 @@ router.beforeEach((to, from, next) => {
 })
 
 function isAuthenticated(){
-  if (sessionStorage.getItem('User') && sessionStorage.getItem('User') !== ''){
+  if (sessionStorage.getItem('USER') && sessionStorage.getItem('USER') !== ''){
     return true;
   }
 }

@@ -1,27 +1,34 @@
 import Vue from 'vue'
 import Vuex, { Store } from 'vuex'
+import VuexPersistence from 'vuex-persist'
+
+const vuexPersist = new VuexPersistence({
+  key: 'vuex',
+  storage: window.sessionStorage
+})
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    loginUser: null,
-    products: null,
+    currentCashBox: false,
   },
+  
+  plugins: [vuexPersist.plugin],
+
   mutations: {
-    changeUser(state, loginUser){
-      state.loginUser = loginUser
+    changeCashBox(state, xcurrentCashBox){
+
+    state.currentCashBox = xcurrentCashBox
     },
-    changeProducts(state, products){
-      state.products = products
-    }
   },
   actions: {
   },
   modules: {
   },
   getters:{
-    loginUser: state => state.loginUser,
-    products: state => state.products
+    currentCashBox(state){
+      return state.currentCashBox;
+    }
   }
 })

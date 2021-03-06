@@ -1,6 +1,9 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
+    
+    <h1>Valor de Vuex ??? {{$store.getters.currentCashBox}}</h1>
+    
     <HelloWorld
       id="hello"
       ref="hwid"
@@ -49,6 +52,7 @@ export default {
   },
 
   mounted() {
+
     this.getComandas();
   },
 

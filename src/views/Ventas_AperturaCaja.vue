@@ -99,6 +99,10 @@ export default {
         UserId: 3,
       });
 
+      this.$global.setCurrentCashBox(val.items[0]);
+
+      this.$store.commit("changeCashBox", val.items[0].isOpen);
+
       if (val && val.items) {
         this.$router.push("/Ventas_HistorialDeCaja");
       }
@@ -107,6 +111,7 @@ export default {
         this.alert.visible = true;
       }
     },
+
     async getlastCaja() {
       let val = await this.$global.callGetAPI("Cajas/GetLast?sucursal=1");
 

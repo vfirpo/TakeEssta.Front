@@ -3,11 +3,38 @@ import axios from 'axios';
 export var Global = {
      urlAPI: "http://localhost:8080/api/",
 
+     setCurrentCashBox(cashBox){
+        sessionStorage.setItem("CURRENT_CASH_BOX", JSON.stringify(cashBox));
+     },
 
-     currentUser(){
-        let r = JSON.parse(sessionStorage.getItem("User"));
+     async getCurrentCashBox(){
+        let r = JSON.parse(sessionStorage.getItem("CURRENT_CASH_BOX"));
         if (r) {return r;}
-        else { sessionStorage.removeItem("User"); }
+        else { 
+
+            var sucId = this.getCurrentUser().sucursal.id;
+
+
+            var val = await this.callGetAPI("Cajas/GetLast?sucursal=" + sucId);
+
+
+            if (val && val.items[0].isOpen) {
+                this.setCurrentCashBox(val.items[0]);
+                
+                return val;
+            }
+            return null;
+        }
+     },
+
+     setCurrentUser(user){
+        sessionStorage.setItem("USER", JSON.stringify(user));
+    },
+
+     getCurrentUser(){
+        let r = JSON.parse(sessionStorage.getItem("USER"));
+        if (r) {return r;}
+        else { sessionStorage.removeItem("USER"); }
     },
 
      async callGetAPI(EndPoint, params){
