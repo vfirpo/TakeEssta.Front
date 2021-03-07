@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>{{this.getCurrentUser().nickName}}</h1>
     <Comandas :source="this.dato"/>
   </div>
 </template>
@@ -20,6 +19,7 @@ export default {
   },
    mounted() {
     document.getElementById("header_principal").hidden = true;
+
     this.getComandas();
   },
   methods: {

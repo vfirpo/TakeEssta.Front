@@ -18,10 +18,10 @@ export var Global = {
             var val = await this.callGetAPI("Cajas/GetLast?sucursal=" + sucId);
 
 
-            if (val && val.items[0].isOpen) {
+            if (val && val.items[0]) {
                 this.setCurrentCashBox(val.items[0]);
                 
-                return val;
+                return val.items[0];
             }
             return null;
         }

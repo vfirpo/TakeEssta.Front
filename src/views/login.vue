@@ -104,8 +104,8 @@ export default {
 
       if (this.user.item) {
         this.$global.setCurrentUser(this.user.item);
-        var caja = this.$global.getCurrentCashBox(this.user.item.sucursal.id );
-
+        var caja = await this.$global.getCurrentCashBox(this.user.item.sucursal.id );
+        console.log(caja);
         this.$store.commit("changeCashBox", caja.isOpen);
 
         this.$router.go(-1); // .push('/')

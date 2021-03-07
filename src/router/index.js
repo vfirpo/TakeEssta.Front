@@ -65,7 +65,14 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.name !== 'Login' && !isAuthenticated()) next({ name: 'Login' })
+  if (to.name !== 'Login' && !isAuthenticated()){
+    if (to.fullPath.startsWith('/toma_de_pedidos')){
+      next();
+    }
+    else{
+      next({ name: 'Login' })
+    }
+  } 
   else next()
 })
 
