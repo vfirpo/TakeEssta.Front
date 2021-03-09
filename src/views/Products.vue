@@ -176,15 +176,30 @@
       </b-container>
     </b-modal>
     <!-- END Modal confirmar borrar Productos -->
+    <!-- Modal alta y modificacion de Productos -->
+    <b-modal id="my-CRUD-modal"
+      size="md"
+      ref="my-CRUD-modal"
+      hide-footer
+      hide-header-close
+      no-close-on-esc
+      no-close-on-backdrop>
+      <crudProducts :currentProduct="itemToChange" :lstRubros="lstRubros" :lstSubRubros="lstSubRubros" 
+      :lstMarcas="lstMarcas" :lstUnits="lstUnits" :newProduct="newProduct" :lstBehaviours="lstBehaviours" @cancelEdition="cancelEdition()" />
+    </b-modal>
+
+    <!-- END Modal alta y modificacion de Productos -->
   </div>
 </template>
 
 <script>
 import pagination from "@/components/Pagination.vue";
+import crudProducts from '../components/CRUD_Products.vue';
 
 export default {
   components: {
     pagination,
+    crudProducts,
   },
 
   name: "products",
@@ -198,12 +213,16 @@ export default {
       sucursal: 0,
       sucursalDescription: "",
       alert: { text: "", visible: false, seconds: 0 },
-      itemToChange: null,
+      itemToChange: Object,
+      lstBehaviours: null,
       lstRubros: null,
       selectedRubro: null,
       selectedSubRubro: null,
       lstSubRubros: null,
       lstFilteredSubRubros: null,
+      lstMarcas: null,
+      lstUnits: null,
+      newProduct: false,
     };
   },
 
@@ -214,6 +233,8 @@ export default {
     this.getProducts(0);
     this.getRubros();
     this.getSubRubros();
+    this.getProductsBrands();
+    this.getUnits();
   },
 
   methods: {
@@ -221,7 +242,7 @@ export default {
       if (page > 0) {
         this.currentPage = page;
       }
-
+      
       let params =
         "?sucursalId=" +
         this.sucursal +
@@ -261,6 +282,26 @@ export default {
       this.lstSubRubros = lstSubRubros.items;
     },
 
+    async getProductsBrands() {
+      var lstMarcas = await this.$global.callGetAPI(
+        "TableProperties/GetProductBrands"
+      );
+      this.lstMarcas = lstMarcas.items;
+    },    
+    async getUnits() {
+      var lstUnits = await this.$global.callGetAPI(
+        "TableProperties/GetAllUnits"
+      );
+      this.lstUnits = lstUnits.items;
+    },    
+
+    async getBehaviours() {
+        var lstBehaviours = await this.$global.callGetAPI(
+          "Behaviours/GetAll"
+        );
+        this.lstBehaviours = lstBehaviours.items;
+    },    
+
     closeModal() {
       this.$bvModal.hide("my-confirm-modal");
     },
@@ -287,10 +328,6 @@ export default {
       this.$bvModal.show("my-confirm-modal");
     },
 
-    async addProducts() {
-      alert("Aca llamamos al modal de alta de productos");
-    },
-
     cmbRubroChange() {
       var sr = this.lstSubRubros.filter((x) => x.rubroId == this.selectedRubro);
       this.lstFilteredSubRubros = sr;
@@ -305,6 +342,24 @@ export default {
     countDownChanged(dismissCountDown) {
       this.alert.seconds = dismissCountDown;
     },
+    /* funciones del modal de alta y edicion de productos */
+    editThisProduct(idProduct){
+      this.newProduct = false;
+      this.itemToChange = this.items.items.filter(x => x.id == idProduct)[0]
+      this.$bvModal.show("my-CRUD-modal");
+
+    },
+
+    async addProducts() {
+      this.newProduct = true;
+      this.$bvModal.show("my-CRUD-modal");
+    },
+
+    async cancelEdition() {
+      this.$bvModal.hide("my-CRUD-modal");
+    },
+
+    /* FIN de funciones del modal de alta y edicion de productos */
   },
 };
 </script>

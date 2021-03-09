@@ -187,7 +187,9 @@ export default {
     },
 
     abrirEstaCaja(idCaja) {
-      alert("Esta es la Caja " + idCaja);
+
+      this.$router.push({ name: 'cashBox', params: { id: idCaja }});
+
     },
     getDate(value) {
       return this.$global.formatDate(value);

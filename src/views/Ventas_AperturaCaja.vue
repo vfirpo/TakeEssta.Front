@@ -91,12 +91,13 @@ export default {
   },
   methods: {
     async abrirCaja() {
+      let user = this.$global.getCurrentUser();
       let val = await this.$global.callPostAPI("Cajas/CrearCaja", {
         FechaApertura: this.fecha,
-        SucursalId: 1,
+        SucursalId: user.sucursal.id,
         Turno: this.turno,
         InicioDeCaja: this.importeInicial,
-        UserId: 3,
+        UserId: user.id,
       });
 
       this.$global.setCurrentCashBox(val.items[0]);

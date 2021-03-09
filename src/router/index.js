@@ -7,6 +7,7 @@ import verclientes from '../views/Clientes_VerClientes.vue'
 import historialDeCaja from '../views/Ventas_HistorialDeCaja.vue'
 import aperturaDeCaja from '../views/Ventas_AperturaCaja.vue'
 import products from '../views/Products.vue'
+import cashBox from '../views/CashBox.vue'
 
 
 
@@ -55,6 +56,11 @@ const routes = [
     path: '/Products',
     name: 'products',
     component: products
+  },
+  {
+    path: '/CashBox/:id',
+    name: 'cashBox',
+    component: cashBox
   },
 ]
 

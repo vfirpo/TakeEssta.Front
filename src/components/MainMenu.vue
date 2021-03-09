@@ -213,6 +213,9 @@
 export default {
   name: "mainMenu",
 
+  mounted(){
+  }
+
 }
 </script>
 

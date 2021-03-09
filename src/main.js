@@ -13,6 +13,9 @@ import Vuelidate from 'vuelidate'
 import BootstrapVue from 'bootstrap-vue'
 import VCalendar from 'v-calendar'
 import {Global} from './assets/Global'
+import VueLodash from 'vue-lodash'
+import lodash from 'lodash'
+ 
 
 library.add(fas)
 
@@ -25,6 +28,8 @@ Vue.use(BootstrapVue);
 Vue.use(VCalendar, {
   componentPrefix: 'vc',
 });
+// name is optional
+Vue.use(VueLodash, { name: 'custom' , lodash: lodash })
 
 Vue.prototype.$global = Global
 
