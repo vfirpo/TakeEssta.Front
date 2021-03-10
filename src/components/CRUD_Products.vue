@@ -1,20 +1,20 @@
 <template>
   <div class="container">
-    <div class="p-5 items-center">
-    <b-row>
-        <label for="ipCode">Codigo</label>
-        <input type="text" name="ipCode" id="ipCode" v-model="currentProduct.code" >
+    <div class="p-2 pb-1 items-center">
+    <b-row class="p-1">
+        <label class="" for="ipCode">Codigo</label>
+        <input class="ml-auto rounded" type="text" name="ipCode" id="ipCode" v-model="currentProduct.code" >
     </b-row>
-    <b-row>
-        <label for="ipDescription">Descripcion</label>
-        <input type="text" name="ipDescription" id="ipDescription" v-model="currentProduct.description" >
+    <b-row class="p-1">
+        <label class="" for="ipDescription">Descripcion</label>
+        <input class="ml-auto rounded" type="text" name="ipDescription" id="ipDescription" v-model="currentProduct.description" >
     </b-row>
-    <b-row>
+    <b-row class="p-1">
         <label for="ipExtendedDescription">Detalle</label>
-        <input type="text" name="ipExtendedDescription" id="ipExtendedDescription" v-model="currentProduct.extendedDescription">
+        <input class="ml-auto rounded" type="text" name="ipExtendedDescription" id="ipExtendedDescription" v-model="currentProduct.extendedDescription">
     </b-row>
     <b-row>
-        <label for="cmbMarcas">Marca</label>
+        <label class="" for="cmbMarcas">Marca</label>
             <b-form-select id="cmbMarcas" v-model="selectedMarca" :options="lstMarcas" class="mb-3" value-field="id" text-field="description" disabled-field="notEnabled">
               <!-- This slot appears above the options from 'options' prop -->
               <template #first>
@@ -53,17 +53,17 @@
               </template>
             </b-form-select>
     </b-row>
-    <b-row>
-        <label for="ipEAN">Codido de Barra (EAN)</label>
-        <input type="number" name="ipEAN" id="ipEAN" v-model="currentProduct.ean">
+    <b-row class="p-1">
+        <label class="" for="ipEAN">Codido de Barra (EAN)</label>
+        <input class="ml-auto rounded" type="number" name="ipEAN" id="ipEAN" v-model="currentProduct.ean">
     </b-row>
-    <b-row>
-        <label for="ipPedidoMinimo">Pedido Minimo</label>
-        <input type="number" name="ipPedidoMinimo" id="ipPedidoMinimo">
+    <b-row class="p-1">
+        <label class="" for="ipPedidoMinimo">Pedido Minimo</label>
+        <input class="ml-auto rounded" type="number" name="ipPedidoMinimo" id="ipPedidoMinimo">
     </b-row>
-    <b-row>
-        <label for="ipExternalCode">Codigo Externo</label>
-        <input type="text" name="ipExternalCode" id="ipExternalCode" v-model="currentProduct.externalCode">
+    <b-row class="p-1">
+        <label class="" for="ipExternalCode">Codigo Externo</label>
+        <input class="ml-auto rounded" type="text" name="ipExternalCode" id="ipExternalCode" v-model="currentProduct.externalCode">
     </b-row>
     <b-row>
         <div class="container sombraBox" >
@@ -71,7 +71,7 @@
             <h3>Lista de Combos para Beaviours</h3>
         </div>
     </b-row>
-    <b-row>
+    <b-row class="mt-1">
         <b-button class="p-2 m-2" variant="success" @click="confirmChanges()">
         Aceptar
         </b-button>

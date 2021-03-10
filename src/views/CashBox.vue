@@ -110,25 +110,24 @@ export default {
 
     data(){
         return {
-            cashBoxToView: Object,
+            cashBoxToView: {},
         }
     },
 
-    mounted() {
+    async mounted() {
         let cashBoxId = this.$route.params.id;
-        let ret = this.getCashBox(cashBoxId);
+        let ret = await this.getCashBox(cashBoxId);
         this.cashBoxToView = ret;
-        console.log(this.cashBoxToView);
     },
 
     methods: {
         async getCashBox(id){
            let resp = await this.$global.callGetAPI('Cajas/GetById', {params: { idCaja: id }})
-           if (resp.items.count() > 0) {
+           if (resp) {
                return resp.items[0];
            }
            else{
-               throw resp.message;
+               throw cb.message;
            }
        },
     }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="border-radius: 4px; padding: 10px; background-color: #cc7a29">
+    <div style="border-radius: 4px; padding: 10px; background-color: #cc7a29;">
       <h3 style="color: #fff">Productos - Ver Productos</h3>
     </div>
     <div style="text-align: center">

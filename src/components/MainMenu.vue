@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <header id="header_principal" class="header" >
-      <nav class="navbar navbar-expand-lg navbar-light bg-light sombraBox" > <!--style="position:fixed"> -->
+  <div style="padding-top:55px">
+    <header id="header_principal" class="header">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light sombraBox fixed-top scrolling-navbar top-navbar-collapse"> <!--style="position:fixed"> -->
         <a class="navbar-brand" href="#">
           <img
             style="height: 22px"
@@ -20,7 +20,6 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
