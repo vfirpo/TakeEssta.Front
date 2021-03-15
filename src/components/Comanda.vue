@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div  id="list_comandas" >
     <div v-for="comanda in source"
         :key="comanda.id">
       <div 
@@ -97,6 +98,7 @@
         </div>
       </div>
     </div>
+    </div>
 
     <div v-if="source" id="tfootMostrador" style="display: block;">
 					  	<div class="divTotCol1" id="totComMost">Comandas: {{source.length}}</div>
@@ -113,8 +115,20 @@ import "@fortawesome/free-solid-svg-icons";
 export default {
   name: "Comanda",
   props: {
-    source: null,
     cajaAbierta: true,
+  },
+  data() {
+    return {
+      source: {}
+    }
+  },
+
+  mounted(){
+    this.getComandas();
+    this.windowonload();
+    //document.getElementById("header_principal").hidden = true;
+    //document.getElementById("spinner").hidden = true;
+    //document.getElementById("list_comandas").hidden = "false";
   },
   methods: {
     getComandaStyle(com){
@@ -127,7 +141,22 @@ export default {
       else{
         return 'border-color: green'
       }
+    },
+    windowonload : function () {
+      console.log('paseporelwindowonloadinutil');
+      let contenedor = this.$refs['contenedor_carga']; //Document.getElementById ('contenedor_carga');
+      contenedor.style.visibility('hidden');
+      contenedor.style.opacity ('0');
+  },
+
+    async getComandas() {
+      this.source = await this.$global.callGetAPI('Comandas');
+    },
+
+    getCurrentUser:  function() {
+      return this.$global.getCurrentUser();
     }
+
   },
 };
 </script>
