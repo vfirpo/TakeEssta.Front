@@ -9,20 +9,20 @@
         aria-haspopup="true"
         aria-expanded="false"
       >
-        opciones
+        Opciones
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#">Ver resumen de caja</a>
-        <a class="dropdown-item" href="#">Ver pedidos por empleados motos</a>
-        <a class="dropdown-item" href="#">Ver ventas por volumen</a>
-        <a class="dropdown-item" href="#">sonido activado</a>
-        <a class="dropdown-item" href="#">cambiar grilla</a>
-        <a class="dropdown-item" href="#">reiniciar</a>
+        <a class="dropdown-item" href="#">Ver Resumen De Caja</a>
+        <a class="dropdown-item" href="#">Ver Pedidos Por Empleados Motos</a>
+        <a class="dropdown-item" href="#">Ver Ventas Por Volumen</a>
+        <a class="dropdown-item" href="#">Sonido Activado</a>
+        <a class="dropdown-item" href="#">Cambiar Grilla</a>
+        <a class="dropdown-item" href="#">Reiniciar</a>
       </div>
     </div>
     <div class="row p-1 ml-2">
       <div class="p-1">
-      <button class="p-1">actualizar grilla</button>
+      <button class="p-1">Actualizar Grilla</button>
       </div>
       <div class="dropdown p-1">
         <button
@@ -33,28 +33,28 @@
           aria-haspopup="true"
           aria-expanded="false"
         >
-          editar filtros
+          Editar Filtros
         </button>
         <div class="dropdown-menu" aria-labelledby="editar-filtros">
-          <a @click="aplicFilter(1);" :style="(filter.rendidas) ? 'background-color: #4CAF50' : 'background-color: #f44336'"   class="dropdown-item" href="#">Ver comandas rendidas entregadas</a>
-          <a @click="aplicFilter(2);" :style="(filter.anuladas) ? 'background-color: #4CAF50' : 'background-color: #f44336'" class="dropdown-item" href="#">Ver comandas anuladas</a>
-          <a @click="aplicFilter(3);" :style="(filter.cobradas) ? 'background-color: #4CAF50' : 'background-color: #f44336'" class="dropdown-item" href="#">Ver comandas cobradas</a>
-          <a @click="aplicFilter(4);" :style="(filter.sinCobrar) ? 'background-color: #4CAF50' : 'background-color: #f44336'" class="dropdown-item" href="#">Ver comandas sin cobrar</a>
-          <a @click="aplicFilter(5);" :style="(filter.efectivo) ? 'background-color: #4CAF50' : 'background-color: #f44336'" class="dropdown-item" href="#">Ver comandas efectivo</a>
-          <a @click="aplicFilter(6);" :style="(filter.electronico) ? 'background-color: #4CAF50' : 'background-color: #f44336'" class="dropdown-item" href="#">Ver comandas tarjeta</a>
+          <a @click="setFilters(1);" :style="(filter.rendidas) ? 'background-color: #4CAF50' : 'background-color: #f44336'"   class="dropdown-item" href="#">Ver Comandas Rendidas Entregadas</a>
+          <a @click="setFilters(2);" :style="(filter.anuladas) ? 'background-color: #4CAF50' : 'background-color: #f44336'" class="dropdown-item" href="#">Ver Comandas Anuladas</a>
+          <a @click="setFilters(3);" :style="(filter.cobradas) ? 'background-color: #4CAF50' : 'background-color: #f44336'" class="dropdown-item" href="#">Ver Comandas Cobradas</a>
+          <a @click="setFilters(4);" :style="(filter.sinCobrar) ? 'background-color: #4CAF50' : 'background-color: #f44336'" class="dropdown-item" href="#">Ver Comandas Sin Cobrar</a>
+          <a @click="setFilters(5);" :style="(filter.efectivo) ? 'background-color: #4CAF50' : 'background-color: #f44336'" class="dropdown-item" href="#">Ver Comandas Efectivo</a>
+          <a @click="setFilters(6);" :style="(filter.electronico) ? 'background-color: #4CAF50' : 'background-color: #f44336'" class="dropdown-item" href="#">Ver Comandas Tarjeta</a>
         </div>
       </div>
       <div class="p-1">
-      <button class="p-1">buscar</button>
+      <button class="p-1">Buscar</button>
       </div>
-      <h5>trabajando en modo online</h5>
+      <h5>Trabajando En Modo Online</h5>
     </div>
     <div class="row p-1 ml-2">
       <div class="p-1">
-      <button class="p-1">Asignacion de motos</button>
+      <button class="p-1">Asignacion De Motos</button>
       </div>
       <div class="p-1">
-      <button class="p-1">Rendir envio completo</button>
+      <button class="p-1">Rendir Envio Completo</button>
       </div>
     </div>
   </div>
@@ -72,7 +72,19 @@ export default {
         efectivo: Boolean,
         electronico: Boolean   
     }
-  }  
+  },
+
+  methods: {
+    setFilters(val){
+      if (val == 1) {filter.rendidas = !filter.rendidas}
+      if (val == 2) {filter.anuladas = !filter.anuladas}
+      if (val == 3) {filter.cobradas = !filter.cobradas}
+      if (val == 4) {filter.sinCobrar = !filter.sinCobrar}
+      if (val == 5) {filter.efectivo = !filter.efectivo}
+      if (val == 6) {filter.electronico = !filter.electronico}
+    }
+
+  },
 };
 
 </script>

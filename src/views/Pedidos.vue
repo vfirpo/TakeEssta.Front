@@ -13,11 +13,11 @@
         <orderMainPanel :filter="filter"/>
         </div>
         <div class="col">
-        <div class= "align items-end">
-          <button type="button" class="btn btn-primary p-3 m-3">
+        <div class= "d-flex flex-row-reverse bd-highlight">
+          <button type="button" class="btn btn-primary p-3 m-3 me-3">
             tomar pedido mostrador
           </button>
-          <button type="button" class="btn btn-secondary p-3 m-3">
+          <button type="button" class="btn btn-secondary p-3 m-3 me-3">
             tomar pedido delivery
           </button>
         </div>
@@ -53,13 +53,15 @@ export default {
       },
     };
   },
-   beforeMount() {
+
+  mounted() {
     document.getElementById("header_principal").hidden = true;
 
     this.setDefaultFilters();
 
     this.windowonload();
   },
+  
   methods: {
     async getComandas() {
       this.dato = await this.$global.callGetAPI("Comandas");
