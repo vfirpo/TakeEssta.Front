@@ -69,7 +69,6 @@
 </template>
 
 <script>
-import { Global } from "../assets/Global";
 
 export default {
   name: "aperturaDeCaja",

@@ -1,6 +1,6 @@
 module.exports = {
     devServer: {
-      proxy: "https://192.168.1.52:5001/"
+      proxy: "https://192.168.1.21:5001/"
     },
 
     chainWebpack: config => {
