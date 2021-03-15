@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div>
+      <b-spinner label="spining"></b-spinner>
+    </div>
     <Comandas :source="this.dato"/>
   </div>
 </template>
@@ -17,7 +20,7 @@ export default {
       dato: null,
     };
   },
-   mounted() {
+   beforeMount() {
     document.getElementById("header_principal").hidden = true;
 
     this.getComandas();

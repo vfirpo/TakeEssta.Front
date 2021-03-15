@@ -163,7 +163,7 @@ export default {
       alert: { text: "", visible: false, seconds: 0 },
     };
   },
-  mounted() {
+  beforeMount() {
     this.getCajas(1);
   },
   methods: {
