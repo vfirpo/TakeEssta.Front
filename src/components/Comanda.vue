@@ -143,7 +143,6 @@ export default {
       }
     },
     windowonload : function () {
-      console.log('paseporelwindowonloadinutil');
       let contenedor = this.$refs['contenedor_carga']; //Document.getElementById ('contenedor_carga');
       contenedor.style.visibility('hidden');
       contenedor.style.opacity ('0');

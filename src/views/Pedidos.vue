@@ -53,15 +53,14 @@ export default {
       },
     };
   },
-
-  mounted() {
+   mounted() {
     document.getElementById("header_principal").hidden = true;
 
     this.setDefaultFilters();
 
     this.windowonload();
   },
-  
+
   methods: {
     async getComandas() {
       this.dato = await this.$global.callGetAPI("Comandas");

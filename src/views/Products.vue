@@ -353,6 +353,7 @@ export default {
 
     async addProducts() {
       this.newProduct = true;
+      this.itemToChange = new Object;
       this.$bvModal.show("my-CRUD-modal");
     },
 

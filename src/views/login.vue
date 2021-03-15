@@ -11,7 +11,6 @@
 
         <div id="loginMain" class="sombraBox">
           <div id="txtIS">Iniciar sesión</div>
-
           <input
             style="height: 45px"
             class="form-control inputNew"
@@ -21,6 +20,7 @@
             placeholder="Usuario"
             autofocus="autofocus"
             v-model="dato.user"
+            @keyup.enter="keyPress();"
             @change="hiddenAlert()"
           />
           <br />
@@ -32,16 +32,15 @@
             id="passw"
             placeholder="Contraseña"
             v-model="dato.pass"
+            @keyup.enter="keyPress();"
             @change="hiddenAlert()"
           />
           <br />
           <button
             id="btn_login"
-            v-on:click="fcn_login()"
             style="width: 100%"
-            type="button"
-            class="btn btn-primary"
-          >
+            type="submit"
+            class="btn btn-primary" default >
             Iniciar sesión
           </button>
           <div id="div_mensajeNew">
@@ -93,11 +92,15 @@ export default {
   },
 
   methods: {
+    keyPress: function(e) {
+        this.fcn_login();
+    },
     hiddenAlert() {
       this.alert.visible = false;
     },
 
     async fcn_login() {
+
       let params = "?user=" + this.dato.user + "&password=" + this.dato.pass;
 
       this.user = await this.$global.callGetAPI("Users/ValidateUser" + params);
