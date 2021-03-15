@@ -101,7 +101,7 @@
                   {{ item.rubro.description }}
                 </td>
                 <td>
-                  {{ item.subRubro.description }}
+                  {{ (item.subRubro == null) ? '' : item.subRubro.description }}
                 </td>
                 <td>
                   {{ item.productBrand.description }}
@@ -226,7 +226,7 @@ export default {
     };
   },
 
-  mounted() {
+  beforeMount() {
     var user = this.$global.getCurrentUser();
     this.sucursal = user.sucursal.id;
     this.sucursalDescription = user.sucursal.description;
@@ -235,6 +235,7 @@ export default {
     this.getSubRubros();
     this.getProductsBrands();
     this.getUnits();
+    this.getBehaviours();
   },
 
   methods: {

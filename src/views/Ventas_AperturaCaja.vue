@@ -85,7 +85,7 @@ export default {
     };
   },
 
-  mounted() {
+  beforeMount() {
     this.getlastCaja();
   },
   methods: {

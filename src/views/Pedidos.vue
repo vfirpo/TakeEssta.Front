@@ -53,7 +53,7 @@ export default {
       },
     };
   },
-  mounted() {
+   beforeMount() {
     document.getElementById("header_principal").hidden = true;
 
     this.setDefaultFilters();

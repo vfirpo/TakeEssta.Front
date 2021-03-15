@@ -76,7 +76,7 @@ export var Global = {
         .put(this.urlAPI + EndPoint, params,  {
             headers: {
                 'Content-Type': 'application/json'
-            }, params
+            }
         })
         .then(resp => {
             if (resp.status == 200)
