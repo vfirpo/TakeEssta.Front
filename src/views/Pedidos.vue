@@ -26,7 +26,7 @@
               class="d-inline-block align-top"
             />
           </a>
-          <h5>Caja: 80246 - Martes 16/03/2021 Turno: Mañana</h5>
+          <h5>Caja: {{ cashBox.id }} - {{ cashBox.fechaApertura }} Turno: {{ cashBox.turno }}</h5>
           <h5>Lita Actual-General</h5>
           <img style="height: 30px" src="../assets/logo.png" alt="" />
         </div>
@@ -64,7 +64,6 @@
                 <div class="p-1">
                   <b-form-checkbox
                     id="checkbox-1"
-                    v-model="status"
                     name="checkbox-1"
                     value="accepted"
                     unchecked-value="not_accepted"
@@ -129,7 +128,14 @@ export default {
         efectivo: Boolean,
         electronico: Boolean,
       },
+      cashBox: Object,
+      user: Object,
     };
+  },
+
+  beforeMount(){
+    this.cashBox = this.$global.getCurrentCashBox();
+    this.user = this.$global.getCurrentUser();
   },
 
   mounted() {

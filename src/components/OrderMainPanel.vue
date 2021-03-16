@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="dropdown row p-1 ml-2">
-      <div class="col-2 pt-5">
+      <div class="col-2">
         <button
           style="height: 35px; background-repeat: no-repeat"
           class="btn-xs btn btn-secondary dropdown-toggle p-1"
@@ -13,13 +13,17 @@
         >
           <i class="fas fa-ellipsis-v"></i> Opciones
         </button>
+                <div class="bg-danger col-4">
+          <i
+            class="fas fa-exclamation-triangle"
+            style="color: #ffeb3b; margin-right: 5px"
+          ></i>
+          <b>ATENCIÓN!</b> Llegó al tope de caja. Realice el alivio correspondiente
+        </div>
+
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#"
-            ><i class="fas fa-cash-register"></i> Ver Resumen De Caja</a
-          >
-          <a class="dropdown-item" href="#"
-            ><i class="fas fa-chart-bar"></i> Ver Pedidos Por Empleados Motos</a
-          >
+          <a class="dropdown-item" href="#"><i class="fas fa-cash-register"></i> Ver Resumen De Caja</a>
+          <a class="dropdown-item" href="#"><i class="fas fa-chart-bar"></i> Ver Pedidos Por Empleados Motos</a>
           <a class="dropdown-item" href="#"
             ><i class="fas fa-chart-line"></i> Ver Ventas Por Volumen</a
           >
@@ -33,19 +37,6 @@
             ><i class="fas fa-power-off"></i> Reiniciar</a
           >
         </div>
-      </div>
-      <div class="col p-1">
-        <b-alert show variant="danger">
-          <div>
-          <i
-            class="fas fa-exclamation-triangle"
-            style="color: #ffeb3b; margin-right: 5px"
-          ></i>
-          <b>ATENCIÓN!</b> Llegó al tope de caja.
-          
-            Realice el alivio correspondiente
-          </div>
-        </b-alert>
       </div>
     </div>
     <div class="row p-1 ml-2">
