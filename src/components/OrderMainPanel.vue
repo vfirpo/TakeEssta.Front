@@ -63,27 +63,32 @@
 <script>
 export default {
   name: "orderMainPanel",
+    emits:{
+    updateFilter: {}
+  },
   props: {
-    filter:{
+    filter: {
         rendidas: Boolean,
         anuladas: Boolean,
         cobradas: Boolean,
         sinCobrar: Boolean,
         efectivo: Boolean,
         electronico: Boolean   
-    }
+    },
+
   },
 
   methods: {
     setFilters(val){
-      if (val == 1) {filter.rendidas = !filter.rendidas}
-      if (val == 2) {filter.anuladas = !filter.anuladas}
-      if (val == 3) {filter.cobradas = !filter.cobradas}
-      if (val == 4) {filter.sinCobrar = !filter.sinCobrar}
-      if (val == 5) {filter.efectivo = !filter.efectivo}
-      if (val == 6) {filter.electronico = !filter.electronico}
-    }
+      if (val == 1) {this.filter.rendidas    = !this.filter.rendidas;}
+      if (val == 2) {this.filter.anuladas    = !this.filter.anuladas;}
+      if (val == 3) {this.filter.cobradas    = !this.filter.cobradas;}
+      if (val == 4) {this.filter.sinCobrar   = !this.filter.sinCobrar;}
+      if (val == 5) {this.filter.efectivo    = !this.filter.efectivo;}
+      if (val == 6) {this.filter.electronico = !this.filter.electronico;}
 
+      this.$emit('updateFilter', this.filter)
+    },
   },
 };
 

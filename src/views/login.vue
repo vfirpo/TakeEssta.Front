@@ -40,6 +40,7 @@
             id="btn_login"
             style="width: 100%"
             type="submit"
+            @click="fcn_login()"
             class="btn btn-primary" default >
             Iniciar sesión
           </button>
@@ -102,7 +103,6 @@ export default {
     async fcn_login() {
 
       let params = "?user=" + this.dato.user + "&password=" + this.dato.pass;
-
       this.user = await this.$global.callGetAPI("Users/ValidateUser" + params);
 
       if (this.user.item) {

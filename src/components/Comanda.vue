@@ -102,7 +102,7 @@
 
     <div v-if="source" id="tfootMostrador" style="display: block;">
 					  	<div class="divTotCol1" id="totComMost">Comandas: {{source.length}}</div>
-					  	<div class="divTotCol2" id="totPrecioMost">Total ${{source.reduce((sum, v) => ( sum + v.importe ), 0)}}</div>
+					  	<div class="divTotCol2" id="totPrecioMost">Total ${{ getTotalComandas() }}</div>
 					  </div>
   </div>
 </template>
@@ -119,18 +119,24 @@ export default {
   },
   data() {
     return {
-      source: {}
+      source: []
     }
+  },
+
+  updated(){
+    this.spinnerOff();
   },
 
   mounted(){
     this.getComandas();
-    this.windowonload();
-    //document.getElementById("header_principal").hidden = true;
-    //document.getElementById("spinner").hidden = true;
-    //document.getElementById("list_comandas").hidden = "false";
   },
   methods: {
+    getTotalComandas(){
+      let sum = 0;
+      if (this.source !== null ) { this.source.forEach(item => { sum += item.importe } ) }
+      return sum;
+    },
+
     getComandaStyle(com){
       if (com.comandaId % 2 === 0) {
         return 'border-color: blue'
@@ -142,10 +148,12 @@ export default {
         return 'border-color: green'
       }
     },
-    windowonload : function () {
-      let contenedor = this.$refs['contenedor_carga']; //Document.getElementById ('contenedor_carga');
-      contenedor.style.visibility('hidden');
-      contenedor.style.opacity ('0');
+
+    spinnerOff() {
+      let contenedor = document.getElementById('contenedor_carga');
+      contenedor.hidden = true;
+      let contOperacion = document.getElementById('contenedorOperacion');
+      contOperacion.hidden = false;
   },
 
     async getComandas() {
