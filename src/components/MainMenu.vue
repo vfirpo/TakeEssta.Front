@@ -1,6 +1,6 @@
 <template>
-  <div style="padding-top:55px">
-    <header id="header_principal" class="header">
+  <div>
+    <header id="header_principal" class="header" style="padding-top:70px">
       <nav class="navbar navbar-expand-lg navbar-light bg-light sombraBox fixed-top scrolling-navbar top-navbar-collapse"> <!--style="position:fixed"> -->
         <a class="navbar-brand" href="#">
           <img
