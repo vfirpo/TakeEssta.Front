@@ -1,11 +1,16 @@
 <template>
   <div>
-    <div id="contenedor_carga" ref="contenedor_carga">
-      <b-spinner
-        style="width: 3rem; height: 3rem"
-        label="Cargando......"
-        id="spinner"
-      ></b-spinner>
+    <div id="contenedor_carga">
+      <div class="animated zoomInUp" id="div_cargando_text">
+        <b-spinner
+          style="width: 3rem; height: 3rem"
+          label="Cargando......"
+          id="spinner"
+        ></b-spinner>
+        <br>
+        <img height="120" src="/Img/logo_Xava.jpg" /><br /><br />
+        <b>CARGANDO FUNCIONES DEL SISTEMA</b>
+      </div>
     </div>
     <div id="contenedorOperacion" hidden>
       <nav

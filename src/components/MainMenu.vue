@@ -198,7 +198,7 @@
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0" v-if="$store.getters.currentCashBox">
-            <router-link class="dropdown-item" style="font-size: small;"   target = "_blank" to="/toma_de_pedidos?userId=5" >Sistema<br>Ventas</router-link>
+            <a class="dropdown-item" href="#" style="font-size: small;" @click="openWindow();" >Sistema<br>Ventas</a>
           </form>
         </div>
       </nav>
