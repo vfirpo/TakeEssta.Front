@@ -8,53 +8,53 @@
         data-toggle="dropdown"
         aria-haspopup="true"
         aria-expanded="false"
-      >
-        Opciones
+      ><i class="fas fa-ellipsis-v"></i> Opciones
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#">Ver Resumen De Caja</a>
-        <a class="dropdown-item" href="#">Ver Pedidos Por Empleados Motos</a>
-        <a class="dropdown-item" href="#">Ver Ventas Por Volumen</a>
-        <a class="dropdown-item" href="#">Sonido Activado</a>
-        <a class="dropdown-item" href="#">Cambiar Grilla</a>
-        <a class="dropdown-item" href="#">Reiniciar</a>
+        <a class="dropdown-item" href="#"><i class="fas fa-cash-register"></i> Ver Resumen De Caja</a>
+        <a class="dropdown-item" href="#"><i class="fas fa-chart-bar"></i> Ver Pedidos Por Empleados Motos</a>
+        <a class="dropdown-item" href="#"><i class="fas fa-chart-line"></i> Ver Ventas Por Volumen</a>
+        <a class="dropdown-item" href="#"><i class="fas fa-volume-up"></i> Sonido Activado</a>
+        <a class="dropdown-item" href="#"><i class="fas fa-grip-vertical"></i> Cambiar Grilla</a>
+        <a class="dropdown-item" href="#"><i class="fas fa-power-off"></i> Reiniciar</a>
       </div>
     </div>
     <div class="row p-1 ml-2">
       <div class="p-1">
-      <button class="p-1">Actualizar Grilla</button>
+      <button class="p-1"><i class="fas fa-sync-alt"></i> Actualizar Grilla</button>
       </div>
       <div class="dropdown p-1">
         <button
           class="btn btn-secondary dropdown-toggle"
           type="button"
-          id="editar-filtros"
           data-toggle="dropdown"
           aria-haspopup="true"
-          aria-expanded="false"
+          aria-expanded="true"
         >
-          Editar Filtros
+          <i class="fas fa-filter"></i> Editar Filtros
         </button>
-        <div class="dropdown-menu" aria-labelledby="editar-filtros">
-          <a @click="setFilters(1);" :style="(filter.rendidas) ? 'background-color: #4CAF50' : 'background-color: #f44336'"   class="dropdown-item" href="#">Ver Comandas Rendidas Entregadas</a>
-          <a @click="setFilters(2);" :style="(filter.anuladas) ? 'background-color: #4CAF50' : 'background-color: #f44336'" class="dropdown-item" href="#">Ver Comandas Anuladas</a>
-          <a @click="setFilters(3);" :style="(filter.cobradas) ? 'background-color: #4CAF50' : 'background-color: #f44336'" class="dropdown-item" href="#">Ver Comandas Cobradas</a>
-          <a @click="setFilters(4);" :style="(filter.sinCobrar) ? 'background-color: #4CAF50' : 'background-color: #f44336'" class="dropdown-item" href="#">Ver Comandas Sin Cobrar</a>
-          <a @click="setFilters(5);" :style="(filter.efectivo) ? 'background-color: #4CAF50' : 'background-color: #f44336'" class="dropdown-item" href="#">Ver Comandas Efectivo</a>
-          <a @click="setFilters(6);" :style="(filter.electronico) ? 'background-color: #4CAF50' : 'background-color: #f44336'" class="dropdown-item" href="#">Ver Comandas Tarjeta</a>
-        </div>
+        <ul class="dropdown-menu p-2" aria-labelledby="editar-filtros">
+          <li><a @click="setFilters(1);" :style="getFilterBGColor(1, filter.rendidas)"    class="dropdown-item" href="#"><i id="xI1" class="fas" ></i> Ver Comandas Rendidas Entregadas</a></li>
+          <li><a @click="setFilters(2);" :style="getFilterBGColor(2, filter.anuladas)"    class="dropdown-item" href="#"><i id="xI2" class="fas" ></i> Ver Comandas Anuladas</a></li>
+          <li><a @click="setFilters(3);" :style="getFilterBGColor(3, filter.cobradas)"    class="dropdown-item" href="#"><i id="xI3" class="fas" ></i> Ver Comandas Cobradas</a></li>
+          <li><a @click="setFilters(4);" :style="getFilterBGColor(4, filter.sinCobrar)"   class="dropdown-item" href="#"><i id="xI4" class="fas" ></i> Ver Comandas Sin Cobrar</a></li>
+          <li><a @click="setFilters(5);" :style="getFilterBGColor(5, filter.efectivo)"    class="dropdown-item" href="#"><i id="xI5" class="fas" ></i> Ver Comandas Efectivo</a></li>
+          <li><a @click="setFilters(6);" :style="getFilterBGColor(6, filter.electronico)" class="dropdown-item" href="#"><i id="xI6" class="fas" ></i> Ver Comandas Tarjeta</a></li>
+          <li class="dropdown-divider"></li>        
+          <li><a @click="setFilters(0);" href="#" class="dropdown-item bgColorNaranja"><span><i class="fas fa-redo-alt"></i></span> Filtros por default</a></li>
+        </ul>
       </div>
       <div class="p-1">
-      <button class="p-1">Buscar</button>
+      <button class="p-1"><i class="fas fa-search"></i> Buscar</button>
       </div>
-      <h5>Trabajando En Modo Online</h5>
+      <h6> <i class="fas fa-wifi"></i> Trabajando En Modo Online</h6>
     </div>
     <div class="row p-1 ml-2">
       <div class="p-1">
-      <button class="p-1">Asignacion De Motos</button>
+      <button class="p-1"><i class="fas fa-motorcycle"></i> Asignacion De Motos</button>
       </div>
       <div class="p-1">
-      <button class="p-1">Rendir Envio Completo</button>
+      <button class="p-1"><i class="fas fa-money-bill-wave"></i> Rendir Envio Completo</button>
       </div>
     </div>
   </div>
@@ -79,7 +79,24 @@ export default {
   },
 
   methods: {
+
+    getFilterBGColor(i, val) {
+      let a = document.getElementById('xI' + i);
+      if (a) {a.classList.toggle((val) ? 'fa-eye' : 'fa-eye-slash');}
+      return (val) ? 'background-color: #4CAF50' : 'background-color: #f44336';
+    },
+
     setFilters(val){
+
+      if (val == 0) {
+        this.filter.rendidas = false;
+        this.filter.anuladas = false;
+        this.filter.cobradas = true;
+        this.filter.sinCobrar = true;
+        this.filter.efectivo = true;
+        this.filter.electronico = true;
+      }
+
       if (val == 1) {this.filter.rendidas    = !this.filter.rendidas;}
       if (val == 2) {this.filter.anuladas    = !this.filter.anuladas;}
       if (val == 3) {this.filter.cobradas    = !this.filter.cobradas;}
@@ -88,6 +105,7 @@ export default {
       if (val == 6) {this.filter.electronico = !this.filter.electronico;}
 
       this.$emit('updateFilter', this.filter)
+
     },
   },
 };
@@ -95,5 +113,7 @@ export default {
 </script>
 
 <style>
-
+li {
+  padding: 1px;
+}
 </style>
