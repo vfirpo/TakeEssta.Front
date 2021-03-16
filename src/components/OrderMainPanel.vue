@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="dropdown row p-1 ml-2">
+  <div class="container">
+    <div class="row dropdown p-1 ">
       <div class="col-2">
         <button
           style="height: 35px; background-repeat: no-repeat"
@@ -36,6 +36,16 @@
           <a class="dropdown-item" href="#"
             ><i class="fas fa-power-off"></i> Reiniciar</a
           >
+        </div>
+      </div>
+      <div class="col-10 pl-2" style="background: red">
+        <div>
+          <i
+            class="fas fa-exclamation-triangle"
+            style="color: #ffeb3b; margin-right: 5px"
+          ></i>
+          <b>ATENCIÓN!</b> Llegó al tope de caja. Realice el alivio
+          correspondiente
         </div>
       </div>
     </div>
