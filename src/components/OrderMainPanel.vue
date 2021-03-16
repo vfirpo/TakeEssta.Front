@@ -31,7 +31,7 @@
         </div>
       </div>
       <div class="col-10 pl-2" style="background: red">
-        <div>
+        <div class="text-white">
           <i
             class="fas fa-exclamation-triangle"
             style="color: #ffeb3b; margin-right: 5px"
