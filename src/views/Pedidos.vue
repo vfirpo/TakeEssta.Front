@@ -13,7 +13,10 @@
       </div>
     </div>
     <div id="contenedorOperacion" hidden>
-      <nav class="navbar navbar-expand-lg navbar-light bg-danger sombraBox">
+      <nav
+        style="background-color: #90ee90"
+        class="navbar navbar-expand-lg navbar-light sombraBox"
+      >
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
             <img
@@ -35,46 +38,63 @@
           </div>
           <div class="col">
             <div class="d-flex flex-row-reverse bd-highlight">
-              <div class="p-2">
+              <div class="p-1">
                 <button
                   style="
                     border-radius: 5px;
-                    height: 90px;
+                    height: 100px;
                     width: 200px;
                     text-align: center;
                     font-size: 30px;
                     font-weight: 900;
                     line-height: 1;
-                    padding: 3px;
+                    padding: 5px;
                     box-shadow: 2px 2px 5px #999;
                   "
                   type="button"
                   id="btn-pedidos"
                   class="btn btn-warning"
                 >
-                  Tomar Pedido
-                  <span style="font-size: 15px">DELIVERY</span>
+                  Tomar
+                  <br />
+                  Pedido
+                  <br />
+                  <span style="font-size: 17px">DELIVERY</span>
                 </button>
+                <div class="p-1">
+                  <b-form-checkbox
+                    id="checkbox-1"
+                    v-model="status"
+                    name="checkbox-1"
+                    value="accepted"
+                    unchecked-value="not_accepted"
+                  >
+                    Fijar Lluvia
+                  </b-form-checkbox>
+                </div>
               </div>
-              <div class="p-2">
+              <div class="p-1">
                 <button
                   style="
                     border-radius: 5px;
-                    height: 90px;
+                    height: 100px;
                     width: 200px;
                     text-align: center;
                     font-size: 30px;
                     font-weight: 900;
                     line-height: 1;
-                    padding: 3px;
+                    padding: 5px;
                     box-shadow: 2px 2px 5px #999;
                   "
                   type="button"
                   id="btn-pedidos"
                   class="btn btn-secondary"
                 >
-                  Tomar Pedido
-                  <span style="font-size: 15px">MOSTRADOR</span>
+                  Tomar
+                  <br />
+                  Pedido
+
+                  <span style="font-size: 17px">MOSTRADOR</span>
                 </button>
               </div>
             </div>
