@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import 'jquery'
+import jq from 'jquery'
 import 'popper.js'
 import 'bootstrap'
 import './assets/app.css'
@@ -32,6 +32,7 @@ Vue.use(VCalendar, {
 Vue.use(VueLodash, { name: 'custom' , lodash: lodash })
 
 Vue.prototype.$global = Global
+Vue.prototype.$ = jq
 
 new Vue({
   router,

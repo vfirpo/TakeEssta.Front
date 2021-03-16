@@ -213,6 +213,12 @@ export default {
   name: "mainMenu",
 
   mounted(){
+  },
+
+  methods: {
+    openWindow(){
+      window.open('/toma_de_pedidos')
+    }
   }
 
 }

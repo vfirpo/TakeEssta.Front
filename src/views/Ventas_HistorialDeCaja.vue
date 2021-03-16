@@ -179,7 +179,6 @@ export default {
         this.currentPage;
 
       this.items = await this.$global.callGetAPI("Cajas/GetCajasToList" + params);
-      //this.items = await $v.$this.$global.callGetAPI("Cajas/GetCajasToList" + params);
       this.totalPages = Math.ceil(this.items.recordCounts / this.pageSize);
     },
     toExcel(val) {
