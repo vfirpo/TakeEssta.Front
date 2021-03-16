@@ -8,7 +8,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import Comandas from "@/components/Comanda.vue";
 import FromApi from "@/components/FromApi.vue";
 import botones from "@/components/buttons.vue";

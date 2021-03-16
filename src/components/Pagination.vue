@@ -17,7 +17,6 @@ export default {
   methods: {
     clicnav(page){
       this.$emit("pageSelected", page)
-      //alert('Ir a la pagina: ' + page);
     },
   }
 };
