@@ -1,24 +1,33 @@
 <template>
   <div>
-    <div id="contenedor_carga" ref="contenedor_carga">
-      <b-spinner
-        style="width: 3rem; height: 3rem"
-        label="Cargando......"
-        id="spinner"
-      ></b-spinner>
+    <div id="contenedor_carga">
+      <div class="animated zoomInUp" id="div_cargando_text">
+        <b-spinner
+          style="width: 3rem; height: 3rem"
+          label="Cargando......"
+          id="spinner"
+        ></b-spinner>
+        <br>
+        <img height="120" src="/Img/logo_Xava.jpg" /><br /><br />
+        <b>CARGANDO FUNCIONES DEL SISTEMA</b>
+      </div>
     </div>
-      <nav
-        class="navbar navbar-expand-lg navbar-light bg-danger sombraBox">
+    <div id="contenedorOperacion" hidden>
+      <nav class="navbar navbar-expand-lg navbar-light bg-danger sombraBox">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
-            <img style="height: 30px" alt="INICIO" src="/Img/logo_Xava.jpg"class="d-inline-block align-top" />
+            <img
+              style="height: 30px"
+              alt="INICIO"
+              src="/Img/logo_Xava.jpg"
+              class="d-inline-block align-top"
+            />
           </a>
           <h5>Caja: 80246 - Martes 16/03/2021 Turno: Mañana</h5>
           <h5>Lita Actual-General</h5>
-          <img style= "height:30px" src="../assets/logo.png" alt="" />
+          <img style="height: 30px" src="../assets/logo.png" alt="" />
         </div>
       </nav>
-    <div id="contenedorOperacion" hidden>
       <div class="container-fluid">
         <div class="row align-items-start">
           <div class="col">
@@ -27,22 +36,46 @@
           <div class="col">
             <div class="d-flex flex-row-reverse bd-highlight">
               <div class="p-2">
-                <button style= "border-radius:5px;height:90px;width:200px;text-align:center;font-size:30px;font-weight: 900;line-height: 1;padding: 5px;box-shadow: 2px 2px 5px #999;" type="button" id="btn-pedidos" class="btn btn-warning">
-                Tomar
-                <br>
-                Pedido
-                <br>
-                <span style="font-size: 17px;">DELIVERY</span>
-              </button>
+                <button
+                  style="
+                    border-radius: 5px;
+                    height: 90px;
+                    width: 200px;
+                    text-align: center;
+                    font-size: 30px;
+                    font-weight: 900;
+                    line-height: 1;
+                    padding: 3px;
+                    box-shadow: 2px 2px 5px #999;
+                  "
+                  type="button"
+                  id="btn-pedidos"
+                  class="btn btn-warning"
+                >
+                  Tomar Pedido
+                  <span style="font-size: 15px">DELIVERY</span>
+                </button>
               </div>
               <div class="p-2">
-              <button style= "border-radius:5px;height:90px;width:200px;text-align:center;font-size:30px;font-weight: 900;line-height: 1;padding: 5px;box-shadow: 2px 2px 5px #999;" type="button" id="btn-pedidos" class="btn btn-secondary">
-                Tomar
-                <br>
-                Pedido
-                <br>
-                <span style="font-size: 17px;">MOSTRADOR</span>
-              </button>
+                <button
+                  style="
+                    border-radius: 5px;
+                    height: 90px;
+                    width: 200px;
+                    text-align: center;
+                    font-size: 30px;
+                    font-weight: 900;
+                    line-height: 1;
+                    padding: 3px;
+                    box-shadow: 2px 2px 5px #999;
+                  "
+                  type="button"
+                  id="btn-pedidos"
+                  class="btn btn-secondary"
+                >
+                  Tomar Pedido
+                  <span style="font-size: 15px">MOSTRADOR</span>
+                </button>
               </div>
             </div>
           </div>
