@@ -13,14 +13,6 @@
         >
           <i class="fas fa-ellipsis-v"></i> Opciones
         </button>
-                <div class="bg-danger col-4">
-          <i
-            class="fas fa-exclamation-triangle"
-            style="color: #ffeb3b; margin-right: 5px"
-          ></i>
-          <b>ATENCIÓN!</b> Llegó al tope de caja. Realice el alivio correspondiente
-        </div>
-
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a class="dropdown-item" href="#"><i class="fas fa-cash-register"></i> Ver Resumen De Caja</a>
           <a class="dropdown-item" href="#"><i class="fas fa-chart-bar"></i> Ver Pedidos Por Empleados Motos</a>
