@@ -147,14 +147,16 @@ export default {
 
   async beforeMount(){
     this.cashBox = await this.$global.getCurrentCashBox();
+    
     this.user = await this.$global.getCurrentUser();
 
     let sucursal = this.user.sucursal.id;
 
-    this.products = await this.$global.callGetAPI('Products/GetBySucursal?sucursalid=' + sucursal)
+    this.products = await this.$global.callGetAPI('Products/GetBySucursal?sucursalid=' + sucursal);
 
-    this.stock = await this.$global.callGetAPI('Products/GetStockBySucursal?sucursalid=' + sucursal)
+    this.stock = await this.$global.callGetAPI('Products/GetStockBySucursal?sucursalid=' + sucursal);
 
+    this.actualizarStock();
 
   },
 
@@ -189,7 +191,10 @@ export default {
     },
 
     actualizarStock(){
-
+      this.products.forEach(item => {
+        let val = this.stock.filter(x => x.productsId == item.id)[0];
+        item.stock = val.stock;
+      });
     },
   },
 };
