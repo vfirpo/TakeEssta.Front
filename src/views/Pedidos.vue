@@ -26,7 +26,7 @@
               class="d-inline-block align-top"
             />
           </a>
-          <h5>Caja: {{ cashBox.id }} - {{ cashBox.fechaApertura }} Turno: {{ cashBox.turno }}</h5>
+          <h5>Caja: {{ cashBox.id }} - {{ $global.formatDate(cashBox.fechaApertura) }} - Turno: {{ cashBox.turno }}</h5>
           <h5>Lita Actual-General</h5>
           <img style="height: 30px" src="../assets/logo.png" alt="" />
         </div>
@@ -130,12 +130,22 @@ export default {
       },
       cashBox: Object,
       user: Object,
+      products: Object,
+      stock: Object,
     };
   },
 
-  beforeMount(){
-    this.cashBox = this.$global.getCurrentCashBox();
-    this.user = this.$global.getCurrentUser();
+  async beforeMount(){
+    this.cashBox = await this.$global.getCurrentCashBox();
+    this.user = await this.$global.getCurrentUser();
+
+    let sucursal = this.user.sucursal.id;
+
+    this.products = await this.$global.callGetAPI('Products/GetBySucursal?sucursalid=' + sucursal)
+
+    this.stock = await this.$global.callGetAPI('Products/GetStockBySucursal?sucursalid=' + sucursal)
+
+
   },
 
   mounted() {
@@ -166,6 +176,10 @@ export default {
       this.filter.sinCobrar = true;
       this.filter.efectivo = true;
       this.filter.electronico = true;
+    },
+
+    actualizarStock(){
+
     },
   },
 };
