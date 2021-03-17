@@ -27,7 +27,7 @@
             />
           </a>
           <h5>Caja: {{ cashBox.id }} - {{ cashBox.fechaApertura }} Turno: {{ cashBox.turno }}</h5>
-          <h5>Lita Actual-General</h5>
+          <h5>Lista Actual-General</h5>
           <img style="height: 30px" src="../assets/logo.png" alt="" />
         </div>
       </nav>
@@ -98,6 +98,16 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+        <div class="col-6">
+         <h1>Mostrador</h1>
+        </div>
+        <div class="col-6">
+          <h1>Delivery</h1>
+        </div>
         </div>
       </div>
       <comandas />
