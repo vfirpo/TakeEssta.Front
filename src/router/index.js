@@ -4,8 +4,9 @@ import Home from '../views/Home.vue'
 import Login from '../views/login.vue'
 import Pedidos from '../views/Pedidos.vue'
 import verclientes from '../views/Clientes_VerClientes.vue'
-import historialDeCaja from '../views/Ventas_HistorialDeCaja.vue'
-import aperturaDeCaja from '../views/Ventas_AperturaCaja.vue'
+import historialDeCaja from '../views/Ventas/Ventas_HistorialDeCaja.vue'
+import aperturaDeCaja from '../views/Ventas/Ventas_AperturaCaja.vue'
+import promotions from '../views/Ventas/Ventas_Promotions.vue'
 import products from '../views/Products.vue'
 import cashBox from '../views/CashBox.vue'
 
@@ -51,6 +52,11 @@ const routes = [
     path: '/Ventas_AperturaDeCaja',
     name: 'aperturaDeCaja',
     component: aperturaDeCaja
+  },
+  {
+    path: '/Ventas_Promotions',
+    name: 'promotions',
+    component: promotions
   },
   {
     path: '/Products',

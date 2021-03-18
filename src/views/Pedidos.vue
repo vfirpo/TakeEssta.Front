@@ -27,7 +27,6 @@
             />
           </a>
           <h5>Caja: {{ cashBox.id }} - {{ $global.formatDate(cashBox.fechaApertura) }} - Turno: {{ cashBox.turno }}</h5>
-          <h5>Lita Actual-General</h5>
           <img style="height: 30px" src="../assets/logo.png" alt="" />
         </div>
       </nav>
@@ -100,6 +99,16 @@
           </div>
         </div>
       </div>
+      <div class="container">
+        <div class="row">
+        <div class="col-6">
+         <h1>Mostrador</h1>
+        </div>
+        <div class="col-6">
+          <h1>Delivery</h1>
+        </div>
+        </div>
+      </div>
       <comandas />
     </div>
   </div>
@@ -137,14 +146,16 @@ export default {
 
   async beforeMount(){
     this.cashBox = await this.$global.getCurrentCashBox();
+
     this.user = await this.$global.getCurrentUser();
 
     let sucursal = this.user.sucursal.id;
 
-    this.products = await this.$global.callGetAPI('Products/GetBySucursal?sucursalid=' + sucursal)
+    this.products = await this.$global.callGetAPI('Products/GetBySucursal?sucursalid=' + sucursal);
 
-    this.stock = await this.$global.callGetAPI('Products/GetStockBySucursal?sucursalid=' + sucursal)
+    this.stock = await this.$global.callGetAPI('Products/GetStockBySucursal?sucursalid=' + sucursal);
 
+    this.actualizarStock();
 
   },
 
@@ -179,7 +190,10 @@ export default {
     },
 
     actualizarStock(){
-
+      this.products.forEach(item => {
+        let val = this.stock.filter(x => x.productsId == item.id)[0];
+        item.stock = val.stock;
+      });
     },
   },
 };
