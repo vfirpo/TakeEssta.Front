@@ -163,8 +163,8 @@ export default {
       alert: { text: "", visible: false, seconds: 0 },
     };
   },
-  beforeMount() {
-    this.getCajas(1);
+  async beforeMount() {
+    await this.getCajas(1);
   },
   methods: {
     async getCajas(page) {

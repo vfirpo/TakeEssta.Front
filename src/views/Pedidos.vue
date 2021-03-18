@@ -27,7 +27,6 @@
             />
           </a>
           <h5>Caja: {{ cashBox.id }} - {{ $global.formatDate(cashBox.fechaApertura) }} - Turno: {{ cashBox.turno }}</h5>
-          <h5>Lita Actual-General</h5>
           <img style="height: 30px" src="../assets/logo.png" alt="" />
         </div>
       </nav>
@@ -147,7 +146,7 @@ export default {
 
   async beforeMount(){
     this.cashBox = await this.$global.getCurrentCashBox();
-    
+
     this.user = await this.$global.getCurrentUser();
 
     let sucursal = this.user.sucursal.id;

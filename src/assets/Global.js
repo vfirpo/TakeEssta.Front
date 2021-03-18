@@ -90,7 +90,7 @@ export var Global = {
 
     formatDate(value){
         var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date(value).toLocaleDateString("en-GB", options); 
+        return new Date(value).toLocaleDateString("es-AR", options); 
         //return new Date(value).toLocaleDateString(); 
     },
     exportTableToExcel(tableID, filename){

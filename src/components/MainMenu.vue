@@ -75,6 +75,7 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <router-link class="dropdown-item" to="/Ventas_HistorialDeCaja" >Historial de caja</router-link>
                 <a class="dropdown-item" href="#">Detalle lista de precios</a>
+                <router-link class="dropdown-item" to="/Ventas_Promotions" >Promociones</router-link>
               </div>
             </li>
             <li class="nav-item dropdown">
