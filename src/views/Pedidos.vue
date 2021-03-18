@@ -7,7 +7,7 @@
           label="Cargando......"
           id="spinner"
         ></b-spinner>
-        <br>
+        <br />
         <img height="120" src="/Img/logo_Xava.jpg" /><br /><br />
         <b>CARGANDO FUNCIONES DEL SISTEMA</b>
       </div>
@@ -26,7 +26,11 @@
               class="d-inline-block align-top"
             />
           </a>
-          <h5>Caja: {{ cashBox.id }} - {{ $global.formatDate(cashBox.fechaApertura) }} - Turno: {{ cashBox.turno }}</h5>
+          <h5>
+            Caja: {{ cashBox.id }} -
+            {{ $global.formatDate(cashBox.fechaApertura) }} - Turno:
+            {{ cashBox.turno }}
+          </h5>
           <img style="height: 30px" src="../assets/logo.png" alt="" />
         </div>
       </nav>
@@ -99,17 +103,21 @@
           </div>
         </div>
       </div>
-      <div class="container">
-        <div class="row">
-        <div class="col-6">
-         <h1>Mostrador</h1>
-        </div>
-        <div class="col-6">
-          <h1>Delivery</h1>
-        </div>
+      <div>
+        <div class="row justify-content-center">
+          <div class="col-6">
+            <h1>Mostrador</h1>
+          </div>
+          <div class="col-6">
+            <h1>Delivery</h1>
+          </div>
         </div>
       </div>
-      <comandas />
+      <div class="row">
+        <div class="col-6"><comandas :data="pares" /></div>
+        <div class=""> </div>
+        <div class="col-6"><comandas :data="impares" /></div>
+      </div>
     </div>
   </div>
 </template>
@@ -141,22 +149,36 @@ export default {
       user: Object,
       products: Object,
       stock: Object,
+      pares: null,
+      impares: null,
     };
   },
 
-  async beforeMount(){
+  async beforeMount() {
     this.cashBox = await this.$global.getCurrentCashBox();
 
     this.user = await this.$global.getCurrentUser();
 
     let sucursal = this.user.sucursal.id;
 
-    this.products = await this.$global.callGetAPI('Products/GetBySucursal?sucursalid=' + sucursal);
+    let resp = await this.$global.callGetAPI(
+      "Products/GetBySucursal?sucursalid=" + sucursal
+    );
 
-    this.stock = await this.$global.callGetAPI('Products/GetStockBySucursal?sucursalid=' + sucursal);
+    this.products = resp.items;
+
+    this.stock = await this.$global.callGetAPI(
+      "Products/GetStockBySucursal?sucursalid=" + sucursal
+    );
 
     this.actualizarStock();
 
+    await this.getComandas();
+
+
+    this.getComandasPares();
+    
+  
   },
 
   mounted() {
@@ -173,11 +195,25 @@ export default {
     },
 
     async getComandas() {
-      this.dato = await this.$global.callGetAPI("Comandas");
+      let resp = await this.$global.callGetAPI("Comandas");
+
+      this.dato = resp;
     },
 
     getCurrentUser: function () {
       return this.$global.getCurrentUser();
+    },
+    getComandasPares() {
+      this.pares = [];
+      this.impares = [];
+
+      for (var i = 0; i < this.dato.length; i++) {
+        if (this.dato[i].comandaId % 2 == 0) {
+          this.pares.push(this.dato[i]);
+        } else {
+          this.impares.push(this.dato[i]);
+        }
+      }
     },
 
     setDefaultFilters() {
@@ -189,9 +225,9 @@ export default {
       this.filter.electronico = true;
     },
 
-    actualizarStock(){
-      this.products.forEach(item => {
-        let val = this.stock.filter(x => x.productsId == item.id)[0];
+    actualizarStock() {
+      this.products.forEach((item) => {
+        let val = this.stock.filter((x) => x.productsId == item.id)[0];
         item.stock = val.stock;
       });
     },

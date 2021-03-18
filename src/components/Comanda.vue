@@ -1,7 +1,7 @@
 <template>
   <div>
     <div  id="list_comandas" >
-    <div v-for="comanda in source"
+    <div v-for="comanda in data"
         :key="comanda.id">
       <div 
         id="comItem_951183126"
@@ -100,8 +100,8 @@
     </div>
     </div>
 
-    <div v-if="source" id="tfootMostrador" style="display: block;">
-					  	<div class="divTotCol1" id="totComMost">Comandas: {{source.length}}</div>
+    <div v-if="data" id="tfootMostrador" style="display: block;">
+					  	<div class="divTotCol1" id="totComMost">Comandas: {{data.length}}</div>
 					  	<div class="divTotCol2" id="totPrecioMost">Total ${{ getTotalComandas() }}</div>
 					  </div>
   </div>
@@ -116,10 +116,11 @@ export default {
   name: "Comanda",
   props: {
     cajaAbierta: true,
+    data: null,
   },
   data() {
     return {
-      source: []
+      source: [],
     }
   },
 
@@ -128,12 +129,12 @@ export default {
   },
 
   mounted(){
-    this.getComandas();
+    
   },
   methods: {
     getTotalComandas(){
       let sum = 0;
-      if (this.source !== null ) { this.source.forEach(item => { sum += item.importe } ) }
+      if (this.data !== null ) { this.data.forEach(item => { sum += item.importe } ) }
       return sum;
     },
 
@@ -155,10 +156,6 @@ export default {
       let contOperacion = document.getElementById('contenedorOperacion');
       contOperacion.hidden = false;
   },
-
-    async getComandas() {
-      this.source = await this.$global.callGetAPI('Comandas');
-    },
 
     getCurrentUser:  function() {
       return this.$global.getCurrentUser();
