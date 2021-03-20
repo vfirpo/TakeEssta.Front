@@ -43,49 +43,15 @@
       <button
         type="button"
         class="rounded-pill shadow p-2"
-        data-toggle="modal"
-        data-target="#exampleModal"
+        @click="addProducts();"
       >
         Hacer Promocion
       </button>
-      <div
-        class="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
-                Haciendo promocion(?
-              </h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="input-group">
-                <div class="row justify-content-center">
-                  <div class="col align-self-center">
-                    <crudpromotions/>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-
-            </div>
-          </div>
-        </div>
-      </div>
+        <!-- Inicio HTML Modal -->
+        <b-modal id="crud_Promotions_modal" size="lg" title="Large Modal"
+          ><crudpromotions
+        /></b-modal>
+        <!-- Fin HYML Modal -->
     </div>
     <div class="row justify-content-center">
       <div class="col-11">
@@ -170,6 +136,20 @@ export default {
     crudpromotions,
   },
   name: "promotions",
+
+methods:{
+    async addProducts() {
+      this.newProduct = true;
+      this.itemToChange = new Object;
+      this.$bvModal.show("crud_Promotions_modal");
+    },
+
+    async cancelEdition() {
+      this.$bvModal.hide("crud_Promotions_modal");
+    },
+
+},
+
 };
 </script>
 

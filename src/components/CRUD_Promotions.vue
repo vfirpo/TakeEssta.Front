@@ -1,14 +1,14 @@
 <template>
   <div class="container-fluid">
-    <div class="row justify-content-between">
+    <div class="row justify-content-center">
       <div class="col-2">
         <p>Titulo</p>
       </div>
       <div class="col-6">
-        <input class="ml-auto rounded form-control" type="text"aria-label="Sizing example input" />
+        <input class="ml-auto rounded form-control" type="text" aria-label="Sizing example input" />
       </div>
     </div>
-    <div class="row justify-content-between">
+    <div class="row justify-content-center">
       <div class="col-2">
         <p>Descripcion</p>
       </div>
