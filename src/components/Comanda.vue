@@ -48,7 +48,6 @@
               class="fas fa-money-bill pointer"
               style="color: #673ab7"
               title="Efectivo"
-              onclick="fcn_formPagoCge(951183126, 1, 50, 'PEYA');"
             ></i
           ></span>
           <span
@@ -61,14 +60,12 @@
           <a
             class="btn btn-success btn-xs"
             role="button"
-            onclick="fcn_popup_revisar_comanda('951183126', '', '');"
             ><i class="fas fa-eye"></i> Ver pedido</a
           >
           <a
             id="LinkReimprimir951183126"
             class="btn btn-primary btn-xs"
             role="button"
-            onclick="fcn_popup_reimprimir_comanda('951183126');"
             ><i class="fas fa-print"></i> Reimprimir</a
           >
           <a
@@ -82,7 +79,6 @@
             id="LinkAnular951183126"
             class="btn btn-danger btn-xs"
             role="button"
-            onclick="fcn_popup_anular_comanda('951183126', 'X', '', '', '');"
             ><i class="fas fa-trash-alt"></i> Anular</a
           >
         </div>
@@ -139,10 +135,10 @@ export default {
     },
 
     getComandaStyle(com){
-      if (com.comandaId % 2 === 0) {
+      if (com.comandaId % 2 == 0) {
         return 'border-color: blue'
       }
-      else if(com.id === 6) {
+      else if(com.id == 6) {
         return 'border-color: red'
       }
       else{

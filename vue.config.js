@@ -1,6 +1,6 @@
 module.exports = {
     devServer: {
-      proxy: "https://192.168.1.27:5001/"
+      proxy: "http://192.168.1.27:9090/"
     },
 
     chainWebpack: config => {
@@ -10,5 +10,5 @@ module.exports = {
               args[0].title = "Xava - TakeEssta";
               return args;
           })
-  }    
+    }    
   }
