@@ -192,6 +192,8 @@ export default {
   methods: {
     updateFilter(newValue) {
       this.filter = newValue;
+
+      this.setFilters();
     },
 
     async getComandas() {
@@ -203,6 +205,7 @@ export default {
     getCurrentUser: function () {
       return this.$global.getCurrentUser();
     },
+    
     getComandasPares() {
       this.pares = [];
       this.impares = [];
@@ -223,6 +226,12 @@ export default {
       this.filter.sinCobrar = true;
       this.filter.efectivo = true;
       this.filter.electronico = true;
+      
+      this.setFilters();
+    },
+
+    setFilters(){
+       //aca aplicamos la logica de filtrar las comandas
     },
 
     actualizarStock() {
