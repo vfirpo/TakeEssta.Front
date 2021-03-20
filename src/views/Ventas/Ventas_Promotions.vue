@@ -39,6 +39,54 @@
       <label for="search"><strong>Buscar: </strong></label>
       <input type="search" id="search" class="rounded-lg shadow p-2" />
     </div>
+    <div>
+      <button
+        type="button"
+        class="rounded-pill shadow p-2"
+        data-toggle="modal"
+        data-target="#exampleModal"
+      >
+        Hacer Promocion
+      </button>
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Haciendo promocion(?
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="input-group">
+                <div class="row justify-content-center">
+                  <div class="col align-self-center">
+                    <crudpromotions/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="row justify-content-center">
       <div class="col-11">
         <table
@@ -66,7 +114,7 @@
                 {{ item.id }}
               </td>
               <td>
-                {{ item.Descripcion }} <br>
+                {{ item.Descripcion }} <br />
                 {{ item.extendedDescription }}
               </td>
               <td>
@@ -114,10 +162,12 @@
 
 <script>
 import pagination from "@/components/Pagination.vue";
+import crudpromotions from "@/components/CRUD_Promotions.vue";
 
 export default {
   components: {
     pagination,
+    crudpromotions,
   },
   name: "promotions",
 };

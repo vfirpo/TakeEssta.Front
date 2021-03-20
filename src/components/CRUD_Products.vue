@@ -5,7 +5,7 @@
         <label class="" for="ipCode">Codigo</label>
         <input
           class="ml-auto rounded"
-          type="text"
+          type="text" 
           name="ipCode"
           id="ipCode"
           v-model="currentProduct.code"
