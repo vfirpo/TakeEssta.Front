@@ -1,11 +1,15 @@
 <template>
   <div class="container-fluid">
     <div class="row justify-content-center">
-      <div class="col align-self-center">
+      <div class="col-2">
         <p>Titulo</p>
       </div>
       <div class="col-6">
-        <input class="ml-auto rounded form-control" type="text" aria-label="Sizing example input" />
+        <input
+          class="ml-auto rounded form-control"
+          type="text"
+          aria-label="Sizing example input"
+        />
       </div>
     </div>
     <div class="row justify-content-center">
@@ -13,7 +17,48 @@
         <p>Descripcion</p>
       </div>
       <div class="col-6">
-        <input class="ml-auto rounded form-control" type="text" aria-label="Sizing example input"/>
+        <input
+          class="ml-auto rounded form-control"
+          type="text"
+          aria-label="Sizing example input"
+        />
+      </div>
+    </div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-3 pl-3">
+          <p>Validez Desde</p>
+            <div class="">
+             <input 
+              type="date"
+              id="start"
+              name="trip-start"
+              value="2018-07-22"
+              min="2018-01-01"
+              max="2030-12-31"
+              />
+          </div>
+        </div>
+          <div class="col-3">
+            <p>Hasta:</p>
+            <input
+              type="date"
+              id="start"
+              name="trip-start"
+              value="2018-07-22"
+              min="2018-01-01"
+              max="2030-12-31"
+            />
+            <b-form-checkbox
+              id="checkbox-3"
+              name="checkbox-3"
+              value="accepted"
+              unchecked-value="not_accepted"
+              >
+              Sin fecha de finalizacion 
+            </b-form-checkbox>
+          </div>
+        </div>
       </div>
     </div>
   </div>
