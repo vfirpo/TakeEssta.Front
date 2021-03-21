@@ -1,19 +1,19 @@
 <template>
-  <div class="container">
-    <div class="p-2 pb-1">
-      <div class="">
-        <b-row class="p-1">
-          <label class="">Titulo</label>
-          <div  style="margin-left:80%;">
-          <input class="pl-auto rounded" type="text" />
-          </div>
-        </b-row>
-        <b-row class="p-1">
-          <label class="">Descripcion</label>
-          <div class="col"   style="margin-left: 100px;">
-            <input class="pl-auto rounded" type="text"/>
-          </div>
-        </b-row>
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col align-self-center">
+        <p>Titulo</p>
+      </div>
+      <div class="col-6">
+        <input class="ml-auto rounded form-control" type="text" aria-label="Sizing example input" />
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-2">
+        <p>Descripcion</p>
+      </div>
+      <div class="col-6">
+        <input class="ml-auto rounded form-control" type="text" aria-label="Sizing example input"/>
       </div>
     </div>
   </div>
