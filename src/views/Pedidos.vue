@@ -154,7 +154,7 @@ export default {
     };
   },
 
-  async beforeMount() {
+  async created(){
     this.cashBox = await this.$global.getCurrentCashBox();
 
     this.user = await this.$global.getCurrentUser();
@@ -177,6 +177,10 @@ export default {
 
 
     this.getComandasPares();
+
+  },
+
+  async beforeMount() {
     
   
   },

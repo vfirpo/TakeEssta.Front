@@ -58,10 +58,13 @@
               Sin fecha de finalizacion 
             </b-form-checkbox>
           </div>
+          <div class="col-3">
+            <p>Color:</p>
+            <b-form-input id="color" type="color"></b-form-input>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>

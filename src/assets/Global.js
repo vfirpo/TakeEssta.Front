@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export var Global = {
      urlAPI: "http://localhost:8080/api/",
+     //urlAPI: "http://192.168.1.27:9090/api/",
 
      setCurrentCashBox(cashBox){
         sessionStorage.setItem("CURRENT_CASH_BOX", JSON.stringify(cashBox));
