@@ -24,47 +24,84 @@
         />
       </div>
     </div>
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-3 pl-3">
-          <p>Validez Desde</p>
-            <div class="">
-             <input 
-              type="date"
-              id="start"
-              name="trip-start"
-              value="2018-07-22"
-              min="2018-01-01"
-              max="2030-12-31"
-              />
-          </div>
-        </div>
-          <div class="col-3">
-            <p>Hasta:</p>
-            <input
-              type="date"
-              id="start"
-              name="trip-start"
-              value="2018-07-22"
-              min="2018-01-01"
-              max="2030-12-31"
-            />
-            <b-form-checkbox
-              id="checkbox-3"
-              name="checkbox-3"
-              value="accepted"
-              unchecked-value="not_accepted"
-              >
-              Sin fecha de finalizacion 
-            </b-form-checkbox>
-          </div>
-          <div class="col-3">
-            <p>Color:</p>
-            <b-form-input id="color" type="color"></b-form-input>
-          </div>
+    <div class="row justify-content-center">
+      <div class="col-3 pl-3">
+        <p>Validez Desde</p>
+        <div class="">
+          <input
+            type="date"
+            id="start"
+            name="trip-start"
+            value="2018-07-22"
+            min="2018-01-01"
+            max="2030-12-31"
+          />
         </div>
       </div>
+      <div class="col-3">
+        <p>Hasta:</p>
+        <input
+          type="date"
+          id="start"
+          name="trip-start"
+          value="2018-07-22"
+          min="2018-01-01"
+          max="2030-12-31"
+        />
+        <b-form-checkbox
+          id="checkbox-3"
+          name="checkbox-3"
+          value="accepted"
+          unchecked-value="not_accepted"
+        >
+          Sin fecha de finalizacion
+        </b-form-checkbox>
+      </div>
+      <div class="col-3">
+        <p>Color:</p>
+        <b-form-input id="color" type="color"></b-form-input>
+      </div>
     </div>
+    <div class="row justify-content-center">
+      <div>
+        <b-form-group
+          label="Turno:"
+          label-for="nested-street"
+          label-cols-sm="3"
+          label-align-sm="right"
+        >
+          <div class="pl-3">
+            <b-form-select
+              v-model="selected"
+              :options="options"
+            ></b-form-select>
+          </div>
+        </b-form-group>
+      </div>
+      <div>
+        <b-form-group
+          label="Orden:"
+          label-for="nested-street"
+          label-cols-sm="3"
+          label-align-sm="right"
+        >
+          <b-form-input id="nested-street"></b-form-input>
+        </b-form-group>
+      </div>
+    </div>
+    <div>
+      <b-form-group
+        label="Tab:"
+        label-for="nested-street"
+        label-cols-sm="3"
+        label-align-sm="right"
+      >
+        <div class="pl-3">
+          <b-form-select v-model="Tab" :options="options"></b-form-select>
+        </div>
+      </b-form-group>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -189,7 +226,14 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      selected: null,
+      options: [
+        { value: null, text: "Todos" },
+        { value: "a", text: "Ma;ana" },
+        { value: "b", text: "Tarde" },
+      ],
+    };
   },
 };
 </script>
