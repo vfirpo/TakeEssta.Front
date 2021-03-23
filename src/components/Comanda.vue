@@ -5,7 +5,7 @@
         :key="comanda.id">
       <div 
         id="comItem_951183126"
-        class=comItem
+        class="comItem"
         :style= "getComandaStyle(comanda)"
       >
         <div class="comItemNC">

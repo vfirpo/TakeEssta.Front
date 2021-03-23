@@ -35,23 +35,25 @@
         Actualizar Grilla
       </button>
     </div>
-    <div class="p-3">
+    <div class="p-3 row justify-content-center">
       <label for="search"><strong>Buscar: </strong></label>
-      <input type="search" id="search" class="rounded-lg shadow p-2" />
+      <div class="pl-4"> 
+        <input type="search" id="search" class="rounded-lg shadow p-2" />
+      </div>
     </div>
-    <div>
+    <div class="p-2">
       <button
         type="button"
         class="rounded-pill shadow p-2"
-        @click="addProducts();"
+        @click="addProducts()"
       >
         Hacer Promocion
       </button>
-        <!-- Inicio HTML Modal -->
-        <b-modal id="crud_Promotions_modal" size="lg" title="Large Modal"
-          ><crudpromotions
-        /></b-modal>
-        <!-- Fin HYML Modal -->
+      <!-- Inicio HTML Modal -->
+      <b-modal id="crud_Promotions_modal" size="lg" title="Large Modal"
+        ><crudpromotions
+      /></b-modal>
+      <!-- Fin HYML Modal -->
     </div>
     <div class="row justify-content-center">
       <div class="col-11">
@@ -137,19 +139,17 @@ export default {
   },
   name: "promotions",
 
-methods:{
+  methods: {
     async addProducts() {
       this.newProduct = true;
-      this.itemToChange = new Object;
+      this.itemToChange = new Object();
       this.$bvModal.show("crud_Promotions_modal");
     },
 
     async cancelEdition() {
       this.$bvModal.hide("crud_Promotions_modal");
     },
-
-},
-
+  },
 };
 </script>
 

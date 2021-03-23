@@ -39,18 +39,14 @@ export var Global = {
     },
 
      async callGetAPI(EndPoint, params){
-        var r = 
-        await axios
-        .get(this.urlAPI + EndPoint, params)
-        .then(resp => {
-            if (resp.status == 200)
-            {
-                return resp.data;
-            }
-        })
+        let r = await axios
+        .get(this.urlAPI + EndPoint, params, {
+            headers: {
+                'Content-Type': 'application/json'
+            }})
         .catch((e) => alert('Fatal ERROR from services:  ' + e.message));
 
-        return r;
+        return r.data;
     },
 
     async callPostAPI(EndPoint, params){

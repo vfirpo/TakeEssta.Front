@@ -57,10 +57,6 @@
           Sin fecha de finalizacion
         </b-form-checkbox>
       </div>
-      <div class="col-3">
-        <p>Color:</p>
-        <b-form-input id="color" type="color"></b-form-input>
-      </div>
     </div>
     <div class="row justify-content-center">
       <div>
@@ -72,8 +68,8 @@
         >
           <div class="pl-3">
             <b-form-select
-              v-model="selected"
-              :options="options"
+              v-model="SelectedTurno"
+              :options="Turno"
             ></b-form-select>
           </div>
         </b-form-group>
@@ -89,7 +85,7 @@
         </b-form-group>
       </div>
     </div>
-    <div>
+    <div class="row justify-content-center">
       <b-form-group
         label="Tab:"
         label-for="nested-street"
@@ -97,9 +93,124 @@
         label-align-sm="right"
       >
         <div class="pl-3">
-          <b-form-select v-model="Tab" :options="options"></b-form-select>
+          <b-form-select v-model="selectedTab" :options="Tab"></b-form-select>
         </div>
       </b-form-group>
+      <div class="col-3">
+        <b-form-group label="Color:" label-cols-sm="3" label-align-sm="right">
+          <div class="pl-3">
+            <b-form-input id="color" type="color"></b-form-input>
+          </div>
+        </b-form-group>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-10">
+        <b-form-group
+          label="Opcionales"
+          label-cols-sm="3"
+          label-align-sm="right"
+        >
+          <div class="pl-4">
+            <b-form-select v-model="selectedAdicionales" :options="opcionales">
+            </b-form-select>
+          </div>
+        </b-form-group>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col">
+        <b-form-group
+          label="Descuento FIJO en $:"
+          label-cols-sm="3"
+          label-align-sm="right"
+        >
+          <b-form-input type="number"> </b-form-input>
+        </b-form-group>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col">
+        <b-form-group
+          label="Precio Final:"
+          label-cols-sm="3"
+          label-align-sm="right"
+        >
+          <b-form-input type="number"> </b-form-input>
+        </b-form-group>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <h5>Aplicar Por Dias de la Semana</h5>
+    </div>
+    <div class="row justify-content-center">
+      <div>
+        <b-form-group v-slot="{ ariaDescribedby }">
+          <b-form-checkbox-group
+            v-model="selectedSemana"
+            :options="options"
+            :aria-describedby="ariaDescribedby"
+            buttons
+            button-variant="primary"
+            size="lg"
+            name="buttons-2"
+          ></b-form-checkbox-group>
+        </b-form-group>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <b-button><i class="fas fa-plus"></i> Abrir Configuracion </b-button>
+    </div>
+    <div class="container">
+      <b-dropdown-item href="#"> Rubro </b-dropdown-item>
+      <b-form-select v-model="selectedRubros" :options="Rubros"></b-form-select>
+      <b-dropdown-item href="#">sub-rubro </b-dropdown-item>
+      <b-form-select v-model="selectedSubrubro" :options="SubRubros">
+      </b-form-select>
+      <b-dropdown-item href="#"> Producto </b-dropdown-item>
+      <b-form-select
+        v-model="selectedProducto"
+        :options="Productos"
+      ></b-form-select>
+      <div class="p-3">
+        <b-form-group
+          label="Cantidad Minima:"
+          label-cols-sm="3"
+          label-align-sm="right"
+        >
+          <b-form-input type="number"> </b-form-input>
+        </b-form-group>
+      </div>
+      <div class="p-3">
+        <b-form-group
+          label="Cantidad Maxima:"
+          label-cols-sm="3"
+          label-align-sm="right"
+        >
+          <b-form-input type="number"> </b-form-input>
+        </b-form-group>
+      </div>
+      <div class="row">
+        <b-dropdown-item href="#"> Producto </b-dropdown-item>
+        <b-form-select
+          v-model="selectedsubrubro"
+          :options="subrubro"
+        ></b-form-select>
+      </div>
+      <div class="row">
+        <b-dropdown-item href="#"> Producto </b-dropdown-item>
+        <b-form-select
+          v-model="selectedsubrubro"
+          :options="subrubro"
+        ></b-form-select>
+      </div>
+      <div class="row">
+        <b-dropdown-item href="#"> Producto </b-dropdown-item>
+        <b-form-select
+          v-model="selectedsubrubro"
+          :options="subrubro"
+        ></b-form-select>
+      </div>
     </div>
   </div>
 </template>
@@ -227,12 +338,40 @@ export default {
   },
   data() {
     return {
-      selected: null,
-      options: [
+      selectedTurno: null,
+      Turno: [
         { value: null, text: "Todos" },
-        { value: "a", text: "Ma;ana" },
+        { value: "a", text: "Mañana" },
         { value: "b", text: "Tarde" },
       ],
+      selectedTab: null,
+      Tab: [{ value: null, text: "Promos" }],
+      selectedAdicionales: null,
+      opcionales: [
+        { value: null, text: "Ninguno" },
+        { value: "a", text: "Gratinado" },
+        { value: "b", text: "Complementos" },
+        { value: "c", text: "Coccion" },
+      ],
+      types: ["number"],
+      selectedSemana: [],
+      options: [
+        { text: "Lunes", value: "lunes" },
+        { text: "Martes", value: "martes" },
+        { text: "Miercoles", value: "miercoles" },
+        { text: "Jueves", value: "jueves" },
+        { text: "Viernes", value: "viernes" },
+        { text: "Sabado", value: "sabado" },
+        { text: "Domingo", value: "domingo" },
+      ],
+      selectedRubro: null,
+      Rubros: [{ value: null, text: "Eliga rubros" }],
+      selectedSubrubro: null,
+      SubRubros: [{ value: null, text: "Eliga subrubros" }],
+      selectedProducto: null,
+      Productos: [{ value: null, text: "Empanada de Vacio" }],
+      selectedSubrubro: null,
+      subrubro: [{ value: null, text: "tradicionales" }],
     };
   },
 };

@@ -58,7 +58,7 @@
         </div>
 
         <div style="margin-top: 10px">
-          <a target="_blank" href="https://www.datalive.com.ar"
+          <a target="_blank" href="#"
             ><img
               src="/Img/logo_Xava.jpg"
               style="height: 35px; margin-bottom: 20px"
