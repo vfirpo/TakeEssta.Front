@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export var Global = {
-     urlAPI: "http://localhost:8080/api/",
-     //urlAPI: "http://192.168.1.27:9090/api/",
+     //urlAPI: "http://localhost:8080/api/",
+     urlAPI: "http://192.168.1.179:9090/api/",
 
      setCurrentCashBox(cashBox){
         sessionStorage.setItem("CURRENT_CASH_BOX", JSON.stringify(cashBox));
@@ -42,7 +42,8 @@ export var Global = {
         let r = await axios
         .get(this.urlAPI + EndPoint, params, {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
             }})
         .catch((e) => alert('Fatal ERROR from services:  ' + e.message));
 
@@ -50,39 +51,27 @@ export var Global = {
     },
 
     async callPostAPI(EndPoint, params){
-        let r;
-        await axios
+        let r = await axios
         .post(this.urlAPI + EndPoint, params,  {
             headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(resp => {
-            if (resp.status == 200)
-            {
-                r = resp.data;
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
             }
         })
         .catch((e) => alert('Fatal ERROR from services:  ' + e.message));
-        return r;
+        return r.data;
     },
 
     async callPutAPI(EndPoint, params){
-        let r;
-        await axios
+        let r = await axios
         .put(this.urlAPI + EndPoint, params,  {
             headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(resp => {
-            if (resp.status == 200)
-            {
-                r = resp.data;
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
             }
         })
         .catch((e) => alert('Fatal ERROR from services:  ' + e.message));
-        return r;
+        return r.data;
     },
 
     formatDate(value){
