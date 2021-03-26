@@ -218,7 +218,11 @@ export default {
 
   methods: {
     openWindow(){
-      window.open('/toma_de_pedidos')
+
+      let route = this.$router.resolve({
+                path:'/toma_de_pedidos'})
+      
+      window.open(route.href)
     }
   }
 

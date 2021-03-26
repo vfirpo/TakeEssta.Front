@@ -43,7 +43,7 @@
     </div>
     <div class="row p-1 ml-2">
       <div class="p-1">
-        <button class="btn-sm btn btn-light btn-outline-dark" type="button">
+        <button class="btn-sm btn btn-light btn-outline-dark" type="button" @click="raiseRefreshGRid;">
           <i class="fas fa-sync-alt"></i> Actualizar Grilla
         </button>
       </div>
@@ -151,6 +151,7 @@ export default {
   name: "orderMainPanel",
   emits: {
     updateFilter: {},
+    refreshGrid: '',
   },
   props: {
     filter: {
@@ -170,6 +171,10 @@ export default {
         a.classList.toggle(val ? "fa-eye" : "fa-eye-slash");
       }
       return val ? "background-color: #4CAF50" : "background-color: #f44336";
+    },
+    
+    raiseRefreshGRid(){
+      this.$emit("refreshGrid");
     },
 
     setFilters(val) {

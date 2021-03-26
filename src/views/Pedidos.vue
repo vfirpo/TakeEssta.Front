@@ -37,7 +37,7 @@
       <div class="container-fluid">
         <div class="row align-items-start">
           <div class="col">
-            <orderMainPanel :filter="filter" @updateFilter="updateFilter" />
+            <orderMainPanel :filter="filter" @updateFilter="updateFilter"  @refreshGrid="refreshGrid" />
           </div>
           <div class="col">
             <div class="d-flex flex-row-reverse bd-highlight">
@@ -91,6 +91,7 @@
                   type="button"
                   id="btn-pedidos"
                   class="btn btn-secondary"
+                  @click="setValueTest;"
                 >
                   Tomar
                   <br />
@@ -126,6 +127,7 @@
 import comandas from "../components/Comanda.vue";
 import Buttons from "../components/buttons.vue";
 import orderMainPanel from "../components/OrderMainPanel.vue";
+import { nextTick } from 'vue/types/umd';
 
 export default {
   name: "Pedidos",
@@ -222,6 +224,10 @@ export default {
         }
       }
     },
+    refreshGrid(){
+      this.getComandas();
+      this.getComandasPares();
+    },
 
     setDefaultFilters() {
       this.filter.rendidas = false;
@@ -236,6 +242,11 @@ export default {
 
     setFilters(){
        //aca aplicamos la logica de filtrar las comandas
+    },
+
+    setValueTest(){
+      this.impares[1].direccion = "Av. Varela 984 ";
+      //this.$vue.nextTick();
     },
 
     actualizarStock() {
