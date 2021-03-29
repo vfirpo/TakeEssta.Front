@@ -144,74 +144,121 @@
       <h5>Aplicar Por Dias de la Semana</h5>
     </div>
     <div class="row justify-content-center">
-      <div>
-        <b-form-group v-slot="{ ariaDescribedby }">
-          <b-form-checkbox-group
-            v-model="selectedSemana"
-            :options="options"
-            :aria-describedby="ariaDescribedby"
-            buttons
-            button-variant="primary"
-            size="lg"
-            name="buttons-2"
-          ></b-form-checkbox-group>
-        </b-form-group>
+      <div id="check-box-dias">
+        <ul class="ks-cboxtags">
+          <li>
+            <input
+              type="checkbox"
+              id="checkboxOne"
+              value="Rainbow Dash"
+            /><label for="checkboxOne">Lunes</label>
+          </li>
+          <li>
+            <input
+              type="checkbox"
+              id="checkboxTwo"
+              value="Moondancer"
+            /><label for="checkboxTwo">Martes</label>
+          </li>
+          <li>
+            <input
+              type="checkbox"
+              id="checkboxThree"
+              value="Rainbow Dash"
+            /><label for="checkboxThree">Miercoles</label>
+          </li>
+          <li>
+            <input
+              type="checkbox"
+              id="checkboxFour"
+              value="Rainbow Dash"
+            /><label for="checkboxFour">Jueves</label>
+          </li>
+          <li>
+            <input
+              type="checkbox"
+              id="checkboxFive"
+              value="Rainbow Dash"
+            /><label for="checkboxFive">Viernes</label>
+          </li>
+          <li>
+            <input
+              type="checkbox"
+              id="checkboxSix"
+              value="Rainbow Dash"
+            /><label for="checkboxSix">Sabado</label>
+          </li>
+          <li>
+            <input
+              type="checkbox"
+              id="checkboxSeven"
+              value="Rainbow Dash"
+            /><label for="checkboxSeven">Domingo</label>
+          </li>
+        </ul>
       </div>
     </div>
     <div class="row justify-content-center">
-      <b-button><i class="fas fa-plus"></i> Abrir Configuracion </b-button>
+      <b-button v-b-toggle.collapse-2
+        ><i class="fas fa-plus"></i> Abrir Configuracion
+      </b-button>
     </div>
-    <div class="container">
-      <b-dropdown-item href="#"> Rubro </b-dropdown-item>
-      <b-form-select v-model="selectedRubros" :options="Rubros"></b-form-select>
-      <b-dropdown-item href="#">sub-rubro </b-dropdown-item>
-      <b-form-select v-model="selectedSubrubro" :options="SubRubros">
-      </b-form-select>
-      <b-dropdown-item href="#"> Producto </b-dropdown-item>
-      <b-form-select
-        v-model="selectedProducto"
-        :options="Productos"
-      ></b-form-select>
-      <div class="p-3">
-        <b-form-group
-          label="Cantidad Minima:"
-          label-cols-sm="3"
-          label-align-sm="right"
-        >
-          <b-form-input type="number"> </b-form-input>
-        </b-form-group>
-      </div>
-      <div class="p-3">
-        <b-form-group
-          label="Cantidad Maxima:"
-          label-cols-sm="3"
-          label-align-sm="right"
-        >
-          <b-form-input type="number"> </b-form-input>
-        </b-form-group>
-      </div>
-      <div class="row">
+    <b-collapse id="collapse-2">
+      <div class="container">
+        <b-dropdown-item href="#"> Rubro </b-dropdown-item>
+        <b-form-select
+          v-model="selectedRubros"
+          :options="Rubros"
+        ></b-form-select>
+        <b-dropdown-item href="#">sub-rubro </b-dropdown-item>
+        <b-form-select v-model="selectedSubrubro" :options="SubRubros">
+        </b-form-select>
         <b-dropdown-item href="#"> Producto </b-dropdown-item>
         <b-form-select
-          v-model="selectedsubrubro"
-          :options="subrubro"
+          v-model="selectedProducto"
+          :options="Productos"
         ></b-form-select>
+        <div class="p-3">
+          <b-form-group
+            label="Cantidad Minima:"
+            label-cols-sm="3"
+            label-align-sm="right"
+          >
+            <b-form-input type="number"> </b-form-input>
+          </b-form-group>
+        </div>
+        <div class="p-3">
+          <b-form-group
+            label="Cantidad Maxima:"
+            label-cols-sm="3"
+            label-align-sm="right"
+          >
+            <b-form-input type="number"> </b-form-input>
+          </b-form-group>
+        </div>
+        <div class="row">
+          <b-dropdown-item href="#"> Sub-Rubro </b-dropdown-item>
+          <b-form-select
+            v-model="selectedsubrubro"
+            :options="subrubro"
+          ></b-form-select>
+        </div>
+        <div class="row">
+          <b-dropdown-item href="#"> Sub-Rubro </b-dropdown-item>
+          <b-form-select
+            v-model="selectedsubrubro"
+            :options="subrubro"
+          ></b-form-select>
+        </div>
+        <div class="row">
+          <b-dropdown-item href="#"> Sub-Rubro </b-dropdown-item>
+          <b-form-select
+            v-model="selectedsubrubro"
+            :options="subrubro"
+          ></b-form-select>
+        </div>
       </div>
-      <div class="row">
-        <b-dropdown-item href="#"> Producto </b-dropdown-item>
-        <b-form-select
-          v-model="selectedsubrubro"
-          :options="subrubro"
-        ></b-form-select>
-      </div>
-      <div class="row">
-        <b-dropdown-item href="#"> Producto </b-dropdown-item>
-        <b-form-select
-          v-model="selectedsubrubro"
-          :options="subrubro"
-        ></b-form-select>
-      </div>
-    </div>
+    </b-collapse>
   </div>
 </template>
 
@@ -378,4 +425,70 @@ export default {
 </script>
 
 <style>
+ul.ks-cboxtags {
+  list-style: none;
+  padding: 20px;
+}
+ul.ks-cboxtags li {
+  display: inline;
+}
+ul.ks-cboxtags li label {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(139, 139, 139, 0.3);
+  color: #adadad;
+  border-radius: 25px;
+  white-space: nowrap;
+  margin: 3px 0px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.2s;
+}
+
+ul.ks-cboxtags li label {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+ul.ks-cboxtags li label::before {
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 12px;
+  padding: 2px 6px 2px 2px;
+  content: "\f067";
+  transition: transform 0.3s ease-in-out;
+}
+
+ul.ks-cboxtags li input[type="checkbox"]:checked + label::before {
+  content: "\f00c";
+  transform: rotate(-360deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+ul.ks-cboxtags li input[type="checkbox"]:checked + label {
+  border: 2px solid #1bdbf8;
+  background-color: #12bbd4;
+  color: #fff;
+  transition: all 0.2s;
+}
+
+ul.ks-cboxtags li input[type="checkbox"] {
+  display: absolute;
+}
+ul.ks-cboxtags li input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+}
+ul.ks-cboxtags li input[type="checkbox"]:focus + label {
+  border: 2px solid #e9a1ff;
+}
 </style>

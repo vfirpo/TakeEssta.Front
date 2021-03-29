@@ -43,7 +43,7 @@
     </div>
     <div class="row p-1 ml-2">
       <div class="p-1">
-        <button class="btn-sm btn btn-light btn-outline-dark" type="button" @click="raiseRefreshGRid;">
+        <button class="btn-sm btn btn-light btn-outline-dark" type="button" @click="raiseRefreshGRid">
           <i class="fas fa-sync-alt"></i> Actualizar Grilla
         </button>
       </div>
@@ -57,7 +57,7 @@
         >
           <i class="fas fa-filter"></i> Editar Filtros
         </button>
-        <ul class="dropdown-menu p-2" aria-labelledby="editar-filtros">
+        <ul class="dropdown-menu dropdown-filters p-2" aria-labelledby="editar-filtros">
           <li>
             <a
               @click="setFilters(1)"
@@ -151,7 +151,6 @@ export default {
   name: "orderMainPanel",
   emits: {
     updateFilter: {},
-    refreshGrid: '',
   },
   props: {
     filter: {
@@ -174,6 +173,7 @@ export default {
     },
     
     raiseRefreshGRid(){
+      console.log('Paso por el raise')
       this.$emit("refreshGrid");
     },
 

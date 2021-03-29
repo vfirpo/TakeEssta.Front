@@ -91,7 +91,7 @@
                   type="button"
                   id="btn-pedidos"
                   class="btn btn-secondary"
-                  @click="setValueTest;"
+                  @click="setValueTest"
                 >
                   Tomar
                   <br />
@@ -127,7 +127,6 @@
 import comandas from "../components/Comanda.vue";
 import Buttons from "../components/buttons.vue";
 import orderMainPanel from "../components/OrderMainPanel.vue";
-import { nextTick } from 'vue/types/umd';
 
 export default {
   name: "Pedidos",
@@ -216,7 +215,8 @@ export default {
       this.pares = [];
       this.impares = [];
 
-      for (var i = 0; i < this.dato.length; i++) {
+      //for (var i = 0; i < this.dato.length; i++) {
+      for (var i = 0; i < 35; i++) {
         if (this.dato[i].comandaId % 2 == 0) {
           this.pares.push(this.dato[i]);
         } else {
@@ -224,9 +224,26 @@ export default {
         }
       }
     },
+
+    getComandasParesTest() {
+      this.pares = [];
+      this.impares = [];
+
+      for (var i = 0; i < 30; i++) {
+        if (this.dato[i].comandaId % 2 == 0) {
+          this.pares.push(this.dato[i]);
+        } else {
+          this.impares.push(this.dato[i]);
+        }
+      }
+    },
+
+
     refreshGrid(){
+      console.log('Init Refresh')
       this.getComandas();
-      this.getComandasPares();
+      this.getComandasParesTest();
+      console.log('End Refresh')
     },
 
     setDefaultFilters() {
@@ -241,10 +258,12 @@ export default {
     },
 
     setFilters(){
+      this.impares = this.impares.filter((x) => (x.comandaId % 3) == 0);
        //aca aplicamos la logica de filtrar las comandas
     },
 
     setValueTest(){
+      console.log('Paso por Set Values')
       this.impares[1].direccion = "Av. Varela 984 ";
       //this.$vue.nextTick();
     },
