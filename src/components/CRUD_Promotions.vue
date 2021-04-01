@@ -82,7 +82,6 @@
           label-align-sm="right"
         >
           <b-form-input id="nested-street"></b-form-input>
-        </b-form-group>
       </div>
     </div>
     <div class="row justify-content-center">
