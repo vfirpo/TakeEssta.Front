@@ -127,7 +127,6 @@ export default {
     },
 
     allowDrop(ev) {
-      //console.log(ev)
       ev.preventDefault();
     },
 

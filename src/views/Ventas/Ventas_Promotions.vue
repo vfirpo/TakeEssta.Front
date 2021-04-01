@@ -50,8 +50,8 @@
         Hacer Promocion
       </button>
       <!-- Inicio HTML Modal -->
-      <b-modal id="crud_Promotions_modal" size="lg" title="Large Modal"
-        ><crudpromotions
+      <b-modal id="crud_Promotions_modal" size="lg" title="Large Modal" >
+        <crudpromotions :lstRubros="lstRubros" :lstSubRubros="lstSubRubros" :lstBehaviours="lstBehaviours" :lstProducts="lstProducts"
       /></b-modal>
       <!-- Fin HYML Modal -->
     </div>
@@ -139,6 +139,23 @@ export default {
   },
   name: "promotions",
 
+  data(){
+    return {
+      lstProducts: [],
+      lstRubros: [],
+      lstSubRubros: [],
+      lstBehaviours: [],
+      items:[]
+    } 
+  },
+
+  async created(){
+    await this.getProducts();
+    await this.getRubros();
+    await this.getSubRubros();
+    await this.getBehaviours();
+  },
+
   methods: {
     async addProducts() {
       this.newProduct = true;
@@ -149,6 +166,37 @@ export default {
     async cancelEdition() {
       this.$bvModal.hide("crud_Promotions_modal");
     },
+
+    async getProducts() {
+
+      let params = "?sucursalId=" + this.$global.getCurrentUser().sucursal.id;
+
+      let ret = await this.$global.callGetAPI("Products/GetBySucursal" + params);
+      this.lstProducts = ret.items;
+    },
+
+    async getRubros() {
+      let ret = await this.$global.callGetAPI(
+        "TableProperties/GetRubros"
+      );
+      this.lstRubros = ret.items;
+    },
+
+    async getSubRubros() {
+      let ret = await this.$global.callGetAPI(
+        "TableProperties/GetSubRubros"
+      );
+      this.lstSubRubros = ret.items;
+    },
+
+    async getBehaviours() {
+        let ret = await this.$global.callGetAPI(
+          "Behaviours/GetAll"
+        );
+        this.lstBehaviours = ret.items;
+    },    
+
+
   },
 };
 </script>

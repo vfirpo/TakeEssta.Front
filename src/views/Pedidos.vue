@@ -139,12 +139,12 @@ export default {
     return {
       dato: null,
       filter: {
-        rendidas: Boolean,
-        anuladas: Boolean,
-        cobradas: Boolean,
-        sinCobrar: Boolean,
-        efectivo: Boolean,
-        electronico: Boolean,
+        rendidas: false,
+        anuladas: false,
+        cobradas: true,
+        sinCobrar: true,
+        efectivo: true,
+        electronico: true,
       },
       cashBox: Object,
       user: Object,
@@ -168,11 +168,7 @@ export default {
 
     this.products = resp.items;
 
-    this.stock = await this.$global.callGetAPI(
-      "Products/GetStockBySucursal?sucursalid=" + sucursal
-    );
-
-    this.actualizarStock();
+    await this.actualizarStock();
 
     await this.getComandas();
 
@@ -191,7 +187,7 @@ export default {
 
     menu.parentNode.removeChild(menu);
 
-    this.setDefaultFilters();
+    //this.setDefaultFilters();
   },
 
   methods: {
@@ -207,10 +203,6 @@ export default {
       this.dato = resp;
     },
 
-    getCurrentUser: function () {
-      return this.$global.getCurrentUser();
-    },
-    
     getComandasPares() {
       this.pares = [];
       this.impares = [];
@@ -225,25 +217,9 @@ export default {
       }
     },
 
-    getComandasParesTest() {
-      this.pares = [];
-      this.impares = [];
-
-      for (var i = 0; i < 30; i++) {
-        if (this.dato[i].comandaId % 2 == 0) {
-          this.pares.push(this.dato[i]);
-        } else {
-          this.impares.push(this.dato[i]);
-        }
-      }
-    },
-
-
-    refreshGrid(){
-      console.log('Init Refresh')
-      this.getComandas();
-      this.getComandasParesTest();
-      console.log('End Refresh')
+    async refreshGrid(){
+      await this.getComandas();
+      this.getComandasPares();
     },
 
     setDefaultFilters() {
@@ -263,12 +239,15 @@ export default {
     },
 
     setValueTest(){
-      console.log('Paso por Set Values')
       this.impares[1].direccion = "Av. Varela 984 ";
-      //this.$vue.nextTick();
     },
 
-    actualizarStock() {
+    async actualizarStock() {
+      let stck = await this.$global.callGetAPI(
+      "Products/GetStockBySucursal?sucursalid=" + this.user.sucursal.id
+      );
+      this.stock = stck;
+
       this.products.forEach((item) => {
         let val = this.stock.filter((x) => x.productsId == item.id)[0];
         item.stock = val.stock;

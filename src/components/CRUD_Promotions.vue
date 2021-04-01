@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center p-2">
       <div class="col-2">
         <p>Titulo</p>
       </div>
@@ -12,7 +12,7 @@
         />
       </div>
     </div>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center p-2">
       <div class="col-2">
         <p>Descripcion</p>
       </div>
@@ -59,84 +59,64 @@
       </div>
     </div>
     <div class="row justify-content-center">
-      <div>
-        <b-form-group
-          label="Turno:"
-          label-for="nested-street"
-          label-cols-sm="3"
-          label-align-sm="right"
-        >
-          <div class="pl-3">
-            <b-form-select
-              v-model="SelectedTurno"
-              :options="Turno"
-            ></b-form-select>
-          </div>
-        </b-form-group>
+      <div class="col-1">
+        <p>Turno:</p>
       </div>
-      <div>
-        <b-form-group
-          label="Orden:"
-          label-for="nested-street"
-          label-cols-sm="3"
-          label-align-sm="right"
-        >
-          <b-form-input id="nested-street"></b-form-input>
+      <div class="col-3 px-4">
+        <b-form-select v-model="selectedTurno" :options="Turno"></b-form-select>
       </div>
-    </div>
-    <div class="row justify-content-center">
-      <b-form-group
-        label="Tab:"
-        label-for="nested-street"
-        label-cols-sm="3"
-        label-align-sm="right"
-      >
-        <div class="pl-3">
-          <b-form-select v-model="selectedTab" :options="Tab"></b-form-select>
-        </div>
-      </b-form-group>
+      <div class="col-1">
+        <p>Orden:</p>
+      </div>
       <div class="col-3">
-        <b-form-group label="Color:" label-cols-sm="3" label-align-sm="right">
-          <div class="pl-3">
-            <b-form-input id="color" type="color"></b-form-input>
-          </div>
-        </b-form-group>
+        <b-form-input id="nested-street"></b-form-input>
       </div>
     </div>
     <div class="row justify-content-center">
-      <div class="col-10">
-        <b-form-group
-          label="Opcionales"
-          label-cols-sm="3"
-          label-align-sm="right"
-        >
-          <div class="pl-4">
-            <b-form-select v-model="selectedAdicionales" :options="opcionales">
-            </b-form-select>
-          </div>
-        </b-form-group>
+      <div class="col-1">
+        <p>Tab:</p>
+      </div>
+      <div class="col-3">
+        <b-form-select v-model="selectedTab" :options="Tab"></b-form-select>
+      </div>
+      <div class="col-1">
+        <p>Color:</p>
+      </div>
+      <div class="col-3">
+        <b-form-input id="color" type="color"></b-form-input>
       </div>
     </div>
-    <div class="row justify-content-center">
-      <div class="col">
-        <b-form-group
-          label="Descuento FIJO en $:"
-          label-cols-sm="3"
-          label-align-sm="right"
-        >
-          <b-form-input type="number"> </b-form-input>
-        </b-form-group>
+    <div class="row justify-content-center p-2">
+      <div class="col-2">
+        <p>Opcionales</p>
+      </div>
+      <div class="col-6">
+        <b-form-select v-model="selectedAdicionales" :options="opcionales">
+        </b-form-select>
       </div>
     </div>
-    <div class="row justify-content-center">
-      <div class="col">
-        <b-form-group
-          label="Precio Final:"
-          label-cols-sm="3"
-          label-align-sm="right"
-        >
-          <b-form-input type="number"> </b-form-input>
-        </b-form-group>
+    <div class="row justify-content-center p-2">
+      <div class="col-2">
+        <p>Titulo</p>
+      </div>
+      <div class="col-6">
+        <input
+          class="ml-auto rounded form-control"
+          type="number"
+          aria-label="Sizing example input"
+        />
+      </div>
+    </div>
+    <div class="row justify-content-center p-2">
+      <div class="col-2">
+        <p>Precio final</p>
+      </div>
+      <div class="col-6">
+        <input
+          class="ml-auto rounded form-control"
+          type="number"
+          aria-label="Sizing example input"
+        />
       </div>
     </div>
     <div class="row justify-content-center">
@@ -153,11 +133,10 @@
             /><label for="checkboxOne">Lunes</label>
           </li>
           <li>
-            <input
-              type="checkbox"
-              id="checkboxTwo"
-              value="Moondancer"
-            /><label for="checkboxTwo">Martes</label>
+            <input type="checkbox" id="checkboxTwo" value="Moondancer" /><label
+              for="checkboxTwo"
+              >Martes</label
+            >
           </li>
           <li>
             <input
@@ -202,21 +181,61 @@
         ><i class="fas fa-plus"></i> Abrir Configuracion
       </b-button>
     </div>
+    <div>
+        <!-- <div v-for="config in currentPromotions.promotionsConfig"
+        :key="config.promotionsConfig.id">
+          <p>{{config.rubro.description}}</p><br>
+          <p>{{config.subrubro.description}}</p><br>
+          <p>{{config.minUnits}}</p><br>
+          <p>{{config.maxUnits}}</p><br>
+        </div> -->
+    </div>
     <b-collapse id="collapse-2">
       <div class="container">
-        <b-dropdown-item href="#"> Rubro </b-dropdown-item>
-        <b-form-select
-          v-model="selectedRubros"
-          :options="Rubros"
-        ></b-form-select>
-        <b-dropdown-item href="#">sub-rubro </b-dropdown-item>
-        <b-form-select v-model="selectedSubrubro" :options="SubRubros">
-        </b-form-select>
-        <b-dropdown-item href="#"> Producto </b-dropdown-item>
-        <b-form-select
-          v-model="selectedProducto"
-          :options="Productos"
-        ></b-form-select>
+        <b-form-group label="rubro" label-cols-sm="3" label-align-sm="right">
+          <div class="pl-3">
+            <b-form-select
+              id="cmbRubros"
+              v-model="selectedRubro"
+              :options="lstRubros"
+              value-field="id"
+              text-field="description"
+              @change="cmbRubroChange()"
+            >
+              <template #first>
+                <b-form-select-option :value="null"
+                  >Seleccione una Opcion
+                </b-form-select-option>
+              </template>
+            </b-form-select>
+          </div>
+        </b-form-group>
+        <b-form-group label="subRubro" label-cols-sm="3" label-align-sm="right">
+          <div class="pl-3">
+            <b-form-select
+              v-model="selectedSubRubro"
+              :options="lstFilteredSubRubros"
+              value-field="id"
+              text-field="description"
+              @change="cmbSubRubroChange()"
+
+            >
+              ></b-form-select
+            >
+          </div>
+        </b-form-group>
+        <b-form-group label="producto" label-cols-sm="3" label-align-sm="right">
+          <div class="pl-3">
+            <b-form-select
+              v-model="selectedProducts"
+              :options="lstFilteredProducts"
+              value-field="id"
+              text-field="description"
+            >
+              ></b-form-select
+            >
+          </div>
+        </b-form-group>
         <div class="p-3">
           <b-form-group
             label="Cantidad Minima:"
@@ -236,25 +255,52 @@
           </b-form-group>
         </div>
         <div class="row">
-          <b-dropdown-item href="#"> Sub-Rubro </b-dropdown-item>
-          <b-form-select
-            v-model="selectedsubrubro"
-            :options="subrubro"
-          ></b-form-select>
+          <b-form-group
+            label="subRubro"
+            label-cols-sm="3"
+            label-align-sm="right"
+          >
+            <div class="pl-3">
+              <b-form-select
+                v-model="selectedSubRubro2"
+                :options="lstFilteredSubRubros"
+                value-field="id"
+                text-field="description"
+              ></b-form-select>
+            </div>
+          </b-form-group>
         </div>
         <div class="row">
-          <b-dropdown-item href="#"> Sub-Rubro </b-dropdown-item>
-          <b-form-select
-            v-model="selectedsubrubro"
-            :options="subrubro"
-          ></b-form-select>
+          <b-form-group
+            label="subRubro"
+            label-cols-sm="3"
+            label-align-sm="right"
+          >
+            <div class="pl-3">
+              <b-form-select
+                v-model="selectedSubRubro3"
+                :options="lstFilteredSubRubros"
+                value-field="id"
+                text-field="description"
+              ></b-form-select>
+            </div>
+          </b-form-group>
         </div>
         <div class="row">
-          <b-dropdown-item href="#"> Sub-Rubro </b-dropdown-item>
-          <b-form-select
-            v-model="selectedsubrubro"
-            :options="subrubro"
-          ></b-form-select>
+          <b-form-group
+            label="subRubro"
+            label-cols-sm="3"
+            label-align-sm="right"
+          >
+            <div class="pl-3">
+              <b-form-select
+                v-model="selectedSubRubro4"
+                :options="lstFilteredSubRubros"
+                value-field="id"
+                text-field="description"
+              ></b-form-select>
+            </div>
+          </b-form-group>
         </div>
       </div>
     </b-collapse>
@@ -265,6 +311,11 @@
 export default {
   name: "crudpromotions",
   props: {
+    newPromotion: true,
+    lstProducts: null,
+    lstBehaviours: null,
+    lstRubros: null,
+    lstSubRubros: null,
     currentPromotions: {
       id: 0,
       code: String,
@@ -288,7 +339,7 @@ export default {
       activeDays: String,
       image: String,
       isActive: true,
-      PromotionsConfig: [
+      promotionsConfig: [
         {
           id: 0,
           rubro: {
@@ -384,7 +435,9 @@ export default {
   },
   data() {
     return {
-      selectedTurno: null,
+      lstFilteredSubRubros: null,
+      lstFilteredProducts: null,
+      selectedTurno: 0,
       Turno: [
         { value: null, text: "Todos" },
         { value: "a", text: "Mañana" },
@@ -410,15 +463,48 @@ export default {
         { text: "Sabado", value: "sabado" },
         { text: "Domingo", value: "domingo" },
       ],
-      selectedRubro: null,
-      Rubros: [{ value: null, text: "Eliga rubros" }],
-      selectedSubrubro: null,
-      SubRubros: [{ value: null, text: "Eliga subrubros" }],
-      selectedProducto: null,
-      Productos: [{ value: null, text: "Empanada de Vacio" }],
-      selectedSubrubro: null,
-      subrubro: [{ value: null, text: "tradicionales" }],
+      selectedRubro: 0,
+      selectedSubRubro: 0,
+      selectedSubRubro2: 0,
+      selectedSubRubro3: 0,
+      selectedSubRubro4: 0,
+      selectedProducts: 0,
     };
+  },
+  mounted() {
+    if (this.newPromotion){
+      
+
+    }
+    this.selectedRubro = null;
+    this.cmbRubroChange();
+  },
+
+  methods: {
+    cmbRubroChange() {
+      let sr = this.lstSubRubros.filter((x) => x.rubroId == this.selectedRubro);
+      this.lstFilteredSubRubros = sr;
+      this.selectedSubRubro = null;
+      this.filterProducts(this.selectedRubro, null)
+    },
+
+    cmbSubRubroChange() {
+      this.filterProducts(this.selectedRubro, this.selectedSubRubro)
+    },
+
+    filterProducts(rubroid, subrubroid){
+      let sr = [];      
+      if (subrubroid && rubroid){
+      sr = this.lstProducts.filter(
+        (x) => x.subRubro != null && x.subRubro.id == subrubroid && x.rubro.id == rubroid);
+      }
+      else if (rubroid && !subrubroid) {
+      sr = this.lstProducts.filter(
+        (x) => x.rubro.id == rubroid);
+      }
+      this.lstFilteredProducts = sr;
+      this.selectedProducts = null;
+    },
   },
 };
 </script>

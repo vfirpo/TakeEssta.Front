@@ -173,7 +173,6 @@ export default {
     },
     
     raiseRefreshGRid(){
-      console.log('Paso por el raise')
       this.$emit("refreshGrid");
     },
 
