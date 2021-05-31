@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import './plugins/axios'
 import App from './App.vue'
 import jq from 'jquery'
 import 'popper.js'
@@ -15,7 +16,6 @@ import VCalendar from 'v-calendar'
 import {Global} from './assets/Global'
 import VueLodash from 'vue-lodash'
 import lodash from 'lodash'
- 
 
 library.add(fas)
 

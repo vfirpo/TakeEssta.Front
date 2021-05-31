@@ -30,14 +30,14 @@
       </div>
     </div>
     <div>
-      <button class="rounded-pill shadow p-2" type="button">
+      <button class="rounded-pill shadow p-2" type="button" @click="getPromotions">
         <i class="fas fa-sync-alt"></i>
         Actualizar Grilla
       </button>
     </div>
     <div class="p-3 row justify-content-center">
       <label for="search"><strong>Buscar: </strong></label>
-      <div class="pl-4"> 
+      <div class="pl-4">
         <input type="search" id="search" class="rounded-lg shadow p-2" />
       </div>
     </div>
@@ -45,13 +45,19 @@
       <button
         type="button"
         class="rounded-pill shadow p-2"
-        @click="addProducts()"
+        @click="addPromotions()"
       >
         Hacer Promocion
       </button>
       <!-- Inicio HTML Modal -->
-      <b-modal id="crud_Promotions_modal" size="lg" title="Large Modal" >
-        <crudpromotions :lstRubros="lstRubros" :lstSubRubros="lstSubRubros" :lstBehaviours="lstBehaviours" :lstProducts="lstProducts"
+      <b-modal id="crud_Promotions_modal" size="lg" title="Large Modal">
+        <crudpromotions
+          :lstRubros="lstRubros"
+          :lstSubRubros="lstSubRubros"
+          :lstBehaviours="lstBehaviours"
+          :lstProducts="lstProducts"
+          :newPromotion="newPromotions"
+          :currentPromotions="itemToChange"
       /></b-modal>
       <!-- Fin HYML Modal -->
     </div>
@@ -65,6 +71,7 @@
           <thead>
             <tr>
               <th>Id</th>
+              <th>Code</th>
               <th>Descripcion</th>
               <th>Valida Desde</th>
               <th>Valida Hasta</th>
@@ -77,19 +84,24 @@
             </tr>
           </thead>
           <tbody v-if="items">
-            <tr v-for="item in items.items" :key="item.id">
+            <tr v-for="item in items" :key="item.id">
               <td>
                 {{ item.id }}
               </td>
               <td>
-                {{ item.Descripcion }} <br />
-                {{ item.extendedDescription }}
+                {{ item.code }}
               </td>
               <td>
-                {{ item.desde }}
+                {{ item.description }} <br />
+                <label style="font-size: x-small">{{
+                  item.extendedDescription
+                }}</label>
               </td>
               <td>
-                {{ item.hasta }}
+                {{ new Date(item.activeFrom).toLocaleDateString() }}
+              </td>
+              <td>
+                {{ new Date(item.activeTo).toLocaleDateString() }}
               </td>
               <td>
                 {{ item.color }}
@@ -98,16 +110,16 @@
                 {{ item.turno }}
               </td>
               <td>
-                {{ item.precio }}
+                {{ item.price }}
               </td>
               <td>
-                {{ !item.sucursalId ? "Global" : sucursalDescription }}
+                {{ !item.sucursal.id ? "Global" : item.sucursal.description }}
               </td>
               <td>
-                {{ item.imagen }}
+                {{ item.image }}
               </td>
               <td>
-                <div v-if="item.sucursalId">
+                <div v-if="item.sucursal.id">
                   <b-button
                     class="btn-xs btn-warning xs"
                     @click="editThisPromo(item.id)"
@@ -115,7 +127,7 @@
                   ><br />
                   <b-button
                     class="btn-xs btn-danger xs"
-                    @click="deleteThisProduct(item.id)"
+                    @click="deleteThisPromo(item.id)"
                     ><i class="fas fa-trash-alt" /> Eliminar</b-button
                   >
                 </div>
@@ -139,26 +151,29 @@ export default {
   },
   name: "promotions",
 
-  data(){
+  data() {
     return {
       lstProducts: [],
       lstRubros: [],
       lstSubRubros: [],
       lstBehaviours: [],
-      items:[]
-    } 
+      items: [],
+      newPromotions: Boolean,
+      itemToChange: Object,
+    };
   },
 
-  async created(){
+  async created() {
     await this.getProducts();
     await this.getRubros();
     await this.getSubRubros();
     await this.getBehaviours();
+    await this.getPromotions();
   },
 
   methods: {
-    async addProducts() {
-      this.newProduct = true;
+    async addPromotions() {
+      this.newPromotions = true;
       this.itemToChange = new Object();
       this.$bvModal.show("crud_Promotions_modal");
     },
@@ -168,35 +183,44 @@ export default {
     },
 
     async getProducts() {
-
       let params = "?sucursalId=" + this.$global.getCurrentUser().sucursal.id;
 
-      let ret = await this.$global.callGetAPI("Products/GetBySucursal" + params);
+      let ret = await this.$global.callGetAPI(
+        "Products/GetBySucursal" + params
+      );
       this.lstProducts = ret.items;
     },
 
-    async getRubros() {
+    async getPromotions() {
+      let params = "?sucursalId=" + this.$global.getCurrentUser().sucursal.id;
+      params += "&activeOnly=false";
+
       let ret = await this.$global.callGetAPI(
-        "TableProperties/GetRubros"
+        "Promotions/GetPromotions" + params
       );
+      this.items = ret.items;
+    },
+
+    async getRubros() {
+      let ret = await this.$global.callGetAPI("TableProperties/GetRubros");
       this.lstRubros = ret.items;
     },
 
     async getSubRubros() {
-      let ret = await this.$global.callGetAPI(
-        "TableProperties/GetSubRubros"
-      );
+      let ret = await this.$global.callGetAPI("TableProperties/GetSubRubros");
       this.lstSubRubros = ret.items;
     },
 
     async getBehaviours() {
-        let ret = await this.$global.callGetAPI(
-          "Behaviours/GetAll"
-        );
-        this.lstBehaviours = ret.items;
-    },    
-
-
+      let ret = await this.$global.callGetAPI("Behaviours/GetAll");
+      this.lstBehaviours = ret.items;
+    },
+    editThisPromo(promotionsId){
+      let prom = this.items.filter(x => x.id == promotionsId)[0]
+      this.newPromotions = false;
+      this.itemToChange = prom;
+      this.$bvModal.show("crud_Promotions_modal");
+    },
   },
 };
 </script>

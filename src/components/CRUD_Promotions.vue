@@ -2,13 +2,14 @@
   <div class="container-fluid">
     <div class="row justify-content-center p-2">
       <div class="col-2">
-        <p>Titulo</p>
+        <p>Codigo</p>
       </div>
       <div class="col-6">
         <input
           class="ml-auto rounded form-control"
           type="text"
           aria-label="Sizing example input"
+          v-model="currentPromotions.code"
         />
       </div>
     </div>
@@ -21,33 +22,55 @@
           class="ml-auto rounded form-control"
           type="text"
           aria-label="Sizing example input"
+          v-model="currentPromotions.description"
         />
       </div>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-3 pl-3">
-        <p>Validez Desde</p>
-        <div class="">
-          <input
-            type="date"
-            id="start"
-            name="trip-start"
-            value="2018-07-22"
-            min="2018-01-01"
-            max="2030-12-31"
-          />
-        </div>
+    <div class="row justify-content-center p-2">
+      <div class="col-2">
+        <p>Extended Description</p>
       </div>
-      <div class="col-3">
-        <p>Hasta:</p>
+      <div class="col-6">
         <input
-          type="date"
-          id="start"
-          name="trip-start"
-          value="2018-07-22"
-          min="2018-01-01"
-          max="2030-12-31"
+          class="ml-auto rounded form-control"
+          type="text"
+          aria-label="Sizing example input"
+          v-model="currentPromotions.extendedDescription"
         />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2 pl-3">
+        <p>Validez Desde</p>
+      </div>
+        <div>
+          <vc-date-picker v-model="currentPromotions.activeFrom" id="from" name="from">
+            <template v-slot="{ inputValue, inputEvents }">
+              <input
+                class="bg-white border px-2 py-1 rounded"
+                :value="inputValue"
+                v-on="inputEvents"
+              />
+            </template>
+          </vc-date-picker>
+
+
+          <!-- <b-form-input id="from" type="date" value-as-date v-model="currentPromotions.activeFrom"></b-form-input>          <b-form-datepicker id="from" size="sm" v-model="currentPromotions.activeFrom"></b-form-datepicker> -->
+        </div>
+      <div class="col-2 ">
+        <p>Hasta:</p>
+      </div>
+        <div>
+          <vc-date-picker v-model="currentPromotions.activeTo" id="to" name="to">
+            <template v-slot="{ inputValue, inputEvents }">
+              <input
+                class="bg-white border px-2 py-1 rounded"
+                :value="inputValue"
+                v-on="inputEvents"
+              />
+            </template>
+          </vc-date-picker>
+          <!-- <b-form-input id="to" type="date" value-as-date v-model="currentPromotions.dateTo"></b-form-input>          <b-form-datepicker id="from" size="sm" v-model="currentPromotions.activeFrom"></b-form-datepicker> -->
         <b-form-checkbox
           id="checkbox-3"
           name="checkbox-3"
@@ -56,9 +79,9 @@
         >
           Sin fecha de finalizacion
         </b-form-checkbox>
-      </div>
+        </div>
     </div>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center pt-2">
       <div class="col-1">
         <p>Turno:</p>
       </div>
@@ -72,7 +95,7 @@
         <b-form-input id="nested-street"></b-form-input>
       </div>
     </div>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center pt-2">
       <div class="col-1">
         <p>Tab:</p>
       </div>
@@ -93,18 +116,6 @@
       <div class="col-6">
         <b-form-select v-model="selectedAdicionales" :options="opcionales">
         </b-form-select>
-      </div>
-    </div>
-    <div class="row justify-content-center p-2">
-      <div class="col-2">
-        <p>Titulo</p>
-      </div>
-      <div class="col-6">
-        <input
-          class="ml-auto rounded form-control"
-          type="number"
-          aria-label="Sizing example input"
-        />
       </div>
     </div>
     <div class="row justify-content-center p-2">
@@ -182,7 +193,7 @@
       </b-button>
     </div>
     <div>
-        <!-- <div v-for="config in currentPromotions.promotionsConfig"
+      <!-- <div v-for="config in currentPromotions.promotionsConfig"
         :key="config.promotionsConfig.id">
           <p>{{config.rubro.description}}</p><br>
           <p>{{config.subrubro.description}}</p><br>
@@ -191,8 +202,8 @@
         </div> -->
     </div>
     <b-collapse id="collapse-2">
-      <div class="container">
-        <b-form-group label="rubro" label-cols-sm="3" label-align-sm="right">
+      <div class="p-3">
+        <b-form-group label="Rubro" label-cols-sm="3" label-align-sm="right">
           <div class="pl-3">
             <b-form-select
               id="cmbRubros"
@@ -210,7 +221,7 @@
             </b-form-select>
           </div>
         </b-form-group>
-        <b-form-group label="subRubro" label-cols-sm="3" label-align-sm="right">
+        <b-form-group label="Sub Rubro" label-cols-sm="3" label-align-sm="right">
           <div class="pl-3">
             <b-form-select
               v-model="selectedSubRubro"
@@ -218,22 +229,14 @@
               value-field="id"
               text-field="description"
               @change="cmbSubRubroChange()"
-
-            >
-              ></b-form-select
-            >
+            ></b-form-select>
           </div>
         </b-form-group>
-        <b-form-group label="producto" label-cols-sm="3" label-align-sm="right">
+        <b-form-group label="Producto" label-cols-sm="3" label-align-sm="right">
           <div class="pl-3">
-            <b-form-select
-              v-model="selectedProducts"
-              :options="lstFilteredProducts"
-              value-field="id"
-              text-field="description"
-            >
-              ></b-form-select
-            >
+            <multiselect v-model="selectedProducts" :options="lstFilteredProducts" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Seleccione Productos" label="description" track-by="id" :preselect-first="true">
+              <template slot="selection" slot-scope="{ values, isOpen }"><span class="multiselect__single" v-if="values && values.length && !isOpen">{{ values.length }} seleccionados</span></template>
+            </multiselect>
           </div>
         </b-form-group>
         <div class="p-3">
@@ -254,53 +257,64 @@
             <b-form-input type="number"> </b-form-input>
           </b-form-group>
         </div>
-        <div class="row">
-          <b-form-group
-            label="subRubro"
-            label-cols-sm="3"
-            label-align-sm="right"
-          >
-            <div class="pl-3">
-              <b-form-select
-                v-model="selectedSubRubro2"
-                :options="lstFilteredSubRubros"
-                value-field="id"
-                text-field="description"
-              ></b-form-select>
-            </div>
-          </b-form-group>
-        </div>
-        <div class="row">
-          <b-form-group
-            label="subRubro"
-            label-cols-sm="3"
-            label-align-sm="right"
-          >
-            <div class="pl-3">
-              <b-form-select
-                v-model="selectedSubRubro3"
-                :options="lstFilteredSubRubros"
-                value-field="id"
-                text-field="description"
-              ></b-form-select>
-            </div>
-          </b-form-group>
-        </div>
-        <div class="row">
-          <b-form-group
-            label="subRubro"
-            label-cols-sm="3"
-            label-align-sm="right"
-          >
-            <div class="pl-3">
-              <b-form-select
-                v-model="selectedSubRubro4"
-                :options="lstFilteredSubRubros"
-                value-field="id"
-                text-field="description"
-              ></b-form-select>
-            </div>
-          </b-form-group>
+        <div class="container">
+          <div class="row">
+            <b-form-group
+              label="subRubro"
+              label-cols-sm="3"
+              label-align-sm="right"
+              class="col"
+            >
+              <div class="pl-3 col-4">
+                <b-form-select
+                  v-model="selectedSubRubro2"
+                  :options="lstFilteredSubRubros"
+                  value-field="id"
+                  text-field="description"
+                ></b-form-select>
+              </div>
+            </b-form-group>
+          </div>
+          <div class="row">
+            <b-form-group
+              label="subRubro"
+              label-cols-sm="3"
+              label-align-sm="right"
+              class="col"
+            >
+              <div class="pl-3 col-4">
+                <b-form-select
+                  v-model="selectedSubRubro3"
+                  :options="lstFilteredSubRubros"
+                  value-field="id"
+                  text-field="description"
+                ></b-form-select>
+              </div>
+            </b-form-group>
+          </div>
+          <div class="row">
+            <b-form-group
+              label="subRubro"
+              label-cols-sm="3"
+              label-align-sm="right"
+              class="col"
+            >
+              <div class="pl-3 col-4">
+                <b-form-select
+                  v-model="selectedSubRubro4"
+                  :options="lstFilteredSubRubros"
+                  value-field="id"
+                  text-field="description"
+                ></b-form-select>
+              </div>
+            </b-form-group>
+          </div>
+          <div>
+            <center>
+            <b-button @click="addConfig" variant="primary">Confirmar Configuración</b-button>
+            <b-button variant="light">Cancelar</b-button>
+            </center>
+          </div>
         </div>
       </div>
     </b-collapse>
@@ -308,7 +322,10 @@
 </template>
 
 <script>
+import Multiselect from 'vue-multiselect'
+
 export default {
+  components: {Multiselect},
   name: "crudpromotions",
   props: {
     newPromotion: true,
@@ -436,7 +453,7 @@ export default {
   data() {
     return {
       lstFilteredSubRubros: null,
-      lstFilteredProducts: null,
+      lstFilteredProducts: [],
       selectedTurno: 0,
       Turno: [
         { value: null, text: "Todos" },
@@ -468,13 +485,15 @@ export default {
       selectedSubRubro2: 0,
       selectedSubRubro3: 0,
       selectedSubRubro4: 0,
-      selectedProducts: 0,
+      selectedProducts: [],
     };
   },
   mounted() {
-    if (this.newPromotion){
-      
-
+    if (this.newPromotion) {
+      this.currentPromotions.id = 0;
+      this.currentPromotions.description = "";
+      this.currentPromotions.extendedDescription = "";
+      this.currentPromotions.activeFrom = new Date();
     }
     this.selectedRubro = null;
     this.cmbRubroChange();
@@ -485,30 +504,36 @@ export default {
       let sr = this.lstSubRubros.filter((x) => x.rubroId == this.selectedRubro);
       this.lstFilteredSubRubros = sr;
       this.selectedSubRubro = null;
-      this.filterProducts(this.selectedRubro, null)
+      this.filterProducts(this.selectedRubro, null);
     },
 
     cmbSubRubroChange() {
-      this.filterProducts(this.selectedRubro, this.selectedSubRubro)
+      this.filterProducts(this.selectedRubro, this.selectedSubRubro);
     },
 
-    filterProducts(rubroid, subrubroid){
-      let sr = [];      
-      if (subrubroid && rubroid){
-      sr = this.lstProducts.filter(
-        (x) => x.subRubro != null && x.subRubro.id == subrubroid && x.rubro.id == rubroid);
-      }
-      else if (rubroid && !subrubroid) {
-      sr = this.lstProducts.filter(
-        (x) => x.rubro.id == rubroid);
+    filterProducts(rubroid, subrubroid) {
+      let sr = [];
+      if (subrubroid && rubroid) {
+        sr = this.lstProducts.filter(
+          (x) =>
+            x.subRubro != null &&
+            x.subRubro.id == subrubroid &&
+            x.rubro.id == rubroid
+        );
+      } else if (rubroid && !subrubroid) {
+        sr = this.lstProducts.filter((x) => x.rubro.id == rubroid);
       }
       this.lstFilteredProducts = sr;
-      this.selectedProducts = null;
+      this.selectedProducts = [];
+    },
+    addConfig(){
+      console.log(this.selectedProducts);
     },
   },
 };
 </script>
 
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
 ul.ks-cboxtags {
   list-style: none;
