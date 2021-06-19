@@ -215,47 +215,7 @@ export default {
     lstRubros: null,
     lstSubRubros: null,
     lstUnits: null,
-    currentProduct: {
-      id: 0,
-      sucursalId: 0,
-      code: String,
-      description: String,
-      extendedDescription: String,
-      externalCode: String,
-      rubro: {
-        id: 0,
-        description: String,
-      },
-      subRubro: {
-        id: 0,
-        rubroId: 0,
-        description: String,
-      },
-      unit: {
-        id: 0,
-        description: String,
-        value: String,
-      },
-      productBrand: {
-        id: 0,
-        description: String,
-      },
-      ean: String,
-      price: 0,
-      price2: 0,
-      price3: 0,
-      stockAlert: 0,
-      stock: 0,
-      behaviours: [
-        {
-          id: 0,
-          type: String,
-          description: String,
-          value: String,
-          idParent: 0,
-        },
-      ],
-    },
+    currentProduct: null
   },
 
   data() {
