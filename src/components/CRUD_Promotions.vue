@@ -43,34 +43,37 @@
       <div class="col-2 pl-3">
         <p>Validez Desde</p>
       </div>
-        <div>
-          <vc-date-picker v-model="currentPromotions.activeFrom" id="from" name="from">
-            <template v-slot="{ inputValue, inputEvents }">
-              <input
-                class="bg-white border px-2 py-1 rounded"
-                :value="inputValue"
-                v-on="inputEvents"
-              />
-            </template>
-          </vc-date-picker>
+      <div>
+        <vc-date-picker
+          v-model="currentPromotions.activeFrom"
+          id="from"
+          name="from"
+        >
+          <template v-slot="{ inputValue, inputEvents }">
+            <input
+              class="bg-white border px-2 py-1 rounded"
+              :value="inputValue"
+              v-on="inputEvents"
+            />
+          </template>
+        </vc-date-picker>
 
-
-          <!-- <b-form-input id="from" type="date" value-as-date v-model="currentPromotions.activeFrom"></b-form-input>          <b-form-datepicker id="from" size="sm" v-model="currentPromotions.activeFrom"></b-form-datepicker> -->
-        </div>
-      <div class="col-2 ">
+        <!-- <b-form-input id="from" type="date" value-as-date v-model="currentPromotions.activeFrom"></b-form-input>          <b-form-datepicker id="from" size="sm" v-model="currentPromotions.activeFrom"></b-form-datepicker> -->
+      </div>
+      <div class="col-2">
         <p>Hasta:</p>
       </div>
-        <div>
-          <vc-date-picker v-model="currentPromotions.activeTo" id="to" name="to">
-            <template v-slot="{ inputValue, inputEvents }">
-              <input
-                class="bg-white border px-2 py-1 rounded"
-                :value="inputValue"
-                v-on="inputEvents"
-              />
-            </template>
-          </vc-date-picker>
-          <!-- <b-form-input id="to" type="date" value-as-date v-model="currentPromotions.dateTo"></b-form-input>          <b-form-datepicker id="from" size="sm" v-model="currentPromotions.activeFrom"></b-form-datepicker> -->
+      <div>
+        <vc-date-picker v-model="currentPromotions.activeTo" id="to" name="to">
+          <template v-slot="{ inputValue, inputEvents }">
+            <input
+              class="bg-white border px-2 py-1 rounded"
+              :value="inputValue"
+              v-on="inputEvents"
+            />
+          </template>
+        </vc-date-picker>
+        <!-- <b-form-input id="to" type="date" value-as-date v-model="currentPromotions.dateTo"></b-form-input>          <b-form-datepicker id="from" size="sm" v-model="currentPromotions.activeFrom"></b-form-datepicker> -->
         <b-form-checkbox
           id="checkbox-3"
           name="checkbox-3"
@@ -79,7 +82,7 @@
         >
           Sin fecha de finalizacion
         </b-form-checkbox>
-        </div>
+      </div>
     </div>
     <div class="row justify-content-center pt-2">
       <div class="col-1">
@@ -221,7 +224,11 @@
             </b-form-select>
           </div>
         </b-form-group>
-        <b-form-group label="Sub Rubro" label-cols-sm="3" label-align-sm="right">
+        <b-form-group
+          label="Sub Rubro"
+          label-cols-sm="3"
+          label-align-sm="right"
+        >
           <div class="pl-3">
             <b-form-select
               v-model="selectedSubRubro"
@@ -234,87 +241,108 @@
         </b-form-group>
         <b-form-group label="Producto" label-cols-sm="3" label-align-sm="right">
           <div class="pl-3">
-            <multiselect v-model="selectedProducts" :options="lstFilteredProducts" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Seleccione Productos" label="description" track-by="id" :preselect-first="true">
-              <template slot="selection" slot-scope="{ values, isOpen }"><span class="multiselect__single" v-if="values && values.length && !isOpen">{{ values.length }} seleccionados</span></template>
+            <multiselect
+              v-model="selectedProducts"
+              :options="lstFilteredProducts"
+              :multiple="true"
+              :close-on-select="false"
+              :clear-on-select="false"
+              :preserve-search="true"
+              placeholder="Seleccione Productos"
+              label="description"
+              track-by="id"
+              :preselect-first="true"
+              @input="productsChange"
+            >
+              <template slot="selection" slot-scope="{ values, isOpen }"
+                ><span
+                  class="multiselect__single"
+                  v-if="values && values.length && !isOpen"
+                  >{{ values.length }} seleccionados</span
+                ></template
+              >
             </multiselect>
           </div>
         </b-form-group>
-        <div class="p-3">
-          <b-form-group
-            label="Cantidad Minima:"
-            label-cols-sm="3"
-            label-align-sm="right"
-          >
-            <b-form-input type="number"> </b-form-input>
-          </b-form-group>
+        <div id="div_grupos">
+          <div class="p-3">
+            <b-form-group
+              label="Cantidad Minima:"
+              label-cols-sm="3"
+              label-align-sm="right"
+            >
+              <b-form-input type="number"> </b-form-input>
+            </b-form-group>
+          </div>
+          <div class="p-3">
+            <b-form-group
+              label="Cantidad Maxima:"
+              label-cols-sm="3"
+              label-align-sm="right"
+            >
+              <b-form-input type="number"> </b-form-input>
+            </b-form-group>
+          </div>
+          <div class="container">
+            <div class="row">
+              <b-form-group
+                label="subRubro"
+                label-cols-sm="3"
+                label-align-sm="right"
+                class="col"
+              >
+                <div class="pl-3 col-4">
+                  <b-form-select
+                    v-model="selectedSubRubro2"
+                    :options="lstFilteredSubRubros"
+                    value-field="id"
+                    text-field="description"
+                  ></b-form-select>
+                </div>
+              </b-form-group>
+            </div>
+            <div class="row">
+              <b-form-group
+                label="subRubro"
+                label-cols-sm="3"
+                label-align-sm="right"
+                class="col"
+              >
+                <div class="pl-3 col-4">
+                  <b-form-select
+                    v-model="selectedSubRubro3"
+                    :options="lstFilteredSubRubros"
+                    value-field="id"
+                    text-field="description"
+                  ></b-form-select>
+                </div>
+              </b-form-group>
+            </div>
+            <div class="row">
+              <b-form-group
+                label="subRubro"
+                label-cols-sm="3"
+                label-align-sm="right"
+                class="col"
+              >
+                <div class="pl-3 col-4">
+                  <b-form-select
+                    v-model="selectedSubRubro4"
+                    :options="lstFilteredSubRubros"
+                    value-field="id"
+                    text-field="description"
+                  ></b-form-select>
+                </div>
+              </b-form-group>
+            </div>
+          </div>
         </div>
-        <div class="p-3">
-          <b-form-group
-            label="Cantidad Maxima:"
-            label-cols-sm="3"
-            label-align-sm="right"
-          >
-            <b-form-input type="number"> </b-form-input>
-          </b-form-group>
-        </div>
-        <div class="container">
-          <div class="row">
-            <b-form-group
-              label="subRubro"
-              label-cols-sm="3"
-              label-align-sm="right"
-              class="col"
-            >
-              <div class="pl-3 col-4">
-                <b-form-select
-                  v-model="selectedSubRubro2"
-                  :options="lstFilteredSubRubros"
-                  value-field="id"
-                  text-field="description"
-                ></b-form-select>
-              </div>
-            </b-form-group>
-          </div>
-          <div class="row">
-            <b-form-group
-              label="subRubro"
-              label-cols-sm="3"
-              label-align-sm="right"
-              class="col"
-            >
-              <div class="pl-3 col-4">
-                <b-form-select
-                  v-model="selectedSubRubro3"
-                  :options="lstFilteredSubRubros"
-                  value-field="id"
-                  text-field="description"
-                ></b-form-select>
-              </div>
-            </b-form-group>
-          </div>
-          <div class="row">
-            <b-form-group
-              label="subRubro"
-              label-cols-sm="3"
-              label-align-sm="right"
-              class="col"
-            >
-              <div class="pl-3 col-4">
-                <b-form-select
-                  v-model="selectedSubRubro4"
-                  :options="lstFilteredSubRubros"
-                  value-field="id"
-                  text-field="description"
-                ></b-form-select>
-              </div>
-            </b-form-group>
-          </div>
-          <div>
-            <center>
-            <b-button @click="addConfig" variant="primary">Confirmar Configuración</b-button>
+        <div>
+          <center>
+            <b-button @click="addConfig" variant="primary"
+              >Confirmar Configuración</b-button>
             <b-button variant="light">Cancelar</b-button>
-            </center>
-          </div>
+          </center>
         </div>
       </div>
     </b-collapse>
@@ -322,10 +350,10 @@
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect'
+import Multiselect from "vue-multiselect";
 
 export default {
-  components: {Multiselect},
+  components: { Multiselect },
   name: "crudpromotions",
   props: {
     newPromotion: true,
@@ -500,6 +528,12 @@ export default {
   },
 
   methods: {
+    productsChange() {
+      if (this.selectedProducts.length > 0)
+        document.getElementById("div_grupos").hidden = true;
+      else document.getElementById("div_grupos").hidden = false;
+    },
+
     cmbRubroChange() {
       let sr = this.lstSubRubros.filter((x) => x.rubroId == this.selectedRubro);
       this.lstFilteredSubRubros = sr;
@@ -526,7 +560,7 @@ export default {
       this.lstFilteredProducts = sr;
       this.selectedProducts = [];
     },
-    addConfig(){
+    addConfig() {
       console.log(this.selectedProducts);
     },
   },
